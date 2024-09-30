@@ -29,6 +29,8 @@ public class CadastroUsuarios {
     private Validacoes validador;
     private CadastroUsuariosDAO cadastroUsuariosDAO;
     private LoginDAO cadastroLoginDAO;
+    private CadastroUsuariosDTO cadastroUsuariosDTO;
+    private LoginDTO loginDTO;
     private Connection conn;
 
     
@@ -37,6 +39,8 @@ public class CadastroUsuarios {
         this.validador = new Validacoes();
         this.cadastroUsuariosDAO = new CadastroUsuariosDAO();
         this.cadastroLoginDAO = new LoginDAO();
+        this.cadastroUsuariosDTO = new CadastroUsuariosDTO();
+        this.loginDTO = new LoginDTO();
         obterDataAtual(); // Inicializa as datas de cadastro e modificação
     }
 
@@ -132,7 +136,6 @@ public class CadastroUsuarios {
         cpf = validador.formatarCpf(cpf);
 
         // Criar DTOs para cadastro
-        CadastroUsuariosDTO cadastroUsuariosDTO = new CadastroUsuariosDTO();
         cadastroUsuariosDTO.setCPF(cpf);
         cadastroUsuariosDTO.setNome_Completo(nomeCompleto);
         cadastroUsuariosDTO.setData_Cadastro(dataCadastro);
@@ -148,7 +151,6 @@ public class CadastroUsuarios {
 
             if (idUsuario > 0) {  // Verifica se o ID foi obtido
                 // Criar o DTO de login
-                LoginDTO loginDTO = new LoginDTO();
                 loginDTO.setLogin_Usuario(loginUsuario);
                 loginDTO.setLogin_Senha(loginSenha);
                 loginDTO.setIdtipos_login(idTipoLogin);
