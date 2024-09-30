@@ -16,6 +16,8 @@ import javax.swing.JPasswordField;
 
 public class CadastroUsuariosView extends JDialog {
 
+    private CadastroUsuarios cadastroUsuarios;
+
     public CadastroUsuariosView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
         initComponents();
@@ -323,11 +325,10 @@ public class CadastroUsuariosView extends JDialog {
         int idTipoLogin = cbxTipoLogin.getSelectedIndex(); // Ou algum método para obter o ID correto
 
         // Criar a instância de CadastroUsuarios com os dados do formulário
-        CadastroUsuarios register = new CadastroUsuarios(cpf, nomeCompleto, loginUsuario, loginSenha, idTipoLogin);
+        cadastroUsuarios = new CadastroUsuarios(cpf, nomeCompleto, loginUsuario, loginSenha, idTipoLogin);
 
         // Chamar o método para cadastrar
-        register.cadastrar();
-        //CadastrarLogin_Dados();
+        cadastroUsuarios.cadastrar();
     }//GEN-LAST:event_btnCadastrarLoginActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
@@ -383,7 +384,6 @@ public class CadastroUsuariosView extends JDialog {
         });
     }
 
-
     Vector<Integer> idContato = new Vector<Integer>();
 
     private void restaurarDadosdatabelaContatos() {
@@ -398,25 +398,6 @@ public class CadastroUsuariosView extends JDialog {
             JOptionPane.showMessageDialog(null, "erro em restaurar dados da tabela contato" + erro);
         }
     }
-
-//    Vector<Integer> idtipos_login = new Vector<Integer>();
-//
-//    private void restaurarDadosComboBoxTipos_Login() {
-//
-//        try {
-//            Tipos_LoginDTO objtiposlogindto = new Tipos_LoginDTO();
-//            LoginDAO objlogindao = new LoginDAO();
-//            ResultSet rs = objlogindao.ListarTipo_Login(objtiposlogindto);
-//
-//            while (rs.next()) {
-//                idtipos_login.addElement(rs.getInt(1));
-//                cbxTipoLogin.addItem(rs.getString(2));
-//            }
-//
-//        } catch (SQLException erro) {
-//            JOptionPane.showMessageDialog(null, "Erro em restaurarCbxTipo" + erro);
-//        }
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarLogin;
