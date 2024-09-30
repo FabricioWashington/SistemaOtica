@@ -1,24 +1,22 @@
 package Sistema.FrontEnd.TelasPrincipais.Cadastro;
 
-import DAO.Cadastro.CadastroFuncionarioDAO;
-import DTO.Cadastro.CadastroFuncionarioDTO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
-import java.util.Calendar;
-import java.util.Date;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPasswordField;
+import Sistema.BackEnd.TelasPrincipais.Cadastro.CadastroFuncionarios;
 
 public class CadastroFuncionarioView extends JDialog {
 
-    public CadastroFuncionarioView(JFrame parent, String title, boolean modal){
-        super (parent, title, modal);
+    private CadastroFuncionarios cadastroFuncionario;
+
+    public CadastroFuncionarioView(JFrame parent, String title, boolean modal) {
+        super(parent, title, modal);
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -29,9 +27,9 @@ public class CadastroFuncionarioView extends JDialog {
         btnExit = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        txtCPF = new javax.swing.JFormattedTextField();
+        txtCpf = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtNome_Completo = new javax.swing.JTextField();
+        txtNomeCompleto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnCadastrar_Login = new javax.swing.JButton();
         btnLimpar_Campos = new javax.swing.JButton();
@@ -94,22 +92,22 @@ public class CadastroFuncionarioView extends JDialog {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DADOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
 
-        txtCPF.setBackground(new java.awt.Color(255, 255, 255));
-        txtCPF.setForeground(new java.awt.Color(0, 0, 0));
+        txtCpf.setBackground(new java.awt.Color(255, 255, 255));
+        txtCpf.setForeground(new java.awt.Color(0, 0, 0));
         try {
-            txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCPF.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtCpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("CPF");
 
-        txtNome_Completo.setBackground(new java.awt.Color(255, 255, 255));
-        txtNome_Completo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtNome_Completo.setForeground(new java.awt.Color(0, 0, 0));
+        txtNomeCompleto.setBackground(new java.awt.Color(255, 255, 255));
+        txtNomeCompleto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNomeCompleto.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -124,8 +122,8 @@ public class CadastroFuncionarioView extends JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
-                    .addComponent(txtNome_Completo, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -134,11 +132,11 @@ public class CadastroFuncionarioView extends JDialog {
                 .addGap(13, 13, 13)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNome_Completo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
 
@@ -225,13 +223,18 @@ public class CadastroFuncionarioView extends JDialog {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnCadastrar_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar_LoginActionPerformed
-        // chamar tela cadastro
-        CadastrarLogin_Dados();
+        // Cadastrar Funcionario
+        String cpf = txtCpf.getText();
+        String nomeCompleto = txtNomeCompleto.getText();
+
+        cadastroFuncionario = new CadastroFuncionarios(cpf, nomeCompleto);
+        cadastroFuncionario.cadastrar();
     }//GEN-LAST:event_btnCadastrar_LoginActionPerformed
 
     private void btnLimpar_CamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpar_CamposActionPerformed
-        // Limpar todos os campos
-        LimparCampos();
+        // Limpar todos os campos]
+        cadastroFuncionario.limparCampos(txtCpf, txtNomeCompleto);
+
     }//GEN-LAST:event_btnLimpar_CamposActionPerformed
 
     /**
@@ -282,127 +285,6 @@ public class CadastroFuncionarioView extends JDialog {
             }
         });
     }
-
-    private void CadastrarLogin_Dados() {
-        String CPF, Nome_Completo;
-        Date Data_Cadastro, Data_Modificacao;
-
-        // Obter os dados do funcionario
-        CPF = txtCPF.getText();
-        Nome_Completo = txtNome_Completo.getText();
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
-        cal.set(Calendar.SECOND, cal.get(Calendar.SECOND));
-        Data_Cadastro = cal.getTime();
-        Data_Modificacao = cal.getTime();
-        
-
-        // Verificar se algum campo obrigatório está vazio
-        if (CPF.isEmpty() || Nome_Completo.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Retorna sem executar o cadastro
-        }
-
-        // Validar o CPF
-        if (!validarCPF(CPF)) {
-            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Retorna sem executar o cadastro
-        }
-
-        // Formatar o CPF 
-        CPF = formatarCPF(CPF);
-
-
-        // Criar e registrar o cadastro
-        CadastroFuncionarioDTO objcadastrofuncionariodto = new CadastroFuncionarioDTO();
-        objcadastrofuncionariodto.setCPF(CPF);
-        objcadastrofuncionariodto.setNome_Completo(Nome_Completo);
-        objcadastrofuncionariodto.setData_Cadastro(Data_Cadastro);
-        objcadastrofuncionariodto.setData_Modificacao(Data_Modificacao);
-
-        // Chamar o método para cadastrar todos os dados
-        CadastroFuncionarioDAO objcadastrofuncionariodao = new CadastroFuncionarioDAO();
-        objcadastrofuncionariodao.cadastrarFuncionarioCompleto(objcadastrofuncionariodto);
-
-    }
-
-    private boolean validarCPF(String cpf) {
-        // Remove caracteres não numéricos
-        cpf = cpf.replaceAll("[^0-9]", "");
-
-        // Verifica se o CPF possui 11 dígitos
-        if (cpf.length() != 11) {
-            return false;
-        }
-
-        // Verifica se todos os dígitos são iguais, o que torna o CPF inválido
-        boolean digitosIguais = true;
-        for (int i = 1; i < cpf.length(); i++) {
-            if (cpf.charAt(i) != cpf.charAt(0)) {
-                digitosIguais = false;
-                break;
-            }
-        }
-        if (digitosIguais) {
-            return false;
-        }
-
-        // Calcula e compara o dígito verificador
-        int[] numerosCPF = new int[11];
-        for (int i = 0; i < 11; i++) {
-            numerosCPF[i] = Character.getNumericValue(cpf.charAt(i));
-        }
-
-        int soma = 0;
-        for (int i = 0; i < 9; i++) {
-            soma += numerosCPF[i] * (10 - i);
-        }
-
-        int digito1 = 11 - (soma % 11);
-        if (digito1 > 9) {
-            digito1 = 0;
-        }
-
-        soma = 0;
-        for (int i = 0; i < 10; i++) {
-            soma += numerosCPF[i] * (11 - i);
-        }
-
-        int digito2 = 11 - (soma % 11);
-        if (digito2 > 9) {
-            digito2 = 0;
-        }
-
-        return (numerosCPF[9] == digito1 && numerosCPF[10] == digito2);
-    }
-
-    private String formatarCPF(String cpf) {
-        // Remove todos os caracteres não numéricos
-        String apenasDigitos = cpf.replaceAll("[^\\d]", "");
-
-        // Verifica se o CPF possui 11 dígitos
-        if (apenasDigitos.length() != 11) {
-            return null; // Retorna null se o CPF não tiver 11 dígitos
-        }
-
-        // Formata o CPF no padrão desejado
-        StringBuilder cpfFormatado = new StringBuilder();
-        cpfFormatado.append(apenasDigitos.substring(0, 3)); // Primeiros 3 dígitos
-        cpfFormatado.append(".");
-        cpfFormatado.append(apenasDigitos.substring(3, 6)); // Próximos 3 dígitos
-        cpfFormatado.append(".");
-        cpfFormatado.append(apenasDigitos.substring(6, 9)); // Próximos 3 dígitos
-        cpfFormatado.append("-");
-        cpfFormatado.append(apenasDigitos.substring(9)); // Últimos 2 dígitos
-
-        return cpfFormatado.toString();
-    }
-    
-    public void LimparCampos() {
-        txtCPF.setText("");
-        txtNome_Completo.setText("");
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar_Login;
     private javax.swing.JButton btnExit;
@@ -414,7 +296,7 @@ public class CadastroFuncionarioView extends JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JFormattedTextField txtCPF;
-    private javax.swing.JTextField txtNome_Completo;
+    private javax.swing.JFormattedTextField txtCpf;
+    private javax.swing.JTextField txtNomeCompleto;
     // End of variables declaration//GEN-END:variables
 }
