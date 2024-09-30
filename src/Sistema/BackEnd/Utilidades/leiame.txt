@@ -1,0 +1,13 @@
+Projeto: Sistema Otica
+
+Autor: Fabricio Washington
+
+Nome do Pacote:
+
+    Sistema.BackEnd.Utilidades
+
+Descrição do Pacote:
+
+    Este pacote contém as utilidades do BackEnd:
+    Validações, Formatações e entre outros.
+

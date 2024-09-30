@@ -1,0 +1,12 @@
+Projeto: Sistema Otica
+
+Autor: Fabricio Washington
+
+Nome do Pacote:
+
+    Componentes
+
+Descrição do Pacote:
+
+    Este pacote contém os componentes usados nos JFrame's.
+

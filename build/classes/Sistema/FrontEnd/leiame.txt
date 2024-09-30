@@ -1,0 +1,12 @@
+Projeto: Sistema Otica
+
+Autor: Fabricio Washington
+
+Nome do Pacote:
+
+    Sistema
+
+Descrição do Pacote:
+
+    Este pacote contém o Front-End do projeto.
+

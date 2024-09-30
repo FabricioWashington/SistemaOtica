@@ -1,0 +1,13 @@
+Projeto: Sistema Otica
+
+Autor: Fabricio Washington
+
+Nome do Pacote:
+
+    Sistema.FrontEnd.TelasInicio.TelasPrincipais.Entrada_SaidaProduto
+
+Descrição do Pacote:
+
+    Este pacote contém o Front-End da tela Entrada e Saida de produtos 
+    ou seja todas as telas q serão abertas na tela Entrada_SaidaProdutoView.
+
