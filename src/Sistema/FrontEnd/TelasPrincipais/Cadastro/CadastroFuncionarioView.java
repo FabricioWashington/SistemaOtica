@@ -15,6 +15,8 @@ public class CadastroFuncionarioView extends JDialog {
     public CadastroFuncionarioView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
         initComponents();
+        DAO.Vetores.VetorFuncao vetorFuncao = new DAO.Vetores.VetorFuncao(cbxFuncao);
+        vetorFuncao.restaurarDadosCbxIdFuncao();
     }
 
     @SuppressWarnings("unchecked")
@@ -28,11 +30,13 @@ public class CadastroFuncionarioView extends JDialog {
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         txtCpf = new javax.swing.JFormattedTextField();
-        jLabel3 = new javax.swing.JLabel();
+        lblCpf = new javax.swing.JLabel();
         txtNomeCompleto = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        btnCadastrar_Login = new javax.swing.JButton();
-        btnLimpar_Campos = new javax.swing.JButton();
+        lblNome = new javax.swing.JLabel();
+        cbxFuncao = new javax.swing.JComboBox<>();
+        lblFuncao = new javax.swing.JLabel();
+        btnCadastrarFuncionario = new javax.swing.JButton();
+        btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("WASHINGTON TECHNOLOGY - SISTEMA ÓTICA - VERSION 1.01.1");
@@ -101,17 +105,26 @@ public class CadastroFuncionarioView extends JDialog {
         }
         txtCpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("CPF");
+        lblCpf.setBackground(new java.awt.Color(255, 255, 255));
+        lblCpf.setForeground(new java.awt.Color(0, 0, 0));
+        lblCpf.setText("CPF");
 
         txtNomeCompleto.setBackground(new java.awt.Color(255, 255, 255));
         txtNomeCompleto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtNomeCompleto.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Nome Completo");
+        lblNome.setBackground(new java.awt.Color(255, 255, 255));
+        lblNome.setForeground(new java.awt.Color(0, 0, 0));
+        lblNome.setText("Nome Completo");
+
+        cbxFuncao.setBackground(new java.awt.Color(255, 255, 255));
+        cbxFuncao.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cbxFuncao.setForeground(new java.awt.Color(0, 0, 0));
+        cbxFuncao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+
+        lblFuncao.setBackground(new java.awt.Color(255, 255, 255));
+        lblFuncao.setForeground(new java.awt.Color(0, 0, 0));
+        lblFuncao.setText("Função");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -119,24 +132,34 @@ public class CadastroFuncionarioView extends JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblCpf)
+                        .addComponent(lblNome)
+                        .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFuncao)
+                            .addComponent(cbxFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(jLabel2)
+                .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCpf)
+                    .addComponent(lblFuncao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbxFuncao)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
                 .addGap(16, 16, 16))
         );
 
@@ -157,29 +180,29 @@ public class CadastroFuncionarioView extends JDialog {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        btnCadastrar_Login.setBackground(new java.awt.Color(255, 255, 255));
-        btnCadastrar_Login.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnCadastrar_Login.setForeground(new java.awt.Color(0, 0, 0));
-        btnCadastrar_Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/registro.png"))); // NOI18N
-        btnCadastrar_Login.setToolTipText("");
-        btnCadastrar_Login.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        btnCadastrar_Login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadastrar_Login.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrarFuncionario.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastrarFuncionario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnCadastrarFuncionario.setForeground(new java.awt.Color(0, 0, 0));
+        btnCadastrarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/registro.png"))); // NOI18N
+        btnCadastrarFuncionario.setToolTipText("");
+        btnCadastrarFuncionario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnCadastrarFuncionario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrar_LoginActionPerformed(evt);
+                btnCadastrarFuncionarioActionPerformed(evt);
             }
         });
 
-        btnLimpar_Campos.setBackground(new java.awt.Color(255, 255, 255));
-        btnLimpar_Campos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnLimpar_Campos.setForeground(new java.awt.Color(0, 0, 0));
-        btnLimpar_Campos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/limpar-limpo.png"))); // NOI18N
-        btnLimpar_Campos.setToolTipText("");
-        btnLimpar_Campos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Limpar campos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        btnLimpar_Campos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLimpar_Campos.addActionListener(new java.awt.event.ActionListener() {
+        btnLimparCampos.setBackground(new java.awt.Color(255, 255, 255));
+        btnLimparCampos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnLimparCampos.setForeground(new java.awt.Color(0, 0, 0));
+        btnLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/limpar-limpo.png"))); // NOI18N
+        btnLimparCampos.setToolTipText("");
+        btnLimparCampos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Limpar campos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnLimparCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpar_CamposActionPerformed(evt);
+                btnLimparCamposActionPerformed(evt);
             }
         });
 
@@ -193,9 +216,9 @@ public class CadastroFuncionarioView extends JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCadastrar_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCadastrarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
-                        .addComponent(btnLimpar_Campos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -206,8 +229,8 @@ public class CadastroFuncionarioView extends JDialog {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLimpar_Campos)
-                    .addComponent(btnCadastrar_Login))
+                    .addComponent(btnLimparCampos)
+                    .addComponent(btnCadastrarFuncionario))
                 .addGap(0, 52, Short.MAX_VALUE))
         );
 
@@ -222,20 +245,21 @@ public class CadastroFuncionarioView extends JDialog {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void btnCadastrar_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar_LoginActionPerformed
+    private void btnCadastrarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFuncionarioActionPerformed
         // Cadastrar Funcionario
         String cpf = txtCpf.getText();
-        String nomeCompleto = txtNomeCompleto.getText();
+        String Nome_Completo = txtNomeCompleto.getText();
+        int IdFuncao = cbxFuncao.getSelectedIndex();
 
-        cadastroFuncionario = new CadastroFuncionarios(cpf, nomeCompleto);
+        cadastroFuncionario = new CadastroFuncionarios(cpf, Nome_Completo, IdFuncao);
         cadastroFuncionario.cadastrar();
-    }//GEN-LAST:event_btnCadastrar_LoginActionPerformed
+    }//GEN-LAST:event_btnCadastrarFuncionarioActionPerformed
 
-    private void btnLimpar_CamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpar_CamposActionPerformed
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
         // Limpar todos os campos]
         cadastroFuncionario.limparCampos(txtCpf, txtNomeCompleto);
 
-    }//GEN-LAST:event_btnLimpar_CamposActionPerformed
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,16 +310,18 @@ public class CadastroFuncionarioView extends JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar_Login;
+    private javax.swing.JButton btnCadastrarFuncionario;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnLimpar_Campos;
+    private javax.swing.JButton btnLimparCampos;
+    private javax.swing.JComboBox<String> cbxFuncao;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel lblCpf;
+    private javax.swing.JLabel lblFuncao;
+    private javax.swing.JLabel lblNome;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtNomeCompleto;
     // End of variables declaration//GEN-END:variables

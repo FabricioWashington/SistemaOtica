@@ -3,6 +3,7 @@ package Sistema.BackEnd.TelasPrincipais.Cadastro;
 import DAO.Cadastro.CadastroFuncionarioDAO;
 import DTO.Cadastro.CadastroFuncionarioDTO;
 import Sistema.BackEnd.Validacoes;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -13,9 +14,9 @@ public class CadastroFuncionarios {
     private String nomeCompleto;
     private String cpf;
     private Date dataCadastro;
+    private int IdFuncao;
     private Date dataModificacao;
     private Validacoes validador;
-    private CadastroUsuarios metodoObterHorario;
     private CadastroFuncionarioDAO cadastroFuncionariosDAO;
     private CadastroFuncionarioDTO cadastroFuncionariosDTO;
 
@@ -23,15 +24,14 @@ public class CadastroFuncionarios {
         this.cadastroFuncionariosDAO = new CadastroFuncionarioDAO();
         this.validador = new Validacoes();
         this.cadastroFuncionariosDTO = new CadastroFuncionarioDTO();
-        this.metodoObterHorario = new CadastroUsuarios();
-        metodoObterHorario.obterDataAtual();
-
+        obterDataAtual();
     }
 
-    public CadastroFuncionarios(String cpf, String nomeCompleto) {
+    public CadastroFuncionarios(String cpf, String nomeCompleto, int IdFuncao) {
         this();
         this.cpf = cpf;
         this.nomeCompleto = nomeCompleto;
+        this.IdFuncao = IdFuncao;
 
     }
 
@@ -50,6 +50,7 @@ public class CadastroFuncionarios {
 
         cadastroFuncionariosDTO.setCPF(cpf);
         cadastroFuncionariosDTO.setNome_Completo(nomeCompleto);
+        cadastroFuncionariosDTO.setIdFuncao(0);
         cadastroFuncionariosDTO.setData_Cadastro(dataCadastro);
         cadastroFuncionariosDTO.setData_Modificacao(dataModificacao);
 
@@ -104,6 +105,26 @@ public class CadastroFuncionarios {
     public void limparCampos(JFormattedTextField txtCpf, JTextField txtNomeCompleto) {
         txtCpf.setText("");
         txtNomeCompleto.setText("");
+    }
+
+    public void obterDataAtual() {
+        Calendar cal = Calendar.getInstance();
+        this.dataCadastro = cal.getTime();
+        this.dataModificacao = cal.getTime();
+    }
+
+    /**
+     * @return the IdFuncao
+     */
+    public int getIdFuncao() {
+        return IdFuncao;
+    }
+
+    /**
+     * @param IdFuncao the IdFuncao to set
+     */
+    public void setIdFuncao(int IdFuncao) {
+        this.IdFuncao = IdFuncao;
     }
 
 }
