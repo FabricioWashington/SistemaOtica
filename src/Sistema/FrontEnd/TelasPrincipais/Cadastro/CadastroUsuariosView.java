@@ -21,7 +21,7 @@ public class CadastroUsuariosView extends JDialog {
     public CadastroUsuariosView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
         initComponents();
-        DAO.Vetores.Vector vectorTipoLogin = new DAO.Vetores.Vector(cbxTipoLogin);
+        DAO.Vetores.VetorTipoLogin vectorTipoLogin = new DAO.Vetores.VetorTipoLogin(cbxTipoLogin);
         vectorTipoLogin.restaurarDadosCbxTiposLogin();
         ExibirSenha(txtLoginSenha, cbxVisualizarSenha);
     }
