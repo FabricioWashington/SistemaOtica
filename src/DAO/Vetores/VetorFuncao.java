@@ -1,9 +1,6 @@
 package DAO.Vetores;
 
 import DAO.Cadastro.CadastroFuncionarioDAO;
-import DAO.Login.LoginDAO;
-import DTO.Login.Tipos_LoginDTO;
-import DTO.Cadastro.CadastroFuncionarioDTO;
 import DTO.Cadastro.CargoFuncionarioDTO;
 import javax.swing.JComboBox;
 import javax.swing.*;
