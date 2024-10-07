@@ -1,5 +1,6 @@
 package Sistema.FrontEnd.TelasPrincipais.Telas;
 
+import Sistema.BackEnd.TelasInicio.Login.UsuarioLogado;
 import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroEmpresaView;
 import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroFuncionarioView;
 import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroPessoaFisicaView;
@@ -24,18 +25,21 @@ import javax.swing.Timer;
 
 public class CadastroView extends javax.swing.JFrame {
 
-    public static String usuarioLogado;
-    public static String tipoAcesso;
+    private UsuarioLogado usuarioLogado;
     private Timer timer;
 
     public CadastroView() {
-        initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
-        lblUsuario.setText(usuarioLogado);
-        lblAcesso.setText(tipoAcesso);
-        updateDateTime();
-        aplicarRestricoesParaFuncionario();
+    }
 
+    public CadastroView(UsuarioLogado usuarioLogado) {
+        initComponents();
+        this.usuarioLogado = usuarioLogado;
+        setExtendedState(MAXIMIZED_BOTH);
+        lblUsuario.setText(usuarioLogado.getNomeUsuario());
+        lblAcesso.setText(usuarioLogado.getTipoAcesso());
+        updateDateTime();
+        usuarioLogado.aplicarRestricoesFuncionarios();
+        
         List<JButton> botoes = Arrays.asList(btnCadastroClientePessoaJuridica,
                 btnCadastroClientesPessoaFisica, btnCadastroEmpresa, btnCadastroFuncionarios,
                 btnCadastroUsuarios, btnCadastro, btnCaixa, btnCaixa, btnECF, btnEntradas_Saidas, btnEstoque,
@@ -688,13 +692,11 @@ public class CadastroView extends javax.swing.JFrame {
         DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
         lblData.setText(formatador.format(data));
 
-        lblUsuario.setText(usuarioLogado);
-        lblAcesso.setText(tipoAcesso);
     }//GEN-LAST:event_formWindowActivated
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // chamar tela Inicial
-        HomeView homeview = new HomeView();
+        HomeView homeview = new HomeView(usuarioLogado);
         homeview.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHomeActionPerformed
@@ -868,16 +870,15 @@ public class CadastroView extends javax.swing.JFrame {
         });
     }
 
-    public static void aplicarRestricoesParaFuncionario() {
-        if ("Funcionario".equals(tipoAcesso)) {
-            btnFinanceiro_Auditoria.setVisible(false);
-            btnECF.setVisible(false);
-            btnCadastroUsuarios.setVisible(false);
-            lblCadastro_Usuario.setVisible(false);
-
-        }
-    }
-
+//    public void aplicarRestricoesParaFuncionario() {
+//        if ("Funcionario".equals(usuarioLogado.getTipoAcesso())) {
+//            btnFinanceiro_Auditoria.setVisible(false);
+//            btnECF.setVisible(false);
+//            btnCadastroUsuarios.setVisible(false);
+//            lblCadastro_Usuario.setVisible(false);
+//
+//        }
+//    }
     private void updateDateTime() {
         // Atualiza a label com a data e hora atuais
         Date data = new Date();

@@ -1,5 +1,6 @@
 package Sistema.FrontEnd.TelasPrincipais.Telas;
 
+import Sistema.BackEnd.TelasInicio.Login.UsuarioLogado;
 import Sistema.FrontEnd.Componentes.ScrollBarCustom;
 import Sistema.FrontEnd.TelasInicio.LoginView;
 import java.awt.Color;
@@ -21,19 +22,24 @@ import javax.swing.Timer;
 
 public class HomeView extends javax.swing.JFrame {
 
-    public static String usuarioLogado;
-    public static String tipoAcesso;
     private Timer timer;
+    private UsuarioLogado usuarioLogado;
 
     public HomeView() {
+
+    }
+
+    public HomeView(UsuarioLogado usuarioLogado) {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
-        updateDateTime(); // atualiza a data e hora 
+        updateDateTime(); // atualiza a data e hora
+        usuarioLogado.aplicarRestricoesFuncionarios();
 
         // mostra o nome e o tipo de acesso do usuario
-        lblAcesso.setText(tipoAcesso);
-        lblUsuario.setText(usuarioLogado);
-        SwingUtilities.invokeLater(() -> aplicarRestricoesParaFuncionario());
+        this.usuarioLogado = usuarioLogado;
+        lblAcesso.setText(usuarioLogado.getTipoAcesso());
+        lblUsuario.setText(usuarioLogado.getNomeUsuario());
+        SwingUtilities.invokeLater(() -> usuarioLogado.aplicarRestricoesFuncionarios());
 
         // tabelas so aparecem quando o botão é clicado
         jScrollPane1.getViewport().setBackground(Color.WHITE);
@@ -679,8 +685,8 @@ public class HomeView extends javax.swing.JFrame {
         DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
         lblData.setText(formatador.format(data));
 
-        lblUsuario.setText(usuarioLogado);
-        lblAcesso.setText(tipoAcesso);
+//        lblUsuario.setText(usuarioLogado.getNomeUsuario());
+//        lblAcesso.setText(usuarioLogado.getTipoAcesso());
 
     }//GEN-LAST:event_formWindowActivated
 
@@ -869,7 +875,7 @@ public class HomeView extends javax.swing.JFrame {
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
         // chamar tela cadastro
-        CadastroView cadastroview = new CadastroView();
+        CadastroView cadastroview = new CadastroView(usuarioLogado);
         cadastroview.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCadastroActionPerformed
@@ -883,7 +889,7 @@ public class HomeView extends javax.swing.JFrame {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // chamar tela home
-        HomeView homeview = new HomeView();
+        HomeView homeview = new HomeView(usuarioLogado);
         homeview.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHomeActionPerformed
@@ -914,29 +920,13 @@ public class HomeView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeView().setVisible(true);
+                UsuarioLogado usuarioLogado = new UsuarioLogado("Nome do Usuário", "Tipo de Acesso");
+
+                new HomeView(usuarioLogado).setVisible(true);
             }
         });
     }
 
-    public static void aplicarRestricoesParaFuncionario() {
-        if ("Funcionario".equals(tipoAcesso)) {
-            btnFinanceiro_Auditoria.setVisible(false);
-            btnECF.setVisible(false);
-            graficoPanel.setVisible(false);
-            tabela1.setPreferredSize(new Dimension(1580, 600));
-            jScrollPane1.setPreferredSize(new Dimension(1580, 600));
-            jScrollPane1.setVisible(true);
-            lblHistorico.setVisible(true);
-            jScrollPane1.revalidate();
-            jScrollPane1.repaint();
-            lblHistorico.revalidate();
-            lblHistorico.repaint();
-            tabela1.revalidate();
-            tabela1.repaint();
-
-        }
-    }
 
     private void updateDateTime() {
         // Atualiza a label com a data e hora atuais
