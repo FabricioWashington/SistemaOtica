@@ -94,27 +94,27 @@
                       <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="CheckBox_Visualizar_Senha" max="32767" attributes="0"/>
+                              <Component id="checkBoxVisualizarSenha" max="32767" attributes="0"/>
                               <EmptySpace min="120" pref="120" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel10" max="32767" attributes="0"/>
                               <EmptySpace min="98" pref="98" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtLogin_Usuario" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtLoginUsuario" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel9" max="32767" attributes="0"/>
+                              <Component id="lblUsuario" max="32767" attributes="0"/>
                               <EmptySpace min="151" pref="151" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel8" max="32767" attributes="0"/>
+                              <Component id="lblSenha" max="32767" attributes="0"/>
                               <EmptySpace min="155" pref="155" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="txtLogin_Senha" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cbx_tipoLogin" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtLoginSenha" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cbxTipoLogin" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                              <Component id="btnLogin_Entrar" max="32767" attributes="0"/>
+                              <Component id="btnLoginEntrar" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -128,24 +128,24 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtLogin_Usuario" min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="txtLoginUsuario" min="-2" pref="27" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jLabel8" max="32767" attributes="0"/>
+                      <Component id="lblSenha" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtLogin_Senha" min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="txtLoginSenha" min="-2" pref="27" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="cbx_tipoLogin" min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="cbxTipoLogin" min="-2" pref="27" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="CheckBox_Visualizar_Senha" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxVisualizarSenha" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
-                              <Component id="btnLogin_Entrar" max="32767" attributes="0"/>
+                              <Component id="btnLoginEntrar" max="32767" attributes="0"/>
                           </Group>
                           <Component id="txtStatus_Login" alignment="1" max="32767" attributes="0"/>
                       </Group>
@@ -155,7 +155,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JPasswordField" name="txtLogin_Senha">
+            <Component class="javax.swing.JPasswordField" name="txtLoginSenha">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -168,10 +168,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLogin_SenhaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLoginSenhaActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnLogin_Entrar">
+            <Component class="javax.swing.JButton" name="btnLoginEntrar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -189,8 +189,8 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLogin_EntrarActionPerformed"/>
-                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnLogin_EntrarKeyPressed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLoginEntrarActionPerformed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnLoginEntrarKeyPressed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="txtStatus_Login">
@@ -203,7 +203,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel8">
+            <Component class="javax.swing.JLabel" name="lblSenha">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="14" style="0"/>
@@ -217,7 +217,7 @@
                 <Property name="text" type="java.lang.String" value="Senha"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtLogin_Usuario">
+            <Component class="javax.swing.JTextField" name="txtLoginUsuario">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -230,10 +230,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLogin_UsuarioActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLoginUsuarioActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JComboBox" name="cbx_tipoLogin">
+            <Component class="javax.swing.JComboBox" name="cbxTipoLogin">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -257,7 +257,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel9">
+            <Component class="javax.swing.JLabel" name="lblUsuario">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -285,7 +285,7 @@
                 <Property name="text" type="java.lang.String" value="Op&#xe7;&#xf5;es de Acesso"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="CheckBox_Visualizar_Senha">
+            <Component class="javax.swing.JCheckBox" name="checkBoxVisualizarSenha">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Times New Roman" size="12" style="0"/>
@@ -299,12 +299,12 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckBox_Visualizar_SenhaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxVisualizarSenhaActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lblResource">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Resources/washington (1).png"/>

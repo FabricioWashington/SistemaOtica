@@ -11,39 +11,41 @@ import Sistema.FrontEnd.TelasPrincipais.Telas.HomeView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.RelatorioGerencialView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.VendasView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.ECFView;
-import Sistema.FrontEnd.Componentes.Swing.PainelPrincipal;
 import DTO.Login.LoginDTO;
-import DTO.Login.Tipos_LoginDTO;
 import Sistema.FrontEnd.TelasPrincipais.Estoque.ControleDeEstoqueView;
-import Sistema.FrontEnd.Componentes.HomeTeste;
 import DAO.Conexao.ConexaoDAO;
 import DAO.Login.LoginDAO;
-import Sistema.FrontEnd.Componentes.Swing.ProfilePrincipal;
+import DAO.Vetores.VetorTipoLogin;
 import Sistema.FrontEnd.Componentes.graficoPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
-import java.util.Vector;
 import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
+import Sistema.BackEnd.TelasInicio.Login.Login;
 
 public class LoginView extends javax.swing.JFrame {
 
     Connection conectaBD = null;
     PreparedStatement pstm = null;
     ResultSet rs = null;
-
+    private VetorTipoLogin vectorIdTipoLogin;
+    private Login login;
     private Connection conn;
 
     public LoginView() {
         initComponents();
-        getRootPane().setDefaultButton(btnLogin_Entrar); // Define o botão "Entrar" como padrão
+        this.login = new Login();
+        vectorIdTipoLogin = new DAO.Vetores.VetorTipoLogin(cbxTipoLogin);
+        vectorIdTipoLogin.restaurarDadosCbxTiposLogin();
+        getRootPane().setDefaultButton(btnLoginEntrar); // Define o botão "Entrar" como padrão
 
         // Adiciona um KeyListener à tela para capturar a tecla Enter
         addKeyListener(new KeyAdapter() {
@@ -51,31 +53,42 @@ public class LoginView extends javax.swing.JFrame {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     enterPressed = true; // Marca que a tecla Enter foi pressionada
-                    btnLogin_Entrar.doClick(); // Simula um clique no botão "Entrar"
+                    btnLoginEntrar.doClick(); // Simula um clique no botão "Entrar"
                 }
             }
         });
 
         // Adiciona um ActionListener ao botão "Entrar"
-        btnLogin_Entrar.addActionListener(new ActionListener() {
+        btnLoginEntrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (enterPressed) { // Verifica se a tecla Enter foi pressionada
-                    Logar(); // Executa o método de login
+                    login.realizarLogin(); // Executa o método de login
                     enterPressed = false; // Reseta a variável para evitar execução dupla
                 }
             }
         });
-        ExibirSenha(txtLogin_Senha, CheckBox_Visualizar_Senha);
-        restaurarDadosComboBoxTipos_Login();
+        ExibirSenha(txtLoginSenha, checkBoxVisualizarSenha);
+        //restaurarDadosComboBoxTipos_Login();
         conectaBD = ConexaoDAO.conectaBD();
         System.out.println(conectaBD);
-        if (conectaBD != conn) {
-            txtStatus_Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/dbok.png")));
 
+        // Verifica a conexão e define o ícone corretamente
+        URL okIconUrl = getClass().getResource("/Resources/dbok.png");
+        URL errorIconUrl = getClass().getResource("/Resources/derror.png");
+
+        if (conectaBD != null) {
+            if (okIconUrl != null) {
+                txtStatus_Login.setIcon(new javax.swing.ImageIcon(okIconUrl));
+            } else {
+                System.out.println("Imagem não encontrada: /Resources/dbok.png");
+            }
         } else {
-            txtStatus_Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/derror.png")));
-
+            if (errorIconUrl != null) {
+                txtStatus_Login.setIcon(new javax.swing.ImageIcon(errorIconUrl));
+            } else {
+                System.out.println("Imagem não encontrada: /Resources/derror.png");
+            }
         }
     }
 
@@ -90,16 +103,16 @@ public class LoginView extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        txtLogin_Senha = new javax.swing.JPasswordField();
-        btnLogin_Entrar = new javax.swing.JButton();
+        txtLoginSenha = new javax.swing.JPasswordField();
+        btnLoginEntrar = new javax.swing.JButton();
         txtStatus_Login = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        txtLogin_Usuario = new javax.swing.JTextField();
-        cbx_tipoLogin = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
+        lblSenha = new javax.swing.JLabel();
+        txtLoginUsuario = new javax.swing.JTextField();
+        cbxTipoLogin = new javax.swing.JComboBox<>();
+        lblUsuario = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        CheckBox_Visualizar_Senha = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
+        checkBoxVisualizarSenha = new javax.swing.JCheckBox();
+        lblResource = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
@@ -120,72 +133,72 @@ public class LoginView extends javax.swing.JFrame {
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setForeground(new java.awt.Color(51, 51, 51));
 
-        txtLogin_Senha.setBackground(new java.awt.Color(255, 255, 255));
-        txtLogin_Senha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtLogin_Senha.setForeground(new java.awt.Color(0, 0, 0));
-        txtLogin_Senha.addActionListener(new java.awt.event.ActionListener() {
+        txtLoginSenha.setBackground(new java.awt.Color(255, 255, 255));
+        txtLoginSenha.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtLoginSenha.setForeground(new java.awt.Color(0, 0, 0));
+        txtLoginSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLogin_SenhaActionPerformed(evt);
+                txtLoginSenhaActionPerformed(evt);
             }
         });
 
-        btnLogin_Entrar.setBackground(new java.awt.Color(255, 255, 255));
-        btnLogin_Entrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnLogin_Entrar.setForeground(new java.awt.Color(0, 0, 0));
-        btnLogin_Entrar.setText("ENTRAR");
-        btnLogin_Entrar.setToolTipText("");
-        btnLogin_Entrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLogin_Entrar.addActionListener(new java.awt.event.ActionListener() {
+        btnLoginEntrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnLoginEntrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnLoginEntrar.setForeground(new java.awt.Color(0, 0, 0));
+        btnLoginEntrar.setText("ENTRAR");
+        btnLoginEntrar.setToolTipText("");
+        btnLoginEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLoginEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogin_EntrarActionPerformed(evt);
+                btnLoginEntrarActionPerformed(evt);
             }
         });
-        btnLogin_Entrar.addKeyListener(new java.awt.event.KeyAdapter() {
+        btnLoginEntrar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnLogin_EntrarKeyPressed(evt);
+                btnLoginEntrarKeyPressed(evt);
             }
         });
 
         txtStatus_Login.setForeground(java.awt.Color.black);
         txtStatus_Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/dberror.png"))); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel8.setForeground(java.awt.Color.black);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/password_12795740.png"))); // NOI18N
-        jLabel8.setText("Senha");
+        lblSenha.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        lblSenha.setForeground(java.awt.Color.black);
+        lblSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/password_12795740.png"))); // NOI18N
+        lblSenha.setText("Senha");
 
-        txtLogin_Usuario.setBackground(new java.awt.Color(255, 255, 255));
-        txtLogin_Usuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        txtLogin_Usuario.setForeground(new java.awt.Color(0, 0, 0));
-        txtLogin_Usuario.addActionListener(new java.awt.event.ActionListener() {
+        txtLoginUsuario.setBackground(new java.awt.Color(255, 255, 255));
+        txtLoginUsuario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtLoginUsuario.setForeground(new java.awt.Color(0, 0, 0));
+        txtLoginUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLogin_UsuarioActionPerformed(evt);
+                txtLoginUsuarioActionPerformed(evt);
             }
         });
 
-        cbx_tipoLogin.setBackground(new java.awt.Color(255, 255, 255));
-        cbx_tipoLogin.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        cbx_tipoLogin.setForeground(new java.awt.Color(0, 0, 0));
-        cbx_tipoLogin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
-        cbx_tipoLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbxTipoLogin.setBackground(new java.awt.Color(255, 255, 255));
+        cbxTipoLogin.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        cbxTipoLogin.setForeground(new java.awt.Color(0, 0, 0));
+        cbxTipoLogin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione" }));
+        cbxTipoLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel9.setForeground(java.awt.Color.black);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/user_1077012_1.png"))); // NOI18N
-        jLabel9.setText("Usuario");
+        lblUsuario.setBackground(new java.awt.Color(0, 0, 0));
+        lblUsuario.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        lblUsuario.setForeground(java.awt.Color.black);
+        lblUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/user_1077012_1.png"))); // NOI18N
+        lblUsuario.setText("Usuario");
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel10.setForeground(java.awt.Color.black);
         jLabel10.setText("Opções de Acesso");
 
-        CheckBox_Visualizar_Senha.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        CheckBox_Visualizar_Senha.setForeground(java.awt.Color.black);
-        CheckBox_Visualizar_Senha.setText("Visualizar Senha");
-        CheckBox_Visualizar_Senha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        CheckBox_Visualizar_Senha.addActionListener(new java.awt.event.ActionListener() {
+        checkBoxVisualizarSenha.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        checkBoxVisualizarSenha.setForeground(java.awt.Color.black);
+        checkBoxVisualizarSenha.setText("Visualizar Senha");
+        checkBoxVisualizarSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        checkBoxVisualizarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckBox_Visualizar_SenhaActionPerformed(evt);
+                checkBoxVisualizarSenhaActionPerformed(evt);
             }
         });
 
@@ -197,23 +210,23 @@ public class LoginView extends javax.swing.JFrame {
                 .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(CheckBox_Visualizar_Senha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkBoxVisualizarSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(120, 120, 120))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(98, 98, 98))
-                    .addComponent(txtLogin_Usuario, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtLoginUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(151, 151, 151))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(155, 155, 155))
-                    .addComponent(txtLogin_Senha, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbx_tipoLogin, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtLoginSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxTipoLogin, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(btnLogin_Entrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLoginEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(141, 141, 141)))
                 .addGap(16, 16, 16)
                 .addComponent(txtStatus_Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -223,32 +236,32 @@ public class LoginView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addComponent(jLabel9)
+                .addComponent(lblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtLogin_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtLoginUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtLogin_Senha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbx_tipoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbxTipoLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(CheckBox_Visualizar_Senha)
+                .addComponent(checkBoxVisualizarSenha)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addComponent(btnLogin_Entrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnLoginEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(txtStatus_Login, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(100, 100, 100))
         );
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, 0, 350, 450));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/washington (1).png"))); // NOI18N
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 440, 320));
+        lblResource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/washington (1).png"))); // NOI18N
+        jPanel3.add(lblResource, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 440, 320));
 
         btnExit.setBackground(new java.awt.Color(153, 0, 0));
         btnExit.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
@@ -284,32 +297,39 @@ public class LoginView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLogin_EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin_EntrarActionPerformed
+    private void btnLoginEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginEntrarActionPerformed
         // logar
-        Logar();
+        
+        String usuario = txtLoginUsuario.getText();
+        String senha = txtLoginSenha.getText();
+        int tipoLogin = cbxTipoLogin.getSelectedIndex();
+
+        login = new Login(usuario, senha, tipoLogin, cbxTipoLogin);
+        login.realizarLogin();
+
         enterPressed = false;
-    }//GEN-LAST:event_btnLogin_EntrarActionPerformed
+    }//GEN-LAST:event_btnLoginEntrarActionPerformed
 
-    private void txtLogin_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLogin_UsuarioActionPerformed
+    private void txtLoginUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtLogin_UsuarioActionPerformed
+    }//GEN-LAST:event_txtLoginUsuarioActionPerformed
 
-    private void txtLogin_SenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLogin_SenhaActionPerformed
+    private void txtLoginSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtLogin_SenhaActionPerformed
+    }//GEN-LAST:event_txtLoginSenhaActionPerformed
 
-    private void CheckBox_Visualizar_SenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBox_Visualizar_SenhaActionPerformed
+    private void checkBoxVisualizarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxVisualizarSenhaActionPerformed
         // Ver senha
-        ExibirSenha(txtLogin_Senha, CheckBox_Visualizar_Senha);
-    }//GEN-LAST:event_CheckBox_Visualizar_SenhaActionPerformed
+        ExibirSenha(txtLoginSenha, checkBoxVisualizarSenha);
+    }//GEN-LAST:event_checkBoxVisualizarSenhaActionPerformed
 
-    private void btnLogin_EntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLogin_EntrarKeyPressed
+    private void btnLoginEntrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginEntrarKeyPressed
         // Atalho Enter
         if (evt.getKeyCode() == KeyEvent.VK_ENTER && !enterPressed) {
             enterPressed = true;
-            btnLogin_EntrarActionPerformed(null); // Chama o método de login
-        }
-    }//GEN-LAST:event_btnLogin_EntrarKeyPressed
+            btnLoginEntrarActionPerformed(null); // Chama o método de login 
+       }
+    }//GEN-LAST:event_btnLoginEntrarKeyPressed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // fechar tela
@@ -360,24 +380,24 @@ public class LoginView extends javax.swing.JFrame {
     }
     private boolean enterPressed = false;
 
-    public void Logar() {
+    public void Loga() {
         try {
             String Login_Usuario, Login_Senha;
             int idtipos_login;
 
-            Login_Usuario = txtLogin_Usuario.getText();
-            Login_Senha = txtLogin_Senha.getText();
-            int selectedIndex = cbx_tipoLogin.getSelectedIndex();
+            Login_Usuario = txtLoginUsuario.getText();
+            Login_Senha = txtLoginSenha.getText();
+            int selectedIndex = cbxTipoLogin.getSelectedIndex();
             if (selectedIndex <= 0) {
                 JOptionPane.showMessageDialog(null, "Selecione uma opção de acesso válida");
                 return;
             }
-            idtipos_login = this.idtipos_login.get(selectedIndex - 1);
+            // idtipos_login = this.idtipos_login.get(selectedIndex - 1);
 
             LoginDTO objlogindto = new LoginDTO();
             objlogindto.setLogin_Usuario(Login_Usuario);
             objlogindto.setLogin_Senha(Login_Senha);
-            objlogindto.setIdtipos_login(idtipos_login);
+            //objlogindto.setIdtipos_login(idtipos_login);
 
             LoginDAO objlogindao = new LoginDAO();
 
@@ -406,32 +426,30 @@ public class LoginView extends javax.swing.JFrame {
                 HomeView objhomeview = new HomeView();
 
                 String tipoLogin = objlogindao.ListarTipo_LoginPorId(objlogindto);
-                HomeView.usuarioLogado = rslogindao.getString(2);
-                HomeView.tipoAcesso = tipoLogin;
-                cadastroview.usuarioLogado = rslogindao.getString(2);
-                cadastroview.tipoAcesso = tipoLogin;
-                caixa.usuarioLogado = rslogindao.getString(2);
-                caixa.tipoAcesso = tipoLogin;
-                ecf.usuarioLogado = rslogindao.getString(2);
-                ecf.tipoAcesso = tipoLogin;
-                EntradaSaida.usuarioLogado = rslogindao.getString(2);
-                EntradaSaida.tipoAcesso = tipoLogin;
-                estoque.usuarioLogado = rslogindao.getString(2);
-                estoque.tipoAcesso = tipoLogin;
-                financeiroauditoria.usuarioLogado = rslogindao.getString(2);
-                financeiroauditoria.tipoAcesso = tipoLogin;
-                notafiscal.usuarioLogado = rslogindao.getString(2);
-                notafiscal.tipoAcesso = tipoLogin;
-                ordemservico.usuarioLogado = rslogindao.getString(2);
-                ordemservico.tipoAcesso = tipoLogin;
-                relatoriogerencial.usuarioLogado = rslogindao.getString(2);
-                relatoriogerencial.tipoAcesso = tipoLogin;
-                vendas.usuarioLogado = rslogindao.getString(2);
-                vendas.tipoAcesso = tipoLogin;
-                controleEstoque.usuarioLogado = rslogindao.getString(2);
-                controleEstoque.tipoAcesso = tipoLogin;
-                
-                
+//                HomeView.usuarioLogado = rslogindao.getString(2);
+//                HomeView.tipoAcesso = tipoLogin;
+//                cadastroview.usuarioLogado = rslogindao.getString(2);
+//                cadastroview.tipoAcesso = tipoLogin;
+//                caixa.usuarioLogado = rslogindao.getString(2);
+//                caixa.tipoAcesso = tipoLogin;
+//                ecf.usuarioLogado = rslogindao.getString(2);
+//                ecf.tipoAcesso = tipoLogin;
+//                EntradaSaida.usuarioLogado = rslogindao.getString(2);
+//                EntradaSaida.tipoAcesso = tipoLogin;
+//                estoque.usuarioLogado = rslogindao.getString(2);
+//                estoque.tipoAcesso = tipoLogin;
+//                financeiroauditoria.usuarioLogado = rslogindao.getString(2);
+//                financeiroauditoria.tipoAcesso = tipoLogin;
+//                notafiscal.usuarioLogado = rslogindao.getString(2);
+//                notafiscal.tipoAcesso = tipoLogin;
+//                ordemservico.usuarioLogado = rslogindao.getString(2);
+//                ordemservico.tipoAcesso = tipoLogin;
+//                relatoriogerencial.usuarioLogado = rslogindao.getString(2);
+//                relatoriogerencial.tipoAcesso = tipoLogin;
+//                vendas.usuarioLogado = rslogindao.getString(2);
+//                vendas.tipoAcesso = tipoLogin;
+//                controleEstoque.usuarioLogado = rslogindao.getString(2);
+//                controleEstoque.tipoAcesso = tipoLogin;
 
                 if ("Funcionario".equals(tipoLogin)) {
                     HomeView.btnFinanceiro_Auditoria.setVisible(false);
@@ -452,38 +470,21 @@ public class LoginView extends javax.swing.JFrame {
         }
 
     }
-    Vector<Integer> idtipos_login = new Vector<Integer>();
 
-    public void restaurarDadosComboBoxTipos_Login() {
-
-        try {
-            Tipos_LoginDTO objtiposlogindto = new Tipos_LoginDTO();
-            LoginDAO objlogindao = new LoginDAO();
-            ResultSet rs = objlogindao.ListarTipo_Login(objtiposlogindto);
-
-            while (rs.next()) {
-                idtipos_login.addElement(rs.getInt(1));
-                cbx_tipoLogin.addItem(rs.getString(2));
-            }
-
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro em restaurarCbxTipo" + erro);
-        }
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox CheckBox_Visualizar_Senha;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnLogin_Entrar;
-    private javax.swing.JComboBox<String> cbx_tipoLogin;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnLoginEntrar;
+    private javax.swing.JComboBox<String> cbxTipoLogin;
+    private javax.swing.JCheckBox checkBoxVisualizarSenha;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField txtLogin_Senha;
-    private javax.swing.JTextField txtLogin_Usuario;
+    private javax.swing.JLabel lblResource;
+    private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JPasswordField txtLoginSenha;
+    private javax.swing.JTextField txtLoginUsuario;
     private javax.swing.JLabel txtStatus_Login;
     // End of variables declaration//GEN-END:variables
 }
