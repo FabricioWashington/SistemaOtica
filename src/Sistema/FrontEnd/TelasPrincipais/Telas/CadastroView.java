@@ -33,13 +33,14 @@ public class CadastroView extends javax.swing.JFrame {
 
     public CadastroView(UsuarioLogado usuarioLogado) {
         initComponents();
-        this.usuarioLogado = usuarioLogado;
         setExtendedState(MAXIMIZED_BOTH);
+        updateDateTime();
+        // mostra o nome e o tipo de acesso do usuario
+        this.usuarioLogado = usuarioLogado;
         lblUsuario.setText(usuarioLogado.getNomeUsuario());
         lblAcesso.setText(usuarioLogado.getTipoAcesso());
-        updateDateTime();
         usuarioLogado.aplicarRestricoesFuncionarios();
-        
+
         List<JButton> botoes = Arrays.asList(btnCadastroClientePessoaJuridica,
                 btnCadastroClientesPessoaFisica, btnCadastroEmpresa, btnCadastroFuncionarios,
                 btnCadastroUsuarios, btnCadastro, btnCaixa, btnCaixa, btnECF, btnEntradas_Saidas, btnEstoque,

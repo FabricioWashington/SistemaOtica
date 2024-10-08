@@ -1,5 +1,6 @@
 package Sistema.FrontEnd.TelasPrincipais.Telas;
 
+import Sistema.BackEnd.TelasInicio.Login.UsuarioLogado;
 import Sistema.FrontEnd.TelasInicio.LoginView;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -16,18 +17,22 @@ import javax.swing.Timer;
 
 public class FinanceiroAuditoriaView extends javax.swing.JFrame {
 
-    public static String usuarioLogado;
-    public static String tipoAcesso;
+    private UsuarioLogado usuarioLogado;
     private Timer timer;
 
     public FinanceiroAuditoriaView() {
+
+    }
+
+    public FinanceiroAuditoriaView(UsuarioLogado usuarioLogado) {
         initComponents();
         updateDateTime();//atualiza data e hora
         setExtendedState(MAXIMIZED_BOTH);
 
         //mostra o nome e o tipo de acesso do usuario
-        lblUsuario.setText(usuarioLogado);
-        lblAcesso.setText(tipoAcesso);
+        this.usuarioLogado = usuarioLogado;
+        lblUsuario.setText(usuarioLogado.getNomeUsuario());
+        lblAcesso.setText(usuarioLogado.getTipoAcesso());
 
         List<JButton> botoes = Arrays.asList(btnCadastro, btnCaixa, btnCaixa, btnECF, btnEntradas_Saidas, btnEstoque,
                 btnFinanceiro_Auditoria, btnHome, btnNFC, btnOS, btnRelatorio_Gerencial, btnVendas, btnLogout);
@@ -670,8 +675,6 @@ public class FinanceiroAuditoriaView extends javax.swing.JFrame {
         DateFormat formatador = DateFormat.getDateInstance(DateFormat.SHORT);
         lblData.setText(formatador.format(data));
 
-        lblUsuario.setText(usuarioLogado);
-        lblAcesso.setText(tipoAcesso);
     }//GEN-LAST:event_formWindowActivated
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
