@@ -44,8 +44,6 @@ public class HomeView extends javax.swing.JFrame {
 
         // tabelas so aparecem quando o botão é clicado
         jScrollPane1.getViewport().setBackground(Color.WHITE);
-        jScrollPane1.setVisible(false);
-        lblHistorico.setVisible(false);
         graficoPanel.setPreferredSize(new Dimension(1580, 600)); // inicia com esse dimensao
         cabecalho1.setPreferredSize(new Dimension(1580, 37));
 
