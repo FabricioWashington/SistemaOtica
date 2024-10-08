@@ -679,75 +679,78 @@ public class ECFView extends javax.swing.JFrame {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         // chamar tela Inicial
-        HomeView homeview = new HomeView();
+        HomeView homeview = new HomeView(usuarioLogado);
         homeview.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCaixaActionPerformed
         // chamar tela caixa
-        CaixaView caixaview = new CaixaView();
+        CaixaView caixaview = new CaixaView(usuarioLogado);
         caixaview.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCaixaActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
         // chamar tela cadastro
-        CadastroView cadastroview = new CadastroView();
+        CadastroView cadastroview = new CadastroView(usuarioLogado);
         cadastroview.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCadastroActionPerformed
 
     private void btnNFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNFCActionPerformed
         // chamar tela nota fiscal
-        NotaFiscalView notafiscalview = new NotaFiscalView();
+        NotaFiscalView notafiscalview = new NotaFiscalView(usuarioLogado);
         notafiscalview.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnNFCActionPerformed
 
     private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
         // chamar tela estoque
-        EstoqueView estoqueview = new EstoqueView();
+        EstoqueView estoqueview = new EstoqueView(usuarioLogado);
         estoqueview.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnEstoqueActionPerformed
 
     private void btnOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOSActionPerformed
         // chamar tela ordem serviço
-        OrdemServicoView ordemservicoview = new OrdemServicoView();
+        OrdemServicoView ordemservicoview = new OrdemServicoView(usuarioLogado);
         ordemservicoview.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnOSActionPerformed
 
     private void btnRelatorio_GerencialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorio_GerencialActionPerformed
         // chamar tela relatorio gerencial
-        RelatorioGerencialView relatoriogerencialview = new RelatorioGerencialView();
-        relatoriogerencialview.setVisible(true);
+        RelatorioGerencialView relatorioGerencial = new RelatorioGerencialView(usuarioLogado);
+        relatorioGerencial.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRelatorio_GerencialActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
         // chamar tela vendas
-        VendasView vendasview = new VendasView();
-        vendasview.setVisible(true);
+        VendasView vendasView = new VendasView(usuarioLogado);
+        vendasView.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnECFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnECFActionPerformed
         // tela ECF
+        ECFView ecfView = new ECFView(usuarioLogado);
+        ecfView.setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnECFActionPerformed
 
     private void btnFinanceiro_AuditoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinanceiro_AuditoriaActionPerformed
         // chamar tela financeiro auditoria
-        FinanceiroAuditoriaView financerioauditoriaview = new FinanceiroAuditoriaView();
-        financerioauditoriaview.setVisible(true);
+        FinanceiroAuditoriaView financerioAuditoriaView = new FinanceiroAuditoriaView(usuarioLogado);
+        financerioAuditoriaView.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnFinanceiro_AuditoriaActionPerformed
 
     private void btnEntradas_SaidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradas_SaidasActionPerformed
         // chamar tela entradas e saidas de produtos
-        MovimentacaoView EntradaeSaida = new MovimentacaoView();
-        EntradaeSaida.setVisible(true);
+        MovimentacaoView movimentacao = new MovimentacaoView(usuarioLogado);
+        movimentacao.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnEntradas_SaidasActionPerformed
 
