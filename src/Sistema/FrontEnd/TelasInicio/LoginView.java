@@ -306,6 +306,7 @@ public class LoginView extends javax.swing.JFrame {
 
         login = new Login(usuario, senha, tipoLogin, cbxTipoLogin);
         login.realizarLogin();
+        dispose();
 
         enterPressed = false;
     }//GEN-LAST:event_btnLoginEntrarActionPerformed
