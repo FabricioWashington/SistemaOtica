@@ -4,6 +4,7 @@ import Sistema.BackEnd.TelasInicio.Login.UsuarioLogado;
 import Sistema.FrontEnd.Componentes.ScrollBarCustom;
 import Sistema.FrontEnd.TelasInicio.LoginView;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -33,13 +34,13 @@ public class HomeView extends javax.swing.JFrame {
         initComponents();
         setExtendedState(MAXIMIZED_BOTH);
         updateDateTime(); // atualiza a data e hora
-        usuarioLogado.aplicarRestricoesFuncionarios();
+        verificarRestricoes(usuarioLogado);
 
         // mostra o nome e o tipo de acesso do usuario
         this.usuarioLogado = usuarioLogado;
         lblAcesso.setText(usuarioLogado.getTipoAcesso());
         lblUsuario.setText(usuarioLogado.getNomeUsuario());
-        SwingUtilities.invokeLater(() -> usuarioLogado.aplicarRestricoesFuncionarios());
+        SwingUtilities.invokeLater(() -> verificarRestricoes(usuarioLogado));
 
         // tabelas so aparecem quando o botão é clicado
         jScrollPane1.getViewport().setBackground(Color.WHITE);
@@ -106,6 +107,17 @@ public class HomeView extends javax.swing.JFrame {
             timer = new Timer(1000, e -> updateDateTime());
             timer.start();
         }
+    }
+
+    public void verificarRestricoes(UsuarioLogado usuarioLogado) {
+        // Componentes a serem escondidos para funcionários
+        List<Component> componentesParaEsconder = Arrays.asList(btnFinanceiro_Auditoria, btnECF, graficoPanel);
+
+        // Define nova dimensão da tabela
+        Dimension novaDimensaoTabela = new Dimension(1580, 600);
+
+        // Aplica as restrições
+        usuarioLogado.aplicarRestricoesFuncionarios(componentesParaEsconder, novaDimensaoTabela, tabela1, jScrollPane1, lblHistorico);
     }
 
     @SuppressWarnings("unchecked")

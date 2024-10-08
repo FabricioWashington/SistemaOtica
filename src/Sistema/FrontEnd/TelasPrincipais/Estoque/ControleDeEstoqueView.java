@@ -14,9 +14,12 @@ import Sistema.FrontEnd.TelasPrincipais.Telas.RelatorioGerencialView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.HomeView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.VendasView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.ECFView;
+import java.awt.Component;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -37,10 +40,18 @@ public class ControleDeEstoqueView extends javax.swing.JFrame {
         this.usuarioLogado = usuarioLogado;
         lblUsuario.setText(usuarioLogado.getNomeUsuario());
         lblAcesso.setText(usuarioLogado.getTipoAcesso());
-        usuarioLogado.aplicarRestricoesFuncionarios();
+        verificarRestricoes(usuarioLogado);
 
         timer = new Timer(1000, e -> updateDateTime());
         timer.start();
+    }
+
+    public void verificarRestricoes(UsuarioLogado usuarioLogado) {
+        // Componentes a serem escondidos para funcionários na tela de Cadastro
+        List<Component> componentesParaEsconder = Arrays.asList(btnECF, btnFinanceiro_Auditoria);
+
+        // Aplica as restrições
+        usuarioLogado.aplicarRestricoesFuncionarios(componentesParaEsconder, null, null, null, null);
     }
 
     @SuppressWarnings("unchecked")

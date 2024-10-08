@@ -3,9 +3,12 @@ package Sistema.FrontEnd.TelasPrincipais.Telas;
 import Sistema.BackEnd.TelasInicio.Login.UsuarioLogado;
 import Sistema.FrontEnd.TelasInicio.LoginView;
 import Sistema.FrontEnd.TelasPrincipais.Caixa.AberturaCaixaView;
+import static Sistema.FrontEnd.TelasPrincipais.Estoque.ControleDeEstoqueView.btnECF;
+import static Sistema.FrontEnd.TelasPrincipais.Estoque.ControleDeEstoqueView.btnFinanceiro_Auditoria;
 import Sistema.FrontEnd.TelasPrincipais.Telas.VendasView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.ECFView;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -36,7 +39,7 @@ public class CaixaView extends javax.swing.JFrame {
         this.usuarioLogado = usuarioLogado;
         lblUsuario.setText(usuarioLogado.getNomeUsuario());
         lblAcesso.setText(usuarioLogado.getTipoAcesso());
-        usuarioLogado.aplicarRestricoesFuncionarios();
+        verificarRestricoes(usuarioLogado);
         List<JButton> botoes = Arrays.asList(btnCadastro, btnCaixa, btnCaixa, btnECF, btnEntradas_Saidas, btnEstoque,
                 btnFinanceiro_Auditoria, btnHome, btnNFC, btnOS, btnRelatorio_Gerencial, btnVendas, btnLogout);
 
@@ -58,6 +61,14 @@ public class CaixaView extends javax.swing.JFrame {
             timer = new Timer(1000, e -> updateDateTime());
             timer.start();
         }
+    }
+
+    public void verificarRestricoes(UsuarioLogado usuarioLogado) {
+        // Componentes a serem escondidos para funcionários na tela de Cadastro
+        List<Component> componentesParaEsconder = Arrays.asList(btnECF, btnFinanceiro_Auditoria);
+
+        // Aplica as restrições
+        usuarioLogado.aplicarRestricoesFuncionarios(componentesParaEsconder, null, null, null, null);
     }
 
     @SuppressWarnings("unchecked")

@@ -11,7 +11,9 @@ import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroProdutosView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.VendasView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.ECFView;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
@@ -39,7 +41,7 @@ public class CadastroView extends javax.swing.JFrame {
         this.usuarioLogado = usuarioLogado;
         lblUsuario.setText(usuarioLogado.getNomeUsuario());
         lblAcesso.setText(usuarioLogado.getTipoAcesso());
-        usuarioLogado.aplicarRestricoesFuncionarios();
+        verificarRestricoes(usuarioLogado);
 
         List<JButton> botoes = Arrays.asList(btnCadastroClientePessoaJuridica,
                 btnCadastroClientesPessoaFisica, btnCadastroEmpresa, btnCadastroFuncionarios,
@@ -65,6 +67,14 @@ public class CadastroView extends javax.swing.JFrame {
 
             timer.start();
         }
+    }
+
+    public void verificarRestricoes(UsuarioLogado usuarioLogado) {
+        // Componentes a serem escondidos para funcionários na tela de Cadastro
+        List<Component> componentesParaEsconder = Arrays.asList(btnCadastroUsuarios, lblCadastro_Usuario, btnECF, btnFinanceiro_Auditoria);
+
+        // Aplica as restrições
+        usuarioLogado.aplicarRestricoesFuncionarios(componentesParaEsconder, null, null, null, null);
     }
 
     @SuppressWarnings("unchecked")

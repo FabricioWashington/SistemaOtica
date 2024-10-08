@@ -1,13 +1,8 @@
 package Sistema.BackEnd.TelasInicio.Login;
 
-import static Sistema.FrontEnd.TelasPrincipais.Telas.CadastroView.btnCadastroUsuarios;
-import static Sistema.FrontEnd.TelasPrincipais.Telas.CadastroView.lblCadastro_Usuario;
-import static Sistema.FrontEnd.TelasPrincipais.Telas.HomeView.btnECF;
-import static Sistema.FrontEnd.TelasPrincipais.Telas.HomeView.btnFinanceiro_Auditoria;
-import static Sistema.FrontEnd.TelasPrincipais.Telas.HomeView.graficoPanel;
-import static Sistema.FrontEnd.TelasPrincipais.Telas.HomeView.jScrollPane1;
-import static Sistema.FrontEnd.TelasPrincipais.Telas.HomeView.lblHistorico;
-import static Sistema.FrontEnd.TelasPrincipais.Telas.HomeView.tabela1;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.util.List;
 import java.awt.Dimension;
 
 public class UsuarioLogado {
@@ -28,24 +23,39 @@ public class UsuarioLogado {
         return tipoAcesso;
     }
 
-    public void aplicarRestricoesFuncionarios() {
+    public void aplicarRestricoesFuncionarios(List<Component> componentesParaEsconder, Dimension novaDimensaoTabela, Component tabela, Component scrollPane, Component labelHistorico) {
+        // Esconder os componentes para funcionários
         if ("Funcionario".equals(getTipoAcesso())) {
-            btnFinanceiro_Auditoria.setVisible(false);
-            btnECF.setVisible(false);
-            graficoPanel.setVisible(false);
-            //btnCadastroUsuarios.setVisible(false);
-            //lblCadastro_Usuario.setVisible(false);
-            tabela1.setPreferredSize(new Dimension(1580, 600));
-            jScrollPane1.setPreferredSize(new Dimension(1580, 600));
-            jScrollPane1.setVisible(true);
-            lblHistorico.setVisible(true);
-            jScrollPane1.revalidate();
-            jScrollPane1.repaint();
-            lblHistorico.revalidate();
-            lblHistorico.repaint();
-            tabela1.revalidate();
-            tabela1.repaint();
+            // Esconder todos os componentes fornecidos na lista
+            for (Component componente : componentesParaEsconder) {
+                if (componente != null) {
+                    componente.setVisible(false);
+                }
+            }
 
+            // Verificações e ajustes nos componentes que devem ser modificados (se não forem nulos)
+            if (tabela != null && novaDimensaoTabela != null) {
+                tabela.setPreferredSize(novaDimensaoTabela);
+                tabela.revalidate();
+                tabela.repaint();
+            }
+
+            if (scrollPane != null && novaDimensaoTabela != null) {
+                scrollPane.setPreferredSize(novaDimensaoTabela);
+                scrollPane.revalidate();
+                scrollPane.repaint();
+            }
+
+            if (labelHistorico != null) {
+                labelHistorico.setVisible(true);
+                labelHistorico.revalidate();
+                labelHistorico.repaint();
+            }
+
+            if (tabela != null) {
+                tabela.revalidate();
+                tabela.repaint();
+            }
         }
     }
 
