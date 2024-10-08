@@ -1,0 +1,13 @@
+Projeto: Sistema Otica
+
+Autor: Fabricio Washington
+
+Nome do Pacote:
+
+    Sistema.FrontEnd.TelasInicio.TelasPrincipais.Estoque
+
+Descrição do Pacote:
+
+    Este pacote contém o Front-End da tela Estoque ou seja todas as telas q 
+    serão abertas na tela EstoqueView.
+
