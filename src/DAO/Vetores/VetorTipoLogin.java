@@ -1,7 +1,6 @@
 package DAO.Vetores;
 
 import DAO.Conexao.ConexaoDAO;
-import DAO.Login.LoginDAO;
 import DTO.Login.Tipos_LoginDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
