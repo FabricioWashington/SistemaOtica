@@ -1,0 +1,3 @@
+Desenvolvimento de um Sistema ERP para Óticas
+
+Estou desenvolvendo um sistema ERP completo voltado para a gestão de óticas. Este sistema inclui funcionalidades essenciais, como controle de estoque de lentes e armações, gestão de vendas, emissão de notas fiscais e agendamento de consultas. Com uma interface intuitiva, o software visa facilitar a operação diária, melhorar a eficiência e proporcionar um excelente atendimento ao cliente. Além disso, o sistema integra relatórios de desempenho para apoiar na tomada de decisões estratégicas, contribuindo para o crescimento e a sustentabilidade do negócio.
