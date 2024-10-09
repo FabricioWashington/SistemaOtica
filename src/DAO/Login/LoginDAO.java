@@ -102,20 +102,6 @@ public class LoginDAO {
         }
     }
 
-    public ResultSet ListarTipo_Login(Tipos_LoginDTO objtiposlogindto) {
-        conn = new ConexaoDAO().conectaBD();
-        String sql = "SELECT * FROM tipos_login ORDER BY tipos_login";
-        try {
-
-            pstm = conn.prepareStatement(sql);
-            return pstm.executeQuery();
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
     public ResultSet ListarDDD(DDD_DTO objddddto) {
         conn = new ConexaoDAO().conectaBD();
         try {
