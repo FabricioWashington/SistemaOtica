@@ -82,10 +82,10 @@ public class Login {
 
     }
 
+
     public boolean isLoginBemSucedido() {
         return loginBemSucedido;
     }
-
     /**
      * @return the LoginUsuario
      */

@@ -5,12 +5,8 @@ import javax.swing.JFrame;
 import Sistema.BackEnd.TelasPrincipais.Cadastro.CadastroMarca;
 
 public class CadastroMarcaView extends JDialog {
-    
+
     private CadastroMarca cadastroMarca;
-
-    public CadastroMarcaView() {
-
-    }
 
     public CadastroMarcaView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
@@ -27,10 +23,10 @@ public class CadastroMarcaView extends JDialog {
         btnExit = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        lblNome = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         txtReferencia = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabelMarca = new javax.swing.JTable();
+        JTabelMarca = new javax.swing.JTable();
         btnCadastrarLogin = new javax.swing.JButton();
         btnLimparCampos = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -93,9 +89,9 @@ public class CadastroMarcaView extends JDialog {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CADASTRO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
 
-        lblNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lblNome.setForeground(new java.awt.Color(0, 0, 0));
-        lblNome.setText("Nome da Marca");
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Nome da Marca");
 
         txtReferencia.setBackground(new java.awt.Color(255, 255, 255));
         txtReferencia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -108,7 +104,7 @@ public class CadastroMarcaView extends JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNome)
+                    .addComponent(jLabel1)
                     .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -116,16 +112,16 @@ public class CadastroMarcaView extends JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblNome)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        tabelMarca.setBackground(new java.awt.Color(255, 255, 255));
-        tabelMarca.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        tabelMarca.setForeground(new java.awt.Color(102, 102, 102));
-        tabelMarca.setModel(new javax.swing.table.DefaultTableModel(
+        JTabelMarca.setBackground(new java.awt.Color(255, 255, 255));
+        JTabelMarca.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        JTabelMarca.setForeground(new java.awt.Color(102, 102, 102));
+        JTabelMarca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, ""},
                 {null, null},
@@ -144,16 +140,16 @@ public class CadastroMarcaView extends JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tabelMarca.setToolTipText("");
-        tabelMarca.setGridColor(new java.awt.Color(0, 0, 0));
-        tabelMarca.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        tabelMarca.setShowGrid(false);
-        tabelMarca.setShowHorizontalLines(true);
-        tabelMarca.setShowVerticalLines(true);
-        tabelMarca.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tabelMarca);
-        if (tabelMarca.getColumnModel().getColumnCount() > 0) {
-            tabelMarca.getColumnModel().getColumn(0).setPreferredWidth(10);
+        JTabelMarca.setToolTipText("");
+        JTabelMarca.setGridColor(new java.awt.Color(0, 0, 0));
+        JTabelMarca.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        JTabelMarca.setShowGrid(false);
+        JTabelMarca.setShowHorizontalLines(true);
+        JTabelMarca.setShowVerticalLines(true);
+        JTabelMarca.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(JTabelMarca);
+        if (JTabelMarca.getColumnModel().getColumnCount() > 0) {
+            JTabelMarca.getColumnModel().getColumn(0).setPreferredWidth(10);
         }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -206,9 +202,6 @@ public class CadastroMarcaView extends JDialog {
             }
         });
 
-        btnAlterar.setBackground(new java.awt.Color(255, 255, 255));
-        btnAlterar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnAlterar.setForeground(new java.awt.Color(0, 0, 0));
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,9 +209,6 @@ public class CadastroMarcaView extends JDialog {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(255, 255, 255));
-        btnExcluir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnExcluir.setForeground(new java.awt.Color(0, 0, 0));
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,9 +216,6 @@ public class CadastroMarcaView extends JDialog {
             }
         });
 
-        btnCarregarCampos.setBackground(new java.awt.Color(255, 255, 255));
-        btnCarregarCampos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnCarregarCampos.setForeground(new java.awt.Color(0, 0, 0));
         btnCarregarCampos.setText("Carregar campos");
         btnCarregarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,7 +263,7 @@ public class CadastroMarcaView extends JDialog {
                     .addComponent(btnAlterar)
                     .addComponent(btnExcluir)
                     .addComponent(btnCarregarCampos))
-                .addGap(0, 73, Short.MAX_VALUE))
+                .addGap(0, 71, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 590));
@@ -293,7 +280,7 @@ public class CadastroMarcaView extends JDialog {
     private void btnCadastrarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarLoginActionPerformed
         // chamar tela cadastro
         String nomeMarca = txtReferencia.getText();
-        
+
         cadastroMarca = new CadastroMarca(nomeMarca);
         cadastroMarca.cadastrar();
     }//GEN-LAST:event_btnCadastrarLoginActionPerformed
@@ -342,37 +329,7 @@ public class CadastroMarcaView extends JDialog {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
+   
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -380,29 +337,22 @@ public class CadastroMarcaView extends JDialog {
             }
         });
     }
-
-    private void CadastrarMarca() {
-
-    }
-
-    public void LimparCampos() {
-
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable JTabelMarca;
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCadastrarLogin;
     private javax.swing.JButton btnCarregarCampos;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLimparCampos;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblNome;
-    private javax.swing.JTable tabelMarca;
     private javax.swing.JTextField txtReferencia;
     // End of variables declaration//GEN-END:variables
 }

@@ -62,9 +62,15 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
+<<<<<<< HEAD
+                          <Component id="btnCadastrar_Login" min="-2" pref="117" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="btnLimpar_Campos" min="-2" pref="122" max="-2" attributes="0"/>
+=======
                           <Component id="btnCadastrarFuncionario" min="-2" pref="117" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Component id="btnLimparCampos" min="-2" pref="122" max="-2" attributes="0"/>
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                       </Group>
                   </Group>
                   <EmptySpace pref="42" max="32767" attributes="0"/>
@@ -79,8 +85,13 @@
                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+<<<<<<< HEAD
+                      <Component id="btnLimpar_Campos" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCadastrar_Login" min="-2" max="-2" attributes="0"/>
+=======
                       <Component id="btnLimparCampos" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCadastrarFuncionario" min="-2" max="-2" attributes="0"/>
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                   </Group>
                   <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
               </Group>
@@ -224,6 +235,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
+<<<<<<< HEAD
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtNomeCompleto" alignment="0" min="-2" pref="390" max="-2" attributes="0"/>
+                              <Component id="txtCpf" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
+=======
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lblCpf" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -238,6 +256,7 @@
                                       <Component id="cbxFuncao" min="-2" pref="196" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                           </Group>
                           <EmptySpace pref="16" max="32767" attributes="0"/>
                       </Group>
@@ -247,6 +266,15 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+<<<<<<< HEAD
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtNomeCompleto" min="-2" pref="27" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="txtCpf" min="-2" pref="27" max="-2" attributes="0"/>
+=======
                           <Component id="lblNome" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtNomeCompleto" min="-2" pref="27" max="-2" attributes="0"/>
@@ -260,6 +288,7 @@
                               <Component id="cbxFuncao" max="32767" attributes="0"/>
                               <Component id="txtCpf" pref="27" max="32767" attributes="0"/>
                           </Group>
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -282,7 +311,11 @@
                     </Property>
                   </Properties>
                 </Component>
+<<<<<<< HEAD
+                <Component class="javax.swing.JLabel" name="jLabel3">
+=======
                 <Component class="javax.swing.JLabel" name="lblCpf">
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -306,7 +339,11 @@
                     </Property>
                   </Properties>
                 </Component>
+<<<<<<< HEAD
+                <Component class="javax.swing.JLabel" name="jLabel2">
+=======
                 <Component class="javax.swing.JLabel" name="lblNome">
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -317,6 +354,8 @@
                     <Property name="text" type="java.lang.String" value="Nome Completo"/>
                   </Properties>
                 </Component>
+<<<<<<< HEAD
+=======
                 <Component class="javax.swing.JComboBox" name="cbxFuncao">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -349,11 +388,16 @@
                     <Property name="text" type="java.lang.String" value="Fun&#xe7;&#xe3;o"/>
                   </Properties>
                 </Component>
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
               </SubComponents>
             </Container>
           </SubComponents>
         </Container>
+<<<<<<< HEAD
+        <Component class="javax.swing.JButton" name="btnCadastrar_Login">
+=======
         <Component class="javax.swing.JButton" name="btnCadastrarFuncionario">
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -381,10 +425,17 @@
             </Property>
           </Properties>
           <Events>
+<<<<<<< HEAD
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrar_LoginActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnLimpar_Campos">
+=======
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCadastrarFuncionarioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnLimparCampos">
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -412,7 +463,11 @@
             </Property>
           </Properties>
           <Events>
+<<<<<<< HEAD
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpar_CamposActionPerformed"/>
+=======
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparCamposActionPerformed"/>
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
           </Events>
         </Component>
       </SubComponents>
