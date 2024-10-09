@@ -299,14 +299,15 @@ public class LoginView extends javax.swing.JFrame {
 
     private void btnLoginEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginEntrarActionPerformed
         // logar
-        
         String usuario = txtLoginUsuario.getText();
         String senha = txtLoginSenha.getText();
         int tipoLogin = cbxTipoLogin.getSelectedIndex();
 
         login = new Login(usuario, senha, tipoLogin, cbxTipoLogin);
         login.realizarLogin();
-        dispose();
+        if (login.isLoginBemSucedido()) {
+            dispose(); // Fecha a janela se o login for bem-sucedido
+        }
 
         enterPressed = false;
     }//GEN-LAST:event_btnLoginEntrarActionPerformed
@@ -329,7 +330,8 @@ public class LoginView extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER && !enterPressed) {
             enterPressed = true;
             btnLoginEntrarActionPerformed(null); // Chama o método de login 
-       }
+        }
+
     }//GEN-LAST:event_btnLoginEntrarKeyPressed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed

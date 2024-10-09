@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 public class Login {
 
+    private boolean loginBemSucedido;
     private String LoginUsuario;
     private String LoginSenha;
     private int idTiposLogin;
@@ -22,6 +23,7 @@ public class Login {
     public Login() {
         this.loginDTO = new LoginDTO();
         this.loginDAO = new LoginDAO();
+        this.loginBemSucedido = false;
 
     }
 
@@ -68,6 +70,8 @@ public class Login {
 
                 objhomeview.setVisible(true);
 
+                loginBemSucedido = true;
+
                 // LOGICA TEMPORARIA PARA TESTE (HOMEVIEW)
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou Senha Inválida");
@@ -78,6 +82,10 @@ public class Login {
 
     }
 
+
+    public boolean isLoginBemSucedido() {
+        return loginBemSucedido;
+    }
     /**
      * @return the LoginUsuario
      */

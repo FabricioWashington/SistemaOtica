@@ -2,6 +2,7 @@ package Sistema.FrontEnd.TelasPrincipais.Cadastro;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+<<<<<<< HEAD
 
 public class CadastroMarcaView extends JDialog {
 
@@ -10,6 +11,23 @@ public class CadastroMarcaView extends JDialog {
         initComponents();
     }
     
+=======
+import Sistema.BackEnd.TelasPrincipais.Cadastro.CadastroMarca;
+
+public class CadastroMarcaView extends JDialog {
+    
+    private CadastroMarca cadastroMarca;
+
+    public CadastroMarcaView() {
+
+    }
+
+    public CadastroMarcaView(JFrame parent, String title, boolean modal) {
+        super(parent, title, modal);
+        initComponents();
+    }
+
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -20,12 +38,21 @@ public class CadastroMarcaView extends JDialog {
         btnExit = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+<<<<<<< HEAD
         jLabel1 = new javax.swing.JLabel();
         txtReferencia = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTabelMarca = new javax.swing.JTable();
         btnCadastrar_Login = new javax.swing.JButton();
         btnLimpar_Campos = new javax.swing.JButton();
+=======
+        lblNome = new javax.swing.JLabel();
+        txtReferencia = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelMarca = new javax.swing.JTable();
+        btnCadastrarLogin = new javax.swing.JButton();
+        btnLimparCampos = new javax.swing.JButton();
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnCarregarCampos = new javax.swing.JButton();
@@ -86,9 +113,15 @@ public class CadastroMarcaView extends JDialog {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CADASTRO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
 
+<<<<<<< HEAD
         jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nome da Marca");
+=======
+        lblNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        lblNome.setForeground(new java.awt.Color(0, 0, 0));
+        lblNome.setText("Nome da Marca");
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
 
         txtReferencia.setBackground(new java.awt.Color(255, 255, 255));
         txtReferencia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -101,7 +134,11 @@ public class CadastroMarcaView extends JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
                     .addComponent(jLabel1)
+=======
+                    .addComponent(lblNome)
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                     .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -109,16 +146,27 @@ public class CadastroMarcaView extends JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+<<<<<<< HEAD
                 .addComponent(jLabel1)
+=======
+                .addComponent(lblNome)
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
+<<<<<<< HEAD
         JTabelMarca.setBackground(new java.awt.Color(255, 255, 255));
         JTabelMarca.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         JTabelMarca.setForeground(new java.awt.Color(102, 102, 102));
         JTabelMarca.setModel(new javax.swing.table.DefaultTableModel(
+=======
+        tabelMarca.setBackground(new java.awt.Color(255, 255, 255));
+        tabelMarca.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tabelMarca.setForeground(new java.awt.Color(102, 102, 102));
+        tabelMarca.setModel(new javax.swing.table.DefaultTableModel(
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
             new Object [][] {
                 {null, ""},
                 {null, null},
@@ -137,6 +185,7 @@ public class CadastroMarcaView extends JDialog {
                 return canEdit [columnIndex];
             }
         });
+<<<<<<< HEAD
         JTabelMarca.setToolTipText("");
         JTabelMarca.setGridColor(new java.awt.Color(0, 0, 0));
         JTabelMarca.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -147,6 +196,18 @@ public class CadastroMarcaView extends JDialog {
         jScrollPane1.setViewportView(JTabelMarca);
         if (JTabelMarca.getColumnModel().getColumnCount() > 0) {
             JTabelMarca.getColumnModel().getColumn(0).setPreferredWidth(10);
+=======
+        tabelMarca.setToolTipText("");
+        tabelMarca.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelMarca.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tabelMarca.setShowGrid(false);
+        tabelMarca.setShowHorizontalLines(true);
+        tabelMarca.setShowVerticalLines(true);
+        tabelMarca.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabelMarca);
+        if (tabelMarca.getColumnModel().getColumnCount() > 0) {
+            tabelMarca.getColumnModel().getColumn(0).setPreferredWidth(10);
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
         }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -173,6 +234,7 @@ public class CadastroMarcaView extends JDialog {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
+<<<<<<< HEAD
         btnCadastrar_Login.setBackground(new java.awt.Color(255, 255, 255));
         btnCadastrar_Login.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnCadastrar_Login.setForeground(new java.awt.Color(0, 0, 0));
@@ -199,6 +261,37 @@ public class CadastroMarcaView extends JDialog {
             }
         });
 
+=======
+        btnCadastrarLogin.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastrarLogin.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnCadastrarLogin.setForeground(new java.awt.Color(0, 0, 0));
+        btnCadastrarLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/registro.png"))); // NOI18N
+        btnCadastrarLogin.setToolTipText("");
+        btnCadastrarLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnCadastrarLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrarLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarLoginActionPerformed(evt);
+            }
+        });
+
+        btnLimparCampos.setBackground(new java.awt.Color(255, 255, 255));
+        btnLimparCampos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnLimparCampos.setForeground(new java.awt.Color(0, 0, 0));
+        btnLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/limpar-limpo.png"))); // NOI18N
+        btnLimparCampos.setToolTipText("");
+        btnLimparCampos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Limpar campos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnLimparCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCamposActionPerformed(evt);
+            }
+        });
+
+        btnAlterar.setBackground(new java.awt.Color(255, 255, 255));
+        btnAlterar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnAlterar.setForeground(new java.awt.Color(0, 0, 0));
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
         btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +299,12 @@ public class CadastroMarcaView extends JDialog {
             }
         });
 
+<<<<<<< HEAD
+=======
+        btnExcluir.setBackground(new java.awt.Color(255, 255, 255));
+        btnExcluir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnExcluir.setForeground(new java.awt.Color(0, 0, 0));
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,6 +312,12 @@ public class CadastroMarcaView extends JDialog {
             }
         });
 
+<<<<<<< HEAD
+=======
+        btnCarregarCampos.setBackground(new java.awt.Color(255, 255, 255));
+        btnCarregarCampos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnCarregarCampos.setForeground(new java.awt.Color(0, 0, 0));
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
         btnCarregarCampos.setText("Carregar campos");
         btnCarregarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,9 +342,15 @@ public class CadastroMarcaView extends JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnCarregarCampos))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+<<<<<<< HEAD
                                 .addComponent(btnCadastrar_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnLimpar_Campos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
+=======
+                                .addComponent(btnCadastrarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -253,14 +364,23 @@ public class CadastroMarcaView extends JDialog {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
                     .addComponent(btnCadastrar_Login)
                     .addComponent(btnLimpar_Campos))
+=======
+                    .addComponent(btnCadastrarLogin)
+                    .addComponent(btnLimparCampos))
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAlterar)
                     .addComponent(btnExcluir)
                     .addComponent(btnCarregarCampos))
+<<<<<<< HEAD
                 .addGap(0, 71, Short.MAX_VALUE))
+=======
+                .addGap(0, 73, Short.MAX_VALUE))
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 590));
@@ -274,6 +394,7 @@ public class CadastroMarcaView extends JDialog {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
+<<<<<<< HEAD
     private void btnCadastrar_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar_LoginActionPerformed
         // chamar tela cadastro
         CadastrarMarca();
@@ -283,6 +404,20 @@ public class CadastroMarcaView extends JDialog {
         // Limpar todos os campos
         LimparCampos();
     }//GEN-LAST:event_btnLimpar_CamposActionPerformed
+=======
+    private void btnCadastrarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarLoginActionPerformed
+        // chamar tela cadastro
+        String nomeMarca = txtReferencia.getText();
+        
+        cadastroMarca = new CadastroMarca(nomeMarca);
+        cadastroMarca.cadastrar();
+    }//GEN-LAST:event_btnCadastrarLoginActionPerformed
+
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
+        // Limpar todos os campos
+        cadastroMarca.limparCampos(txtReferencia);
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
@@ -363,6 +498,7 @@ public class CadastroMarcaView extends JDialog {
     }
 
     private void CadastrarMarca() {
+<<<<<<< HEAD
         
     }
     
@@ -378,12 +514,32 @@ public class CadastroMarcaView extends JDialog {
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLimpar_Campos;
     private javax.swing.JLabel jLabel1;
+=======
+
+    }
+
+    public void LimparCampos() {
+
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCadastrarLogin;
+    private javax.swing.JButton btnCarregarCampos;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnLimparCampos;
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
     private javax.swing.JLabel jLabel11;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+<<<<<<< HEAD
+=======
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JTable tabelMarca;
+>>>>>>> 8a69d5c8b03e1e3a49244a52f4ecb363b520a611
     private javax.swing.JTextField txtReferencia;
     // End of variables declaration//GEN-END:variables
 }
