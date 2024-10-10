@@ -2,10 +2,12 @@ package Sistema.FrontEnd.TelasPrincipais.Cadastro;
 
 import DAO.Vetores.VetorCategoria;
 import DAO.Vetores.VetorUnidade;
+import Sistema.BackEnd.TelasPrincipais.Cadastro.CadastroProduto;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
+import java.math.BigDecimal;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -16,11 +18,13 @@ import javax.swing.JPasswordField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class CadastroProdutosView extends JDialog {
-    
+
     private VetorCategoria vetorCategoria;
     private VetorUnidade vetorUnidade;
     private FileInputStream fis;
     private int tamanho;
+    private String caminhoImagem;
+    private CadastroProduto cadastroProduto;
 
     public CadastroProdutosView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
@@ -49,13 +53,16 @@ public class CadastroProdutosView extends JDialog {
         cbxUnidade = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtQuantidade = new javax.swing.JFormattedTextField();
+        txtPreco = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtCor = new javax.swing.JTextField();
+        txtCodigoBarras = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAreaObservacoes = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
         btnImagem = new javax.swing.JButton();
         lblImg = new javax.swing.JLabel();
-        btnCadastrar_Login = new javax.swing.JButton();
-        btnLimpar_Campos = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+        btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("WASHINGTON TECHNOLOGY - SISTEMA ÓTICA - VERSION 1.01.1");
@@ -148,18 +155,28 @@ public class CadastroProdutosView extends JDialog {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Preço");
 
-        txtQuantidade.setBackground(new java.awt.Color(255, 255, 255));
-        txtQuantidade.setForeground(new java.awt.Color(0, 0, 0));
-        txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-        txtQuantidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtPreco.setBackground(new java.awt.Color(255, 255, 255));
+        txtPreco.setForeground(new java.awt.Color(0, 0, 0));
+        txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtPreco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Codigo de Barras");
 
-        txtCor.setBackground(new java.awt.Color(255, 255, 255));
-        txtCor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtCor.setForeground(new java.awt.Color(0, 0, 0));
+        txtCodigoBarras.setBackground(new java.awt.Color(255, 255, 255));
+        txtCodigoBarras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtCodigoBarras.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtAreaObservacoes.setBackground(new java.awt.Color(255, 255, 255));
+        txtAreaObservacoes.setColumns(20);
+        txtAreaObservacoes.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtAreaObservacoes.setRows(5);
+        jScrollPane1.setViewportView(txtAreaObservacoes);
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Observações");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -168,28 +185,34 @@ public class CadastroProdutosView extends JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(txtCor)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(cbxUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18))
+                                    .addComponent(jLabel5)
+                                    .addComponent(txtCodigoBarras)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(cbxUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,10 +234,14 @@ public class CadastroProdutosView extends JDialog {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCor, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtQuantidade))
-                .addGap(15, 15, 15))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCodigoBarras)
+                    .addComponent(txtPreco))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         btnImagem.setBackground(new java.awt.Color(255, 255, 255));
@@ -247,8 +274,8 @@ public class CadastroProdutosView extends JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
@@ -256,29 +283,29 @@ public class CadastroProdutosView extends JDialog {
                     .addComponent(lblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        btnCadastrar_Login.setBackground(new java.awt.Color(255, 255, 255));
-        btnCadastrar_Login.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnCadastrar_Login.setForeground(new java.awt.Color(0, 0, 0));
-        btnCadastrar_Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/registro.png"))); // NOI18N
-        btnCadastrar_Login.setToolTipText("");
-        btnCadastrar_Login.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        btnCadastrar_Login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadastrar_Login.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnCadastrar.setForeground(new java.awt.Color(0, 0, 0));
+        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/registro.png"))); // NOI18N
+        btnCadastrar.setToolTipText("");
+        btnCadastrar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrar_LoginActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
-        btnLimpar_Campos.setBackground(new java.awt.Color(255, 255, 255));
-        btnLimpar_Campos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnLimpar_Campos.setForeground(new java.awt.Color(0, 0, 0));
-        btnLimpar_Campos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/limpar-limpo.png"))); // NOI18N
-        btnLimpar_Campos.setToolTipText("");
-        btnLimpar_Campos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Limpar campos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        btnLimpar_Campos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLimpar_Campos.addActionListener(new java.awt.event.ActionListener() {
+        btnLimparCampos.setBackground(new java.awt.Color(255, 255, 255));
+        btnLimparCampos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnLimparCampos.setForeground(new java.awt.Color(0, 0, 0));
+        btnLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/limpar-limpo.png"))); // NOI18N
+        btnLimparCampos.setToolTipText("");
+        btnLimparCampos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Limpar campos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnLimparCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpar_CamposActionPerformed(evt);
+                btnLimparCamposActionPerformed(evt);
             }
         });
 
@@ -292,9 +319,9 @@ public class CadastroProdutosView extends JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCadastrar_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpar_Campos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -303,15 +330,16 @@ public class CadastroProdutosView extends JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCadastrar_Login)
-                    .addComponent(btnLimpar_Campos)))
+                    .addComponent(btnLimparCampos)
+                    .addComponent(btnCadastrar))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 650));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 730));
 
-        setSize(new java.awt.Dimension(530, 650));
+        setSize(new java.awt.Dimension(530, 731));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -320,14 +348,15 @@ public class CadastroProdutosView extends JDialog {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void btnCadastrar_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar_LoginActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // chamar tela cadastro
-    }//GEN-LAST:event_btnCadastrar_LoginActionPerformed
+        cadastrarProdutos();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private void btnLimpar_CamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpar_CamposActionPerformed
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
         // Limpar todos os campos
-        LimparCampos();
-    }//GEN-LAST:event_btnLimpar_CamposActionPerformed
+        cadastroProduto.limparCampos(txtNomeProduto, txtAreaObservacoes, txtPreco, txtCodigoBarras, cbxUnidade, cbxCategoria, lblImg);
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void cbxUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidadeActionPerformed
         // TODO add your handling code here:
@@ -399,9 +428,6 @@ public class CadastroProdutosView extends JDialog {
         });
     }
 
-    private void CadastrarProdutos() {
-
-    }
 
     private void carregarFoto() {
 
@@ -411,6 +437,7 @@ public class CadastroProdutosView extends JDialog {
         int resultado = jfc.showOpenDialog(this);
         if (resultado == JFileChooser.APPROVE_OPTION) {
             try {
+                caminhoImagem = jfc.getSelectedFile().getAbsolutePath(); // Salva o caminho da imagem
                 fis = new FileInputStream(jfc.getSelectedFile());
                 tamanho = (int) jfc.getSelectedFile().length();
                 Image foto = ImageIO.read(jfc.getSelectedFile()).getScaledInstance(lblImg.getWidth(), lblImg.getHeight(), Image.SCALE_SMOOTH);
@@ -422,14 +449,28 @@ public class CadastroProdutosView extends JDialog {
         }
     }
 
-    public void LimparCampos() {
+    public void cadastrarProdutos() {
+        String nomeProduto = txtNomeProduto.getText();
+        String codigoBarras = txtCodigoBarras.getText();
+        String imagem = caminhoImagem;
+        String observacoes = txtAreaObservacoes.getText();
+        int selectedUnit = cbxUnidade.getSelectedIndex();
+        int idUnidade = vetorUnidade.getIdUnidade().get(selectedUnit - 1);
+        int selectedIndex = cbxCategoria.getSelectedIndex();
+        int idCategoria = vetorCategoria.getCategoria().get(selectedIndex - 1);
+        String precotxt = txtPreco.getText().replace(",", ".");
+        BigDecimal preco = new BigDecimal(precotxt);
+
+        cadastroProduto = new CadastroProduto(nomeProduto, codigoBarras, imagem, observacoes, idCategoria, idUnidade, preco);
+
+        cadastroProduto.cadastrar();
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar_Login;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnImagem;
-    private javax.swing.JButton btnLimpar_Campos;
+    private javax.swing.JButton btnLimparCampos;
     private javax.swing.JComboBox<String> cbxCategoria;
     private javax.swing.JComboBox<String> cbxUnidade;
     private javax.swing.JLabel jLabel1;
@@ -438,13 +479,16 @@ public class CadastroProdutosView extends JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblImg;
-    private javax.swing.JTextField txtCor;
+    private javax.swing.JTextArea txtAreaObservacoes;
+    private javax.swing.JTextField txtCodigoBarras;
     private javax.swing.JTextField txtNomeProduto;
-    private javax.swing.JFormattedTextField txtQuantidade;
+    private javax.swing.JFormattedTextField txtPreco;
     // End of variables declaration//GEN-END:variables
 }
