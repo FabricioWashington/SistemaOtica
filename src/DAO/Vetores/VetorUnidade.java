@@ -43,7 +43,7 @@ public class VetorUnidade {
         
     }
     
- public ResultSet listarUnidade(CadastroUnidadeDTO cadastroUnidadeDTO){
+ private ResultSet listarUnidade(CadastroUnidadeDTO cadastroUnidadeDTO){
      conn = new ConexaoDAO().conectaBD();
      String sql = "select * from unidade order by descricao";
      try {

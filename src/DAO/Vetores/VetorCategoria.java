@@ -42,7 +42,7 @@ public class VetorCategoria {
         }
     }
 
-    public ResultSet listarCategoria(CadastroCategoriaDTO cadastroUnidadeDTO) {
+    private ResultSet listarCategoria(CadastroCategoriaDTO cadastroUnidadeDTO) {
         conn = new ConexaoDAO().conectaBD();
         String sql = "select * from categoria order by Nome_Categoria";
         try {
