@@ -35,7 +35,7 @@ public class CadastroEstoqueDAO {
             // Exibir mensagem de sucesso
             JOptionPane.showMessageDialog(null, "Os dados foram registrados corretamente.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Esse produto já foi cadastrado no sistema", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Esse produto já foi cadastrado no estoque do sistema", "Erro", JOptionPane.ERROR_MESSAGE);
             JOptionPane.showInputDialog(e);
             try {
                 conn.rollback(); // Em caso de erro, faz rollback para desfazer as alterações

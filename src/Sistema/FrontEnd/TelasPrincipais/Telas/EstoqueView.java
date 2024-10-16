@@ -3,6 +3,7 @@ package Sistema.FrontEnd.TelasPrincipais.Telas;
 import Sistema.BackEnd.TelasInicio.Login.UsuarioLogado;
 import Sistema.FrontEnd.TelasPrincipais.Estoque.ControleDeEstoqueView;
 import Sistema.FrontEnd.TelasInicio.LoginView;
+import Sistema.FrontEnd.TelasPrincipais.Estoque.CadastroProdutoEstoqueView;
 import static Sistema.FrontEnd.TelasPrincipais.Estoque.ControleDeEstoqueView.btnECF;
 import static Sistema.FrontEnd.TelasPrincipais.Estoque.ControleDeEstoqueView.btnFinanceiro_Auditoria;
 import java.awt.Color;
@@ -97,7 +98,7 @@ public class EstoqueView extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         btnControleDeEstoque = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnProdutos = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -452,9 +453,14 @@ public class EstoqueView extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setBackground(new java.awt.Color(255, 255, 255));
-        jButton10.setForeground(new java.awt.Color(0, 0, 0));
-        jButton10.setToolTipText("");
+        btnProdutos.setBackground(new java.awt.Color(255, 255, 255));
+        btnProdutos.setForeground(new java.awt.Color(0, 0, 0));
+        btnProdutos.setToolTipText("");
+        btnProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProdutosActionPerformed(evt);
+            }
+        });
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -536,7 +542,7 @@ public class EstoqueView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(71, 71, 71)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addComponent(jLabel3)))
@@ -550,12 +556,11 @@ public class EstoqueView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(56, 56, 56)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(33, 33, 33)
-                                .addComponent(btnControleDeEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(btnControleDeEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -566,7 +571,7 @@ public class EstoqueView extends javax.swing.JFrame {
                 .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnControleDeEstoque, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProdutos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -719,6 +724,12 @@ public class EstoqueView extends javax.swing.JFrame {
         painelPrincipal.repaint();
     }//GEN-LAST:event_painelMenuMouseClicked
 
+    private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
+        // chamar tela cadastro produtos no estoque
+        CadastroProdutoEstoqueView cadastroProdutoEstoque = new CadastroProdutoEstoqueView (this, "Cadastro de Produtos no Estoque", true);
+        cadastroProdutoEstoque.setVisible(true);
+    }//GEN-LAST:event_btnProdutosActionPerformed
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -762,10 +773,10 @@ public class EstoqueView extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     public static javax.swing.JButton btnNFC;
     public static javax.swing.JButton btnOS;
+    private javax.swing.JButton btnProdutos;
     public static javax.swing.JButton btnRelatorio_Gerencial;
     public static javax.swing.JButton btnVendas;
     private Sistema.FrontEnd.Componentes.Swing.Cabecalho cabecalho1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
