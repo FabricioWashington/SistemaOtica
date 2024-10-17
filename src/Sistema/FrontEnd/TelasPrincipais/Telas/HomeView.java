@@ -46,6 +46,7 @@ public class HomeView extends javax.swing.JFrame {
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         graficoPanel.setPreferredSize(new Dimension(1580, 600)); // inicia com esse dimensao
         cabecalho1.setPreferredSize(new Dimension(1580, 37));
+        graficoPanel.setPreferredSize(new Dimension(1580, 240));
 
         // Listener para monitorar as mudanças no JPanel
         PainelMen.addComponentListener(new ComponentAdapter() {
