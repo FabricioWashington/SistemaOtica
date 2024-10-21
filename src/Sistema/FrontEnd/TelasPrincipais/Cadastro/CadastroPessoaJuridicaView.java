@@ -1,11 +1,11 @@
 package Sistema.FrontEnd.TelasPrincipais.Cadastro;
 
-import DAO.Cadastro.CadastroPessoaJuridicaDAO;
 import DTO.Cadastro.CadastroPessoaJuridicaDTO;
 import DTO.Contato_Endereco.ContatoDTO;
 import DTO.Vetores.DDD_DTO;
 import DTO.Contato_Endereco.EnderecoDTO;
 import DAO.Login.LoginDAO;
+import Sistema.BackEnd.TelasPrincipais.Cadastro.CadastroCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -21,9 +21,12 @@ import javax.swing.JPasswordField;
 
 public class CadastroPessoaJuridicaView extends JDialog {
 
+    private CadastroCliente cadastroCliente;
+
     public CadastroPessoaJuridicaView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
         initComponents();
+        cadastroCliente = new CadastroCliente();
         restaurarDadosComboBoxDDD();
     }
 
@@ -37,12 +40,16 @@ public class CadastroPessoaJuridicaView extends JDialog {
         btnExit = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        txtCNPJ = new javax.swing.JFormattedTextField();
+        txtCnpj = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtRazao_Social = new javax.swing.JTextField();
+        txtRazaoSocial = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtNome_Fantasia = new javax.swing.JTextField();
+        txtNomeFantasia = new javax.swing.JTextField();
+        txtInscricacaoEstadual = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txtInscricacaoMunicipal = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
@@ -62,13 +69,13 @@ public class CadastroPessoaJuridicaView extends JDialog {
         jLabel12 = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        txtCEP = new javax.swing.JFormattedTextField();
+        txtCep = new javax.swing.JFormattedTextField();
         jLabel14 = new javax.swing.JLabel();
         cbxUF = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         txtMunicipio = new javax.swing.JTextField();
-        btnCadastrar_Login = new javax.swing.JButton();
-        btnLimpar_Campos = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+        btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("WASHINGTON TECHNOLOGY - SISTEMA ÓTICA - VERSION 1.01.1");
@@ -127,22 +134,22 @@ public class CadastroPessoaJuridicaView extends JDialog {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DADOS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
 
-        txtCNPJ.setBackground(new java.awt.Color(255, 255, 255));
-        txtCNPJ.setForeground(new java.awt.Color(0, 0, 0));
+        txtCnpj.setBackground(new java.awt.Color(255, 255, 255));
+        txtCnpj.setForeground(new java.awt.Color(0, 0, 0));
         try {
-            txtCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+            txtCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCNPJ.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtCnpj.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Nome Fantasia");
 
-        txtRazao_Social.setBackground(new java.awt.Color(255, 255, 255));
-        txtRazao_Social.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtRazao_Social.setForeground(new java.awt.Color(0, 0, 0));
+        txtRazaoSocial.setBackground(new java.awt.Color(255, 255, 255));
+        txtRazaoSocial.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtRazaoSocial.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -152,9 +159,25 @@ public class CadastroPessoaJuridicaView extends JDialog {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("CNPJ");
 
-        txtNome_Fantasia.setBackground(new java.awt.Color(255, 255, 255));
-        txtNome_Fantasia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtNome_Fantasia.setForeground(new java.awt.Color(0, 0, 0));
+        txtNomeFantasia.setBackground(new java.awt.Color(255, 255, 255));
+        txtNomeFantasia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNomeFantasia.setForeground(new java.awt.Color(0, 0, 0));
+
+        txtInscricacaoEstadual.setBackground(new java.awt.Color(255, 255, 255));
+        txtInscricacaoEstadual.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtInscricacaoEstadual.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel16.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel16.setText("Inscrição Estadual");
+
+        jLabel17.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel17.setText("Inscrição Municipal");
+
+        txtInscricacaoMunicipal.setBackground(new java.awt.Color(255, 255, 255));
+        txtInscricacaoMunicipal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtInscricacaoMunicipal.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -163,32 +186,53 @@ public class CadastroPessoaJuridicaView extends JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNome_Fantasia)
-                    .addComponent(txtRazao_Social)
+                    .addComponent(txtRazaoSocial)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(txtInscricacaoEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel3)
-                            .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtInscricacaoMunicipal))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtRazao_Social, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNome_Fantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtInscricacaoMunicipal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInscricacaoEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31))
         );
 
@@ -274,7 +318,7 @@ public class CadastroPessoaJuridicaView extends JDialog {
                                     .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtTelefone2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 105, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -333,17 +377,17 @@ public class CadastroPessoaJuridicaView extends JDialog {
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("CEP");
 
-        txtCEP.setBackground(new java.awt.Color(255, 255, 255));
-        txtCEP.setForeground(new java.awt.Color(0, 0, 0));
+        txtCep.setBackground(new java.awt.Color(255, 255, 255));
+        txtCep.setForeground(new java.awt.Color(0, 0, 0));
         try {
-            txtCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+            txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCEP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtCEP.addActionListener(new java.awt.event.ActionListener() {
+        txtCep.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtCep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCEPActionPerformed(evt);
+                txtCepActionPerformed(evt);
             }
         });
 
@@ -390,7 +434,7 @@ public class CadastroPessoaJuridicaView extends JDialog {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
-                                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,7 +445,7 @@ public class CadastroPessoaJuridicaView extends JDialog {
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel15)
                                     .addComponent(txtMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 103, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -416,7 +460,7 @@ public class CadastroPessoaJuridicaView extends JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
@@ -464,21 +508,31 @@ public class CadastroPessoaJuridicaView extends JDialog {
                 .addGap(12, 12, 12))
         );
 
-        btnCadastrar_Login.setBackground(new java.awt.Color(255, 255, 255));
-        btnCadastrar_Login.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnCadastrar_Login.setForeground(new java.awt.Color(0, 0, 0));
-        btnCadastrar_Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/registro.png"))); // NOI18N
-        btnCadastrar_Login.setToolTipText("");
-        btnCadastrar_Login.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        btnCadastrar_Login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnCadastrar.setForeground(new java.awt.Color(0, 0, 0));
+        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/registro.png"))); // NOI18N
+        btnCadastrar.setToolTipText("");
+        btnCadastrar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
-        btnLimpar_Campos.setBackground(new java.awt.Color(255, 255, 255));
-        btnLimpar_Campos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnLimpar_Campos.setForeground(new java.awt.Color(0, 0, 0));
-        btnLimpar_Campos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/limpar-limpo.png"))); // NOI18N
-        btnLimpar_Campos.setToolTipText("");
-        btnLimpar_Campos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Limpar campos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        btnLimpar_Campos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimparCampos.setBackground(new java.awt.Color(255, 255, 255));
+        btnLimparCampos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnLimparCampos.setForeground(new java.awt.Color(0, 0, 0));
+        btnLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/limpar-limpo.png"))); // NOI18N
+        btnLimparCampos.setToolTipText("");
+        btnLimparCampos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Limpar campos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnLimparCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCamposActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -490,10 +544,10 @@ public class CadastroPessoaJuridicaView extends JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCadastrar_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLimpar_Campos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                        .addComponent(btnLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -503,8 +557,8 @@ public class CadastroPessoaJuridicaView extends JDialog {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCadastrar_Login)
-                    .addComponent(btnLimpar_Campos))
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnLimparCampos))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -523,13 +577,22 @@ public class CadastroPessoaJuridicaView extends JDialog {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void txtCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCEPActionPerformed
+    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCEPActionPerformed
+    }//GEN-LAST:event_txtCepActionPerformed
 
     private void txtTelefone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefone2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefone2ActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+        cadastrar();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     /**
      * @param args the command line arguments
@@ -578,111 +641,28 @@ public class CadastroPessoaJuridicaView extends JDialog {
         });
     }
 
-    private void CadastrarLogin_Dados() {
-        String CNPJ, Razao_Social, Nome_Fantasia, Logradouro, Bairro, Numero, Complemento, CEP, UF, Municipio, Telefone, Telefone2, Email;
-        Date Data_Cadastro, Data_Modificacao;
-        int idDDD, idContato;
+    private void cadastrar() {
+        String cnpj = txtCnpj.getText();
+        String nome = txtRazaoSocial.getText();
+        String nomeFantasia = txtNomeFantasia.getText();
+        String inscricaoEstadual = txtInscricacaoEstadual.getText();
+        String inscricacoMunicipal = txtInscricacaoMunicipal.getText();
+        int selectedIndex = cbxDDD.getSelectedIndex();
+        int idDDD = (selectedIndex > 0) ? selectedIndex : -1;
+        String uf = (String) cbxUF.getSelectedItem();
+        String logradouro = txtLogradouro.getText();
+        String bairro = txtBairro.getText();
+        String complemento = txtComplemento.getText();
+        String municipio = txtMunicipio.getText();
+        String email = txtEmail.getText();
+        String telefone = txtTelefone.getText();
+        String telefone2 = txtTelefone2.getText();
+        String numero = txtNumero.getText();
 
-        // Obter os dados da empresa
-        CNPJ = txtCNPJ.getText();
-        Razao_Social = txtRazao_Social.getText();
-        Nome_Fantasia = txtNome_Fantasia.getText();
-        Calendar cal = Calendar.getInstance(); // gerar data atual cadastro
-        cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
-        cal.set(Calendar.SECOND, cal.get(Calendar.SECOND));
-        Data_Cadastro = cal.getTime();
-        Data_Modificacao = cal.getTime();
-        int selectedDDD = cbxDDD.getSelectedIndex();
-        if (selectedDDD <= 0) {
-            JOptionPane.showMessageDialog(null, "Selecione uma opção de DDD válida", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        cadastroCliente = new CadastroCliente(nome, idDDD, logradouro, bairro, numero, complemento, cnpj, uf, municipio, telefone, telefone2, email, cnpj, nomeFantasia, inscricaoEstadual, inscricacoMunicipal);
 
-        idDDD = this.idDDD.get(cbxDDD.getSelectedIndex() - 1);
-
-        // Obter os dados de Endereço
-        Logradouro = txtLogradouro.getText();
-        Bairro = txtBairro.getText();
-        Numero = txtNumero.getText();
-        Complemento = txtComplemento.getText();
-        CEP = txtCEP.getText();
-        UF = (String) cbxUF.getSelectedItem();
-        Municipio = txtMunicipio.getText();
-        // Obter os dados de Contato
-        Telefone = txtTelefone.getText();
-        Telefone2 = txtTelefone2.getText();
-        Email = txtEmail.getText();
-
-        // Verificar se algum campo obrigatório está vazio
-        if (CNPJ.isEmpty() || Razao_Social.isEmpty() || Nome_Fantasia.isEmpty()
-                || Logradouro.isEmpty() || Bairro.isEmpty() || Numero.isEmpty() || Complemento.isEmpty()
-                || UF.isEmpty() || Municipio.isEmpty() || Telefone.isEmpty() || Email.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Retorna sem executar o cadastro
-        }
-        // Verificar se todas as cbx foram selecionadas
-        if (cbxUF.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "Por favor, selecione os campos obrigatorios", "Erro", JOptionPane.ERROR_MESSAGE);
-
-        }
-
-        // Validar o CPF
-        if (!validarCNPJ(CNPJ)) {
-            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Retorna sem executar o cadastro
-        }
-
-        // Formatar o CPF 
-        CNPJ = formatarCNPJ(CNPJ);
-
-        // Formatar o telefone
-        String telefoneFormatado = formatarTelefone(txtTelefone.getText());
-        String telefoneFormatado2 = formatarTelefone(txtTelefone2.getText());
-        if (telefoneFormatado == null || telefoneFormatado2 == null) {
-            JOptionPane.showMessageDialog(null, "Número de telefone inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Retorna sem executar o cadastro
-        }
-        // Validar o CEP
-        if (!validarCEP(CEP)) {
-            JOptionPane.showMessageDialog(null, "CEP inválido", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-
-        }
-        // Formatar o CEP
-        CEP = formatarCEP(CEP);
-
-        // Criar e registrar o contato
-        ContatoDTO objcontato = new ContatoDTO();
-        objcontato.setIdDDD(idDDD);
-        objcontato.setTelefone(telefoneFormatado);
-        objcontato.setTelefone2(telefoneFormatado2);
-        objcontato.setEmail(txtEmail.getText());
-
-        // Criar e registrar o cadastro
-        CadastroPessoaJuridicaDTO objcadastropessoajuridicadto = new CadastroPessoaJuridicaDTO();
-        objcadastropessoajuridicadto.setCNPJ(CNPJ);
-        objcadastropessoajuridicadto.setRazao_Social(Razao_Social);
-        objcadastropessoajuridicadto.setNome_Fantasia(Nome_Fantasia);
-        objcadastropessoajuridicadto.setData_Cadastro(Data_Cadastro);
-        objcadastropessoajuridicadto.setData_Modificacao(Data_Modificacao);
-
-        // Criar e registrar o Endereço
-        EnderecoDTO objenderecodto = new EnderecoDTO();
-        objenderecodto.setBairro(Bairro);
-        objenderecodto.setCEP(CEP);
-        objenderecodto.setComplemento(Complemento);
-        objenderecodto.setLogradouro(Logradouro);
-        objenderecodto.setMunicipio(Municipio);
-        objenderecodto.setNumero(Numero);
-        objenderecodto.setUF(UF);
-
-        // Chamar o método para cadastrar todos os dados
-        CadastroPessoaJuridicaDAO objcadastropessoajuridicadao = new CadastroPessoaJuridicaDAO();
-        objcadastropessoajuridicadao.cadastrarUsuarioCompleto(objenderecodto, objcadastropessoajuridicadto, objcontato);
-
+        cadastroCliente.cadastrarPJ();
     }
-
     Vector<Integer> idContato = new Vector<Integer>();
 
     private void restaurarDadosdatabelaContatos() {
@@ -843,15 +823,15 @@ public class CadastroPessoaJuridicaView extends JDialog {
     }
 
     public void LimparCampos() {
-        txtCNPJ.setText("");
+        txtCnpj.setText("");
         txtTelefone.setText("");
         txtEmail.setText("");
-        txtRazao_Social.setText("");
+        txtRazaoSocial.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar_Login;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnLimpar_Campos;
+    private javax.swing.JButton btnLimparCampos;
     private javax.swing.JComboBox<String> cbxDDD;
     private javax.swing.JComboBox<String> cbxUF;
     private javax.swing.JLabel jLabel10;
@@ -860,6 +840,8 @@ public class CadastroPessoaJuridicaView extends JDialog {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -876,15 +858,17 @@ public class CadastroPessoaJuridicaView extends JDialog {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JFormattedTextField txtCEP;
-    private javax.swing.JFormattedTextField txtCNPJ;
+    private javax.swing.JFormattedTextField txtCep;
+    private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtComplemento;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtInscricacaoEstadual;
+    private javax.swing.JTextField txtInscricacaoMunicipal;
     private javax.swing.JTextField txtLogradouro;
     private javax.swing.JTextField txtMunicipio;
-    private javax.swing.JTextField txtNome_Fantasia;
+    private javax.swing.JTextField txtNomeFantasia;
     private javax.swing.JTextField txtNumero;
-    private javax.swing.JTextField txtRazao_Social;
+    private javax.swing.JTextField txtRazaoSocial;
     private javax.swing.JFormattedTextField txtTelefone;
     private javax.swing.JFormattedTextField txtTelefone2;
     // End of variables declaration//GEN-END:variables

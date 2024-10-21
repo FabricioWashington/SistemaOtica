@@ -1,108 +1,52 @@
 package DTO.Cadastro;
 
-import java.util.Date;
 
 
 public class CadastroPessoaFisicaDTO {
-    private int idContato, idEndereco, idCliente_Fisico; 
-    private String CPF, Nome_Completo;
-    private Date Data_Cadastro, Data_Modificacao;
+    private int id, idCliente; 
+    private String cpf;
 
     /**
-     * @return the idContato
+     * @return the id
      */
-    public int getIdContato() {
-        return idContato;
+    public int getId() {
+        return id;
     }
 
     /**
-     * @param idContato the idContato to set
+     * @param id the id to set
      */
-    public void setIdContato(int idContato) {
-        this.idContato = idContato;
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
-     * @return the idEndereco
+     * @return the idCliente
      */
-    public int getIdEndereco() {
-        return idEndereco;
+    public int getIdCliente() {
+        return idCliente;
     }
 
     /**
-     * @param idEndereco the idEndereco to set
+     * @param idCliente the idCliente to set
      */
-    public void setIdEndereco(int idEndereco) {
-        this.idEndereco = idEndereco;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     /**
-     * @return the idCliente_Fisico
+     * @return the cpf
      */
-    public int getIdCliente_Fisico() {
-        return idCliente_Fisico;
+    public String getCpf() {
+        return cpf;
     }
 
     /**
-     * @param idCliente_Fisico the idCliente_Fisico to set
+     * @param cpf the cpf to set
      */
-    public void setIdCliente_Fisico(int idCliente_Fisico) {
-        this.idCliente_Fisico = idCliente_Fisico;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    /**
-     * @return the CPF
-     */
-    public String getCPF() {
-        return CPF;
-    }
-
-    /**
-     * @param CPF the CPF to set
-     */
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
-    }
-
-    /**
-     * @return the Nome_Completo
-     */
-    public String getNome_Completo() {
-        return Nome_Completo;
-    }
-
-    /**
-     * @param Nome_Completo the Nome_Completo to set
-     */
-    public void setNome_Completo(String Nome_Completo) {
-        this.Nome_Completo = Nome_Completo;
-    }
-
-    /**
-     * @return the Data_Cadastro
-     */
-    public Date getData_Cadastro() {
-        return Data_Cadastro;
-    }
-
-    /**
-     * @param Data_Cadastro the Data_Cadastro to set
-     */
-    public void setData_Cadastro(Date Data_Cadastro) {
-        this.Data_Cadastro = Data_Cadastro;
-    }
-
-    /**
-     * @return the Data_Modificacao
-     */
-    public Date getData_Modificacao() {
-        return Data_Modificacao;
-    }
-
-    /**
-     * @param Data_Modificacao the Data_Modificacao to set
-     */
-    public void setData_Modificacao(Date Data_Modificacao) {
-        this.Data_Modificacao = Data_Modificacao;
-    }
+   
 }

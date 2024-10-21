@@ -1,11 +1,11 @@
 package Sistema.FrontEnd.TelasPrincipais.Cadastro;
 
-import DAO.Cadastro.CadastroPessoaFisicaDAO;
 import DTO.Cadastro.CadastroPessoaFisicaDTO;
 import DTO.Contato_Endereco.ContatoDTO;
 import DTO.Vetores.DDD_DTO;
 import DTO.Contato_Endereco.EnderecoDTO;
 import DAO.Login.LoginDAO;
+import Sistema.BackEnd.TelasPrincipais.Cadastro.CadastroCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -21,6 +21,8 @@ import javax.swing.JPasswordField;
 
 public class CadastroPessoaFisicaView extends JDialog {
 
+    private CadastroCliente cadastroCliente;
+
     public CadastroPessoaFisicaView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
         initComponents();
@@ -35,13 +37,13 @@ public class CadastroPessoaFisicaView extends JDialog {
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
-        btnCadastrar_Login = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtNome_Completo = new javax.swing.JTextField();
+        txtNomeCompleto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtCPF = new javax.swing.JFormattedTextField();
+        txtCpf = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         cbxDDD = new javax.swing.JComboBox<>();
@@ -61,12 +63,12 @@ public class CadastroPessoaFisicaView extends JDialog {
         jLabel12 = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        txtCEP = new javax.swing.JFormattedTextField();
+        txtCep = new javax.swing.JFormattedTextField();
         jLabel14 = new javax.swing.JLabel();
         cbxUF = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         txtMunicipio = new javax.swing.JTextField();
-        btnLimpar_Campos = new javax.swing.JButton();
+        btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("WASHINGTON TECHNOLOGY - SISTEMA ÓTICA - VERSION 1.01.1");
@@ -118,16 +120,16 @@ public class CadastroPessoaFisicaView extends JDialog {
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        btnCadastrar_Login.setBackground(new java.awt.Color(255, 255, 255));
-        btnCadastrar_Login.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnCadastrar_Login.setForeground(new java.awt.Color(0, 0, 0));
-        btnCadastrar_Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/registro.png"))); // NOI18N
-        btnCadastrar_Login.setToolTipText("");
-        btnCadastrar_Login.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        btnCadastrar_Login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCadastrar_Login.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastrar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnCadastrar.setForeground(new java.awt.Color(0, 0, 0));
+        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/registro.png"))); // NOI18N
+        btnCadastrar.setToolTipText("");
+        btnCadastrar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrar_LoginActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
@@ -141,22 +143,22 @@ public class CadastroPessoaFisicaView extends JDialog {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Nome Completo");
 
-        txtNome_Completo.setBackground(new java.awt.Color(255, 255, 255));
-        txtNome_Completo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtNome_Completo.setForeground(new java.awt.Color(0, 0, 0));
+        txtNomeCompleto.setBackground(new java.awt.Color(255, 255, 255));
+        txtNomeCompleto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtNomeCompleto.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("CPF");
 
-        txtCPF.setBackground(new java.awt.Color(255, 255, 255));
-        txtCPF.setForeground(new java.awt.Color(0, 0, 0));
+        txtCpf.setBackground(new java.awt.Color(255, 255, 255));
+        txtCpf.setForeground(new java.awt.Color(0, 0, 0));
         try {
-            txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCPF.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtCpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -167,8 +169,8 @@ public class CadastroPessoaFisicaView extends JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
-                    .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNome_Completo, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -177,11 +179,11 @@ public class CadastroPessoaFisicaView extends JDialog {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNome_Completo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -325,17 +327,17 @@ public class CadastroPessoaFisicaView extends JDialog {
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("CEP");
 
-        txtCEP.setBackground(new java.awt.Color(255, 255, 255));
-        txtCEP.setForeground(new java.awt.Color(0, 0, 0));
+        txtCep.setBackground(new java.awt.Color(255, 255, 255));
+        txtCep.setForeground(new java.awt.Color(0, 0, 0));
         try {
-            txtCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+            txtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCEP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtCEP.addActionListener(new java.awt.event.ActionListener() {
+        txtCep.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtCep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCEPActionPerformed(evt);
+                txtCepActionPerformed(evt);
             }
         });
 
@@ -386,7 +388,7 @@ public class CadastroPessoaFisicaView extends JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
-                            .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -421,7 +423,7 @@ public class CadastroPessoaFisicaView extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
@@ -457,13 +459,13 @@ public class CadastroPessoaFisicaView extends JDialog {
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        btnLimpar_Campos.setBackground(new java.awt.Color(255, 255, 255));
-        btnLimpar_Campos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnLimpar_Campos.setForeground(new java.awt.Color(0, 0, 0));
-        btnLimpar_Campos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/limpar-limpo.png"))); // NOI18N
-        btnLimpar_Campos.setToolTipText("");
-        btnLimpar_Campos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Limpar campos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        btnLimpar_Campos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLimparCampos.setBackground(new java.awt.Color(255, 255, 255));
+        btnLimparCampos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnLimparCampos.setForeground(new java.awt.Color(0, 0, 0));
+        btnLimparCampos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/limpar-limpo.png"))); // NOI18N
+        btnLimparCampos.setToolTipText("");
+        btnLimparCampos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Limpar campos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        btnLimparCampos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -474,9 +476,9 @@ public class CadastroPessoaFisicaView extends JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCadastrar_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnLimpar_Campos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnLimparCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -488,8 +490,8 @@ public class CadastroPessoaFisicaView extends JDialog {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCadastrar_Login)
-                    .addComponent(btnLimpar_Campos))
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnLimparCampos))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -508,18 +510,37 @@ public class CadastroPessoaFisicaView extends JDialog {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void txtCEPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCEPActionPerformed
+    private void txtCepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCepActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCEPActionPerformed
+    }//GEN-LAST:event_txtCepActionPerformed
 
     private void txtTelefone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefone2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefone2ActionPerformed
 
-    private void btnCadastrar_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrar_LoginActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // chamar tela cadastro
-        CadastrarLogin_Dados();
-    }//GEN-LAST:event_btnCadastrar_LoginActionPerformed
+        cadastrar();
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void cadastrar() {
+        String cpf = txtCpf.getText();
+        String nome = txtNomeCompleto.getText();
+        int selectedIndex = cbxDDD.getSelectedIndex();
+        int idDDD = (selectedIndex > 0) ? selectedIndex : -1;
+        String uf = (String) cbxUF.getSelectedItem();
+        String logradouro = txtLogradouro.getText();
+        String bairro = txtBairro.getText();
+        String complemento = txtComplemento.getText();
+        String municipio = txtMunicipio.getText();
+        String email = txtEmail.getText();
+        String telefone = txtTelefone.getText();
+        String telefone2 = txtTelefone2.getText();
+        String numero = txtNumero.getText();
+
+        cadastroCliente = new CadastroCliente(nome, idDDD, logradouro, bairro, numero, complemento, cpf, uf, municipio, telefone, telefone2, email, cpf);
+        cadastroCliente.cadastrarPF();
+    }
 
     /**
      * @param args the command line arguments
@@ -563,94 +584,6 @@ public class CadastroPessoaFisicaView extends JDialog {
 
             }
         });
-    }
-
-    private void CadastrarLogin_Dados() {
-        String CPF, Nome_Completo, Logradouro, Bairro, Numero, Complemento, CEP, UF, Municipio, Telefone, Telefone2, Email;
-        Date Data_Cadastro, Data_Modificacao;
-        int idDDD, idContato;
-
-        // Obter os dados do funcionario
-        CPF = txtCPF.getText();
-        Nome_Completo = txtNome_Completo.getText();
-        Calendar cal = Calendar.getInstance(); // gerar data atual cadastro
-        cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
-        cal.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
-        cal.set(Calendar.SECOND, cal.get(Calendar.SECOND));
-        Data_Cadastro = cal.getTime();
-        Data_Modificacao = cal.getTime();
-        // Obter os dados de Endereço
-        Logradouro = txtLogradouro.getText();
-        Bairro = txtBairro.getText();
-        Numero = txtNumero.getText();
-        Complemento = txtComplemento.getText();
-        CEP = txtCEP.getText();
-        UF = (String) cbxUF.getSelectedItem();
-        Municipio = txtMunicipio.getText();
-        // Obter o contato
-        Telefone = txtTelefone.getText();
-        Telefone2 = txtTelefone2.getText();
-        Email = txtEmail.getText();
-        int selectedDDD = cbxDDD.getSelectedIndex();
-        if (selectedDDD <= 0) {
-            JOptionPane.showMessageDialog(null, "Selecione uma opção de DDD válida", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        idDDD = this.idDDD.get(cbxDDD.getSelectedIndex() - 1);
-
-        // Verificar se algum campo obrigatório está vazio
-        if (CPF.isEmpty() || Nome_Completo.isEmpty() || Logradouro.isEmpty() || Bairro.isEmpty() || Numero.isEmpty() || Complemento.isEmpty()
-                || UF.isEmpty() || Municipio.isEmpty() || Telefone.isEmpty() || Email.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Retorna sem executar o cadastro
-        }
-
-        // Validar o CPF
-        if (!validarCPF(CPF)) {
-            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Retorna sem executar o cadastro
-        }
-
-        // Formatar o CPF 
-        CPF = formatarCPF(CPF);
-
-        // Formatar o telefone
-        String telefoneFormatado = formatarTelefone(txtTelefone.getText());
-        String telefoneFormatado2 = formatarTelefone(txtTelefone2.getText());
-        if (telefoneFormatado == null || telefoneFormatado2 == null) {
-            JOptionPane.showMessageDialog(null, "Número de telefone inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
-            return; // Retorna sem executar o cadastro
-        }
-
-        // Criar e registrar o contato
-        ContatoDTO objcontato = new ContatoDTO();
-        objcontato.setIdDDD(idDDD);
-        objcontato.setTelefone(telefoneFormatado);
-        objcontato.setTelefone2(telefoneFormatado2);
-        objcontato.setEmail(txtEmail.getText());
-
-        // Criar e registrar o cadastro
-        CadastroPessoaFisicaDTO objcadastropessoafisicadto = new CadastroPessoaFisicaDTO();
-
-        objcadastropessoafisicadto.setCPF(CPF);
-        objcadastropessoafisicadto.setNome_Completo(Nome_Completo);
-        objcadastropessoafisicadto.setData_Cadastro(Data_Cadastro);
-        objcadastropessoafisicadto.setData_Modificacao(Data_Modificacao);
-
-        // Criar e registrar o Endereço
-        EnderecoDTO objenderecodto = new EnderecoDTO();
-        objenderecodto.setBairro(Bairro);
-        objenderecodto.setCEP(CEP);
-        objenderecodto.setComplemento(Complemento);
-        objenderecodto.setLogradouro(Logradouro);
-        objenderecodto.setMunicipio(Municipio);
-        objenderecodto.setNumero(Numero);
-        objenderecodto.setUF(UF);
-
-        // Chamar o método para cadastrar todos os dados
-        CadastroPessoaFisicaDAO objcadastropessoafisicadao = new CadastroPessoaFisicaDAO();
-        objcadastropessoafisicadao.cadastrarUsuarioCompleto(objenderecodto, objcadastropessoafisicadto, objcontato);
-
     }
 
     Vector<Integer> idContato = new Vector<Integer>();
@@ -783,15 +716,15 @@ public class CadastroPessoaFisicaView extends JDialog {
     }
 
     public void LimparCampos() {
-        txtCPF.setText("");
+        txtCpf.setText("");
         txtTelefone.setText("");
         txtEmail.setText("");
-        txtNome_Completo.setText("");
+        txtNomeCompleto.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar_Login;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnLimpar_Campos;
+    private javax.swing.JButton btnLimparCampos;
     private javax.swing.JComboBox<String> cbxDDD;
     private javax.swing.JComboBox<String> cbxUF;
     private javax.swing.JLabel jLabel10;
@@ -815,13 +748,13 @@ public class CadastroPessoaFisicaView extends JDialog {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JFormattedTextField txtCEP;
-    private javax.swing.JFormattedTextField txtCPF;
+    private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JTextField txtComplemento;
+    private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtLogradouro;
     private javax.swing.JTextField txtMunicipio;
-    private javax.swing.JTextField txtNome_Completo;
+    private javax.swing.JTextField txtNomeCompleto;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JFormattedTextField txtTelefone;
     private javax.swing.JFormattedTextField txtTelefone2;

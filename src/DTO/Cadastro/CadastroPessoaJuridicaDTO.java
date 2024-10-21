@@ -1,124 +1,95 @@
 package DTO.Cadastro;
 
-import java.util.Date;
 
 
 public class CadastroPessoaJuridicaDTO {
-    private int idContato, idEndereco, idCliente_Juridico; 
-    private String CNPJ, Razao_Social, Nome_Fantasia;
-    private Date Data_Cadastro, Data_Modificacao;
+    private int id, idCliente; 
+    private String cnpj, nomeFantasia, inscricaoEstadual, inscricaoMunicipal;
 
     /**
-     * @return the idContato
+     * @return the id
      */
-    public int getIdContato() {
-        return idContato;
+    public int getId() {
+        return id;
     }
 
     /**
-     * @param idContato the idContato to set
+     * @param id the id to set
      */
-    public void setIdContato(int idContato) {
-        this.idContato = idContato;
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
-     * @return the idEndereco
+     * @return the idCliente
      */
-    public int getIdEndereco() {
-        return idEndereco;
+    public int getIdCliente() {
+        return idCliente;
     }
 
     /**
-     * @param idEndereco the idEndereco to set
+     * @param idCliente the idCliente to set
      */
-    public void setIdEndereco(int idEndereco) {
-        this.idEndereco = idEndereco;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     /**
-     * @return the CNPJ
+     * @return the cnpj
      */
-    public String getCNPJ() {
-        return CNPJ;
+    public String getCnpj() {
+        return cnpj;
     }
 
     /**
-     * @param CNPJ the CNPJ to set
+     * @param cnpj the cnpj to set
      */
-    public void setCNPJ(String CNPJ) {
-        this.CNPJ = CNPJ;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     /**
-     * @return the Razao_Social
+     * @return the nomeFantasia
      */
-    public String getRazao_Social() {
-        return Razao_Social;
+    public String getNomeFantasia() {
+        return nomeFantasia;
     }
 
     /**
-     * @param Razao_Social the Razao_Social to set
+     * @param nomeFantasia the nomeFantasia to set
      */
-    public void setRazao_Social(String Razao_Social) {
-        this.Razao_Social = Razao_Social;
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
     }
 
     /**
-     * @return the Nome_Fantasia
+     * @return the inscricaoEstadual
      */
-    public String getNome_Fantasia() {
-        return Nome_Fantasia;
+    public String getInscricaoEstadual() {
+        return inscricaoEstadual;
     }
 
     /**
-     * @param Nome_Fantasia the Nome_Fantasia to set
+     * @param inscricaoEstadual the inscricaoEstadual to set
      */
-    public void setNome_Fantasia(String Nome_Fantasia) {
-        this.Nome_Fantasia = Nome_Fantasia;
+    public void setInscricaoEstadual(String inscricaoEstadual) {
+        this.inscricaoEstadual = inscricaoEstadual;
     }
 
     /**
-     * @return the Data_Cadastro
+     * @return the inscricaoMunicipal
      */
-    public Date getData_Cadastro() {
-        return Data_Cadastro;
+    public String getInscricaoMunicipal() {
+        return inscricaoMunicipal;
     }
 
     /**
-     * @param Data_Cadastro the Data_Cadastro to set
+     * @param inscricaoMunicipal the inscricaoMunicipal to set
      */
-    public void setData_Cadastro(Date Data_Cadastro) {
-        this.Data_Cadastro = Data_Cadastro;
+    public void setInscricaoMunicipal(String inscricaoMunicipal) {
+        this.inscricaoMunicipal = inscricaoMunicipal;
     }
-
-    /**
-     * @return the Data_Modificacao
-     */
-    public Date getData_Modificacao() {
-        return Data_Modificacao;
-    }
-
-    /**
-     * @param Data_Modificacao the Data_Modificacao to set
-     */
-    public void setData_Modificacao(Date Data_Modificacao) {
-        this.Data_Modificacao = Data_Modificacao;
-    }
-
-    /**
-     * @return the idCliente_Fisico
-     */
-    public int getIdCliente_Fisico() {
-        return idCliente_Juridico;
-    }
-
-    /**
-     * @param idCliente_Fisico the idCliente_Fisico to set
-     */
-    public void setIdCliente_Fisico(int idCliente_Fisico) {
-        this.idCliente_Juridico = idCliente_Fisico;
-    }
+   
 }
 
    
