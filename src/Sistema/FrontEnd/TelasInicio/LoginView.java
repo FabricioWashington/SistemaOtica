@@ -124,7 +124,7 @@ public class LoginView extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(245, 245, 245));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153), new java.awt.Color(153, 153, 153)));
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -260,8 +260,8 @@ public class LoginView extends javax.swing.JFrame {
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, 0, 350, 450));
 
-        lblResource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/washington (1).png"))); // NOI18N
-        jPanel3.add(lblResource, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 440, 320));
+        lblResource.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/fw.png"))); // NOI18N
+        jPanel3.add(lblResource, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 460, 320));
 
         btnExit.setBackground(new java.awt.Color(153, 0, 0));
         btnExit.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
@@ -275,6 +275,8 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
         jPanel3.add(btnExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 0, 50, 33));
+
+        jPanel2.setBackground(java.awt.SystemColor.activeCaption);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
