@@ -7,6 +7,7 @@ import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroPessoaFisicaView;
 import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroPessoaJuridicaView;
 import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroUsuariosView;
 import Sistema.FrontEnd.TelasInicio.LoginView;
+import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroMedicoView;
 import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroProdutosView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.VendasView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.ECFView;
@@ -121,6 +122,8 @@ public class CadastroView extends javax.swing.JFrame {
         cabecalho1 = new Sistema.FrontEnd.Componentes.Swing.Cabecalho();
         lblCadastro_Produto = new javax.swing.JLabel();
         btnCadastroProdutos = new javax.swing.JButton();
+        lblCadastro_Produto1 = new javax.swing.JLabel();
+        btnCadastroMedico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("WASHINGTON TECHNOLOGY - SISTEMA ÓTICA - VERSION 1.01.1");
@@ -607,6 +610,22 @@ public class CadastroView extends javax.swing.JFrame {
             }
         });
 
+        lblCadastro_Produto1.setBackground(new java.awt.Color(0, 0, 0));
+        lblCadastro_Produto1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblCadastro_Produto1.setForeground(new java.awt.Color(0, 0, 0));
+        lblCadastro_Produto1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCadastro_Produto1.setText("<html> <center> Cadastro <br/> Médico </center> <html/>");
+
+        btnCadastroMedico.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastroMedico.setForeground(new java.awt.Color(0, 0, 0));
+        btnCadastroMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/medico.png"))); // NOI18N
+        btnCadastroMedico.setToolTipText("");
+        btnCadastroMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroMedicoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -643,6 +662,10 @@ public class CadastroView extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnCadastroProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCadastro_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCadastroMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblCadastro_Produto1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
@@ -673,7 +696,11 @@ public class CadastroView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCadastroProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblCadastro_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblCadastro_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCadastroMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblCadastro_Produto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -849,9 +876,16 @@ public class CadastroView extends javax.swing.JFrame {
 
     private void btnCadastroProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroProdutosActionPerformed
         // Chamar tela cadastro de produtos
-        CadastroProdutosView cadastrarprodutos = new CadastroProdutosView(this, "CadastroProdutosView", true);
-        cadastrarprodutos.setVisible(true);
+        CadastroProdutosView cadastrarProdutos = new CadastroProdutosView(this, "CadastroProdutosView", true);
+        cadastrarProdutos.setVisible(true);
     }//GEN-LAST:event_btnCadastroProdutosActionPerformed
+
+    private void btnCadastroMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroMedicoActionPerformed
+        // Chamar tela cadastro de medicos
+        CadastroMedicoView cadastrarMedico = new CadastroMedicoView(this, "CadastroMedicoView", true);
+        cadastrarMedico.setVisible(true);
+
+    }//GEN-LAST:event_btnCadastroMedicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -907,6 +941,7 @@ public class CadastroView extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastroClientesPessoaFisica;
     private javax.swing.JButton btnCadastroEmpresa;
     private javax.swing.JButton btnCadastroFuncionarios;
+    public static javax.swing.JButton btnCadastroMedico;
     public static javax.swing.JButton btnCadastroProdutos;
     public static javax.swing.JButton btnCadastroUsuarios;
     public static javax.swing.JButton btnCaixa;
@@ -936,6 +971,7 @@ public class CadastroView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     public static javax.swing.JLabel lblAcesso;
     public static javax.swing.JLabel lblCadastro_Produto;
+    public static javax.swing.JLabel lblCadastro_Produto1;
     public static javax.swing.JLabel lblCadastro_Usuario;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblHora;
