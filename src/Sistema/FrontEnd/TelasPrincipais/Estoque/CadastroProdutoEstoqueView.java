@@ -16,7 +16,7 @@ public class CadastroProdutoEstoqueView extends JDialog {
         initComponents();
         cadastroEstoque = new CadastroEstoque();
         vetorProduto = new VetorProdutos(cbxProduto, txtCategoria);
-        vetorProduto.restaurarDadosCbxIdFuncao();
+        vetorProduto.completaTxtCategoria();
     }
 
     public void cadastrarProdEstoque() {
