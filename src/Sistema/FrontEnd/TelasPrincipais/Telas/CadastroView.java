@@ -14,7 +14,6 @@ import Sistema.FrontEnd.TelasPrincipais.Telas.ECFView;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
@@ -47,7 +46,7 @@ public class CadastroView extends javax.swing.JFrame {
         List<JButton> botoes = Arrays.asList(btnCadastroClientePessoaJuridica,
                 btnCadastroClientesPessoaFisica, btnCadastroEmpresa, btnCadastroFuncionarios,
                 btnCadastroUsuarios, btnCadastro, btnCaixa, btnCaixa, btnECF, btnEntradas_Saidas, btnEstoque,
-                btnFinanceiro_Auditoria, btnHome, btnNFC, btnOS, btnRelatorio_Gerencial, btnVendas, btnLogout, btnCadastroProdutos);
+                btnFinanceiro_Auditoria, btnHome, btnNFC, btnOS, btnRelatorio_Gerencial, btnVendas, btnLogout, btnCadastroProdutos, btnCadastroMedico, btnCadastroOrdemServico);
 
         for (JButton btn : botoes) {
             btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -122,8 +121,10 @@ public class CadastroView extends javax.swing.JFrame {
         cabecalho1 = new Sistema.FrontEnd.Componentes.Swing.Cabecalho();
         lblCadastro_Produto = new javax.swing.JLabel();
         btnCadastroProdutos = new javax.swing.JButton();
-        lblCadastro_Produto1 = new javax.swing.JLabel();
+        lblCadastroMedico = new javax.swing.JLabel();
         btnCadastroMedico = new javax.swing.JButton();
+        btnCadastroOrdemServico = new javax.swing.JButton();
+        lblCadastroOrdemServico = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("WASHINGTON TECHNOLOGY - SISTEMA ÓTICA - VERSION 1.01.1");
@@ -610,11 +611,11 @@ public class CadastroView extends javax.swing.JFrame {
             }
         });
 
-        lblCadastro_Produto1.setBackground(new java.awt.Color(0, 0, 0));
-        lblCadastro_Produto1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lblCadastro_Produto1.setForeground(new java.awt.Color(0, 0, 0));
-        lblCadastro_Produto1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCadastro_Produto1.setText("<html> <center> Cadastro <br/> Médico </center> <html/>");
+        lblCadastroMedico.setBackground(new java.awt.Color(0, 0, 0));
+        lblCadastroMedico.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblCadastroMedico.setForeground(new java.awt.Color(0, 0, 0));
+        lblCadastroMedico.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCadastroMedico.setText("<html> <center> Cadastro <br/> Médico </center> <html/>");
 
         btnCadastroMedico.setBackground(new java.awt.Color(255, 255, 255));
         btnCadastroMedico.setForeground(new java.awt.Color(0, 0, 0));
@@ -626,6 +627,22 @@ public class CadastroView extends javax.swing.JFrame {
             }
         });
 
+        btnCadastroOrdemServico.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastroOrdemServico.setForeground(new java.awt.Color(0, 0, 0));
+        btnCadastroOrdemServico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons/notes_768818.png"))); // NOI18N
+        btnCadastroOrdemServico.setToolTipText("");
+        btnCadastroOrdemServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastroOrdemServicoActionPerformed(evt);
+            }
+        });
+
+        lblCadastroOrdemServico.setBackground(new java.awt.Color(0, 0, 0));
+        lblCadastroOrdemServico.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblCadastroOrdemServico.setForeground(new java.awt.Color(0, 0, 0));
+        lblCadastroOrdemServico.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCadastroOrdemServico.setText("<html> <center> Cadastro <br/> Ordem Serviço </center> <html/>");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -633,41 +650,45 @@ public class CadastroView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btnCadastroEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                            .addComponent(jLabel3))
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCadastroFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                            .addComponent(jLabel4))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnCadastroOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnCadastroEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                    .addComponent(jLabel3))
                                 .addGap(60, 60, 60)
-                                .addComponent(btnCadastroClientesPessoaFisica, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(btnCadastroClientePessoaJuridica, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(51, 51, 51)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCadastroUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCadastro_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(59, 59, 59)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCadastroProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCadastro_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(57, 57, 57)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCadastroMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblCadastro_Produto1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnCadastroFuncionarios, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                    .addComponent(jLabel4))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(60, 60, 60)
+                                        .addComponent(btnCadastroClientesPessoaFisica, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(60, 60, 60)
+                                        .addComponent(btnCadastroClientePessoaJuridica, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(59, 59, 59))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(40, 40, 40)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(51, 51, 51)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnCadastroUsuarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblCadastro_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(59, 59, 59)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnCadastroProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblCadastro_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(57, 57, 57)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnCadastroMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblCadastroMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblCadastroOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -700,21 +721,15 @@ public class CadastroView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCadastroMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblCadastro_Produto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblCadastroMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32)
+                .addComponent(btnCadastroOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCadastroOrdemServico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
         jPanel1.getAccessibleContext().setAccessibleName("");
         jPanel1.getAccessibleContext().setAccessibleDescription("");
 
@@ -887,6 +902,10 @@ public class CadastroView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCadastroMedicoActionPerformed
 
+    private void btnCadastroOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroOrdemServicoActionPerformed
+        // Chamar tela cadastro ordem serviço
+    }//GEN-LAST:event_btnCadastroOrdemServicoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -942,6 +961,7 @@ public class CadastroView extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastroEmpresa;
     private javax.swing.JButton btnCadastroFuncionarios;
     public static javax.swing.JButton btnCadastroMedico;
+    public static javax.swing.JButton btnCadastroOrdemServico;
     public static javax.swing.JButton btnCadastroProdutos;
     public static javax.swing.JButton btnCadastroUsuarios;
     public static javax.swing.JButton btnCaixa;
@@ -970,8 +990,9 @@ public class CadastroView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     public static javax.swing.JLabel lblAcesso;
+    public static javax.swing.JLabel lblCadastroMedico;
+    public static javax.swing.JLabel lblCadastroOrdemServico;
     public static javax.swing.JLabel lblCadastro_Produto;
-    public static javax.swing.JLabel lblCadastro_Produto1;
     public static javax.swing.JLabel lblCadastro_Usuario;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblHora;
