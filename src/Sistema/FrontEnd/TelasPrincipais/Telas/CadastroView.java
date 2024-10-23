@@ -8,6 +8,7 @@ import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroPessoaJuridicaView;
 import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroUsuariosView;
 import Sistema.FrontEnd.TelasInicio.LoginView;
 import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroMedicoView;
+import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroOrdemServicoView;
 import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroProdutosView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.VendasView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.ECFView;
@@ -904,6 +905,8 @@ public class CadastroView extends javax.swing.JFrame {
 
     private void btnCadastroOrdemServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroOrdemServicoActionPerformed
         // Chamar tela cadastro ordem serviço
+        CadastroOrdemServicoView cadastrarOrdemServico = new CadastroOrdemServicoView(this, "CadastroOrdemServicoView", true);
+        cadastrarOrdemServico.setVisible(true);
     }//GEN-LAST:event_btnCadastroOrdemServicoActionPerformed
 
     /**
