@@ -30,7 +30,8 @@ public class VetorProdutos {
         this.txtCategoria = txtCategoria;
     }
 
-    public void restaurarDadosCbxIdFuncao() {
+    // Restaura os dados da ComboBox de produtos e Adiciona automaticamente a categoria do produto
+    public void completaTxtCategoria() {
         try {
             CadastroProdutoDTO cadastroProdutoDTO = new CadastroProdutoDTO();
             ResultSet rs = listarIdProduto(cadastroProdutoDTO);
@@ -48,6 +49,29 @@ public class VetorProdutos {
                 idProduto.add(rs.getInt(1));   // Adiciona o ID no VetoresTipoLogin
                 cbxProduto.addItem(rs.getString(2));   // Adiciona o nome no ComboBox
                 idCategoria.add(rs.getInt("idCategoria")); // Adiciona o idCategoria correspondente
+            }
+
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro em Class Vector no metodo restaurarDadosCbxIdFuncao: " + erro);
+        }
+    }
+
+    public void restaurarDadosCbxProduto() {
+        try {
+            CadastroProdutoDTO cadastroProdutoDTO = new CadastroProdutoDTO();
+            ResultSet rs = listarIdProduto(cadastroProdutoDTO);
+
+            // Limpa os itens anteriores
+            idProduto.clear();
+            cbxProduto.removeAllItems();
+
+            // Adiciona a opção "Selecione"
+            cbxProduto.addItem("Selecione");
+
+            // Adiciona novos dados no VetoresTipoLogin e no ComboBox
+            while (rs.next()) {
+                idProduto.add(rs.getInt(1));   // Adiciona o ID no VetoresTipoLogin
+                cbxProduto.addItem(rs.getString(2));   // Adiciona o nome no ComboBox
             }
 
         } catch (Exception erro) {
