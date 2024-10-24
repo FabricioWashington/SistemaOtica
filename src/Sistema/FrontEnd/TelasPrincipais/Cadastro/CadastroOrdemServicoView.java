@@ -7,6 +7,7 @@ import DAO.Login.LoginDAO;
 import DAO.Vetores.VetorCliente;
 import DAO.Vetores.VetorFuncionario;
 import DAO.Vetores.VetorMedico;
+import DAO.Vetores.VetorReceita;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
@@ -23,11 +24,14 @@ public class CadastroOrdemServicoView extends JDialog {
     private VetorCliente vetorCliente;
     private VetorMedico vetorMedico;
     private VetorFuncionario vetorFuncionario;
+    private VetorReceita vetorReceita;
     private CadastroOrdemServico cadastroOrdemServico;
 
     public CadastroOrdemServicoView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
         initComponents();
+        vetorReceita = new VetorReceita(cbxReceita);
+        vetorReceita.restaurarDadosCbxReceita();
         vetorMedico = new VetorMedico(cbxMedico);
         vetorMedico.restaurarDadosCbxMedico();
         vetorFuncionario = new VetorFuncionario(cbxFuncionario);
@@ -53,6 +57,8 @@ public class CadastroOrdemServicoView extends JDialog {
         cbxFuncionario = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         cbxMedico = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        cbxReceita = new javax.swing.JComboBox<>();
         btnLimparCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -151,6 +157,15 @@ public class CadastroOrdemServicoView extends JDialog {
         cbxMedico.setForeground(new java.awt.Color(0, 0, 0));
         cbxMedico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Receita");
+
+        cbxReceita.setBackground(new java.awt.Color(255, 255, 255));
+        cbxReceita.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cbxReceita.setForeground(new java.awt.Color(0, 0, 0));
+        cbxReceita.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -163,7 +178,9 @@ public class CadastroOrdemServicoView extends JDialog {
                     .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(cbxMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(cbxReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -181,7 +198,11 @@ public class CadastroOrdemServicoView extends JDialog {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbxMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(401, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(346, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -310,10 +331,12 @@ public class CadastroOrdemServicoView extends JDialog {
     private javax.swing.JComboBox<String> cbxCliente;
     private javax.swing.JComboBox<String> cbxFuncionario;
     private javax.swing.JComboBox<String> cbxMedico;
+    private javax.swing.JComboBox<String> cbxReceita;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
