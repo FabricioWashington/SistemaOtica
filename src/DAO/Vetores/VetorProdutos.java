@@ -30,6 +30,10 @@ public class VetorProdutos {
         this.txtCategoria = txtCategoria;
     }
 
+    public VetorProdutos(JComboBox<String> cbxProduto) {
+        this.cbxProduto = cbxProduto;
+    }
+
     // Restaura os dados da ComboBox de produtos e Adiciona automaticamente a categoria do produto
     public void completaTxtCategoria() {
         try {
