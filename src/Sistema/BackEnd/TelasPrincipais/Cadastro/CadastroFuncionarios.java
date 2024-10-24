@@ -50,7 +50,7 @@ public class CadastroFuncionarios {
 
         cadastroFuncionariosDTO.setCPF(cpf);
         cadastroFuncionariosDTO.setNome_Completo(nomeCompleto);
-        cadastroFuncionariosDTO.setIdFuncao(0);
+        cadastroFuncionariosDTO.setIdFuncao(IdFuncao);
         cadastroFuncionariosDTO.setData_Cadastro(dataCadastro);
         cadastroFuncionariosDTO.setData_Modificacao(dataModificacao);
 
