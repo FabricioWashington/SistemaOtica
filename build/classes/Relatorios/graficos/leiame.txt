@@ -1,0 +1,12 @@
+Projeto: Sistema Otica
+
+Autor: Fabricio Washington
+
+Nome do Pacote:
+
+    DAO
+
+Descrição do Pacote:
+
+    Este pacote contém os graficos que são relatorios do projeto.
+

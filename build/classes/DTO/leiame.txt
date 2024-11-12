@@ -1,0 +1,12 @@
+Projeto: Sistema Otica
+
+Autor: Fabricio Washington
+
+Nome do Pacote:
+
+    DTO
+
+Descrição do Pacote:
+
+    Este pacote contém os objetos do banco de dados.
+

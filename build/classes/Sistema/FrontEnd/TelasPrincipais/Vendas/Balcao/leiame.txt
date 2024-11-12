@@ -1,0 +1,13 @@
+Projeto: Sistema Otica
+
+Autor: Fabricio Washington
+
+Nome do Pacote:
+
+    Sistema.FrontEnd.TelasInicio.TelasPrincipais.Vendas.Balcao
+
+Descrição do Pacote:
+
+    Este pacote contém o Front-End da tela Balcao ou seja todas as telas q 
+    serão abertas na tela BalcaoView.
+
