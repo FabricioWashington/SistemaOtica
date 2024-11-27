@@ -4,6 +4,8 @@ package Sistema.BackEnd.NotaFiscal;
 import br.com.swconsultoria.nfe.Nfe;
 import br.com.swconsultoria.nfe.dom.ConfiguracoesNfe;
 import br.com.swconsultoria.nfe.dom.Evento;
+import br.com.swconsultoria.nfe.dom.enuns.AmbienteEnum;
+import br.com.swconsultoria.nfe.dom.enuns.EstadosEnum;
 import br.com.swconsultoria.nfe.schema.envcce.TEnvEvento;
 import br.com.swconsultoria.nfe.schema.envcce.TRetEnvEvento;
 import br.com.swconsultoria.nfe.util.CartaCorrecaoUtil;
@@ -16,6 +18,8 @@ import java.time.LocalDateTime;
  *
  */
 public class CartaCorrecao {
+    String caminhoCertificado;
+    String senhaCertificado;
 
     public static void main(String[] args) {
 
