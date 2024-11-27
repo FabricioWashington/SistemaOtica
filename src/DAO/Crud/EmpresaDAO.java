@@ -5,6 +5,7 @@ import DTO.Contato_Endereco.ContatoDTO;
 import DTO.Contato_Endereco.EnderecoDTO;
 import DTO.Login.LoginDTO;
 import DAO.Conexao.ConexaoDAO;
+import DTO.Crud.ConfiguracaoDTO;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,23 +19,27 @@ public class EmpresaDAO {
     Connection conn;
     PreparedStatement pstm;
     ResultSet rs;
-    ArrayList<LoginDTO> lista = new ArrayList<>();
+    int idEmpresa = -1;
+    int idCNAE = -1;
+    int idContato = -1; // Valor padrão para indicar erro
+    int idEndereco = -1;
+    private ConfiguracaoDTO configuracaoDTO;
+    private PreparedStatement pstmCertificado;
+    private PreparedStatement pstmSenha;
+    private PreparedStatement pstmEstado;
+    private PreparedStatement pstmAmbiente;
 
-    public void cadastrarUsuarioCompleto(EnderecoDTO objenderecodto, EmpresaDTO objcadastrodto, ContatoDTO objcontatodto) {
+    public void cadastrarEmpresa(EnderecoDTO objenderecodto, EmpresaDTO objcadastrodto, ContatoDTO objcontatodto, ConfiguracaoDTO configuracaoDTO) {
         conn = new ConexaoDAO().conectaBD();
-        int idContato = -1; // Valor padrão para indicar erro
-        int idEndereco = -1;
-        int idCNAE = -1;
-        int idEmpresa = -1;
 
         try {
             conn.setAutoCommit(false); // Desliga o modo de commit automático
 
             // Registrar o contato
-            String sqlContato = "insert into contato (idDDD, Email, Telefone, Telefone2) values (?,?,?,?)";
+            String sqlContato = "insert into contato (Email, idDDD, Telefone, Telefone2) values (?,?,?,?)";
             PreparedStatement pstmContato = conn.prepareStatement(sqlContato, Statement.RETURN_GENERATED_KEYS);
-            pstmContato.setInt(1, objcontatodto.getIdDDD());
-            pstmContato.setString(2, objcontatodto.getEmail());
+            pstmContato.setString(1, objcontatodto.getEmail());
+            pstmContato.setInt(2, objcontatodto.getIdDDD());
             pstmContato.setString(3, objcontatodto.getTelefone());
             pstmContato.setString(4, objcontatodto.getTelefone2());
             pstmContato.executeUpdate(); // Use executeUpdate() para inserções
@@ -62,22 +67,22 @@ public class EmpresaDAO {
             if (rsEndereco.next()) {
                 idEndereco = rsEndereco.getInt(1);
             }
-            
 
             // Registrar o cadastro
-            String sqlCadastroEmpresa = "insert into cadastro_empresa (CNPJ, Razao_Social, Nome_Fantasia, Regime_Tributario, Inscricao_Estadual, Indicador_IE, idContato, idEndereco, idCNAE, Data_Cadastro, Data_Modificacao) values (?,?,?,?,?,?,?,?,?,?,?)";
+            String sqlCadastroEmpresa = "insert into empresa (CNPJ, Razao_Social, Nome_Fantasia, Regime_Tributario, Inscricao_Estadual, Indicador_IE, idContato, idEndereco, idCNAE, Data_Cadastro, Data_Modificacao) values (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmCadastroEmpresa = conn.prepareStatement(sqlCadastroEmpresa, Statement.RETURN_GENERATED_KEYS);
-            pstmCadastroEmpresa.setString(1, objcadastrodto.getCNPJ());
-            pstmCadastroEmpresa.setString(2, objcadastrodto.getRazao_Social());
-            pstmCadastroEmpresa.setString(3, objcadastrodto.getNome_Fantasia());
-            pstmCadastroEmpresa.setString(4, objcadastrodto.getRegime_Tributario());
-            pstmCadastroEmpresa.setString(5, objcadastrodto.getInscricao_Estadual());
-            pstmCadastroEmpresa.setString(6, objcadastrodto.getIndicador_IE());
+            pstmCadastroEmpresa.setString(1, objcadastrodto.getCnpj());
+            pstmCadastroEmpresa.setString(2, objcadastrodto.getRazaoSocial());
+            pstmCadastroEmpresa.setString(3, objcadastrodto.getNomeFantasia());
+            pstmCadastroEmpresa.setString(4, objcadastrodto.getRegimeTributario());
+            pstmCadastroEmpresa.setString(5, objcadastrodto.getInscricaoEstadual());
+            pstmCadastroEmpresa.setString(6, objcadastrodto.getIndicadorIE());
             pstmCadastroEmpresa.setInt(7, idContato);
             pstmCadastroEmpresa.setInt(8, idEndereco);
             pstmCadastroEmpresa.setInt(9, objcadastrodto.getIdCNAE());
-            pstmCadastroEmpresa.setTimestamp(10, new java.sql.Timestamp(objcadastrodto.getData_Cadastro().getTime()));
-            pstmCadastroEmpresa.setTimestamp(11, new java.sql.Timestamp(objcadastrodto.getData_Modificacao().getTime()));
+            pstmCadastroEmpresa.setDate(10, new java.sql.Date(objcadastrodto.getDataCadastro().getTime()));
+            pstmCadastroEmpresa.setDate(11, new java.sql.Date(objcadastrodto.getDataModificacao().getTime()));
+
             pstmCadastroEmpresa.executeUpdate(); // Use executeUpdate() para inserções
 
             // Recuperar o idEmpresa gerado
@@ -85,19 +90,51 @@ public class EmpresaDAO {
             if (rsEmpresa.next()) {
                 idEmpresa = rsEmpresa.getInt(1);
             }
-            ResultSet rsCNAE = pstmCadastroEmpresa.getGeneratedKeys();
+            String sqlCertificado = "INSERT INTO configuracoesnfe (chave, valor, descricao, idEmpresa) values (?,?,?,?)";
+            String sqlSenha = "INSERT INTO configuracoesnfe (chave, valor, descricao, idEmpresa) values (?,?,?,?)";
+            String sqlEstado = "INSERT INTO configuracoesnfe (chave, valor, descricao, idEmpresa) values (?,?,?,?)";
+            String sqlAmbiente = "INSERT INTO configuracoesnfe (chave, valor, descricao, idEmpresa) values (?,?,?,?)";
             
-            if (rsCNAE.next()) {
-                idCNAE = rsCNAE.getInt(1);
-                
-            }
+            // sql certificado
+            pstmCertificado = conn.prepareStatement(sqlCertificado);
+            pstmCertificado.setString(1, configuracaoDTO.getChaveCaminhoCertificado());
+            pstmCertificado.setString(2, configuracaoDTO.getCertificado());
+            pstmCertificado.setString(3, configuracaoDTO.getDescricaoCertificado());
+            pstmCertificado.setInt(4, idEmpresa);
+            
+            // sql senha
+            pstmSenha = conn.prepareStatement(sqlSenha);
+            pstmSenha.setString(1, configuracaoDTO.getChaveSenhaCertificado());
+            pstmSenha.setString(2, configuracaoDTO.getSenha());
+            pstmSenha.setString(3, configuracaoDTO.getDescricaoSenha());
+            pstmSenha.setInt(4, idEmpresa);
+            
+            // sql estado
+            pstmEstado = conn.prepareStatement(sqlEstado);
+            pstmEstado.setString(1, configuracaoDTO.getChaveEstado());
+            pstmEstado.setString(2, configuracaoDTO.getEstado());
+            pstmEstado.setString(3, configuracaoDTO.getDescricaoEstado());
+            pstmEstado.setInt(4, idEmpresa);
+            
+            // sql ambiente
+            pstmAmbiente = conn.prepareStatement(sqlAmbiente);
+            pstmAmbiente.setString(1, configuracaoDTO.getChaveAmbiente());
+            pstmAmbiente.setString(2, configuracaoDTO.getAmbiente());
+            pstmAmbiente.setString(3, configuracaoDTO.getDescricacaoAmbiente());
+            pstmAmbiente.setInt(4, idEmpresa);
 
+            pstmCertificado.executeUpdate();
+            pstmSenha.executeUpdate();
+            pstmEstado.executeUpdate();
+            pstmAmbiente.executeUpdate();
+         
             conn.commit(); // Efetua o commit das transações
 
             // Exibir mensagem de sucesso
             JOptionPane.showMessageDialog(null, "Os dados foram registrados corretamente.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Essa empresa já foi cadastrada no sistema", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showInputDialog(e);
             try {
                 conn.rollback(); // Em caso de erro, faz rollback para desfazer as alterações
             } catch (SQLException ex) {
@@ -120,7 +157,7 @@ public class EmpresaDAO {
         try {
             String sqlVerificarEmpresa = "SELECT COUNT(*) FROM cadastro_empresa WHERE Cnpj = ?";
             PreparedStatement pstmVerificarEmpresa = conn.prepareStatement(sqlVerificarEmpresa);
-            pstmVerificarEmpresa.setString(1, objcadastroempresadto.getCNPJ());
+            pstmVerificarEmpresa.setString(1, objcadastroempresadto.getCnpj());
             ResultSet rsVerificarEmpresa = pstmVerificarEmpresa.executeQuery();
             rsVerificarEmpresa.next();
             int countAdmin = rsVerificarEmpresa.getInt(1);
@@ -140,6 +177,10 @@ public class EmpresaDAO {
         }
 
         return empresaCadastrada;
+    }
+    
+    public int getIdEmpresa(){
+        return idEmpresa;
     }
 
 }
