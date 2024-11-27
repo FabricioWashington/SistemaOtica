@@ -30,6 +30,7 @@ import java.sql.PreparedStatement;
 import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
 import Sistema.BackEnd.TelasInicio.Login.Login;
+import Sistema.FrontEnd.TelasPrincipais.Cadastro.CadastroEmpresaView;
 
 public class LoginView extends javax.swing.JFrame {
 
@@ -39,6 +40,7 @@ public class LoginView extends javax.swing.JFrame {
     private VetorTipoLogin vectorIdTipoLogin;
     private Login login;
     private Connection conn;
+    private CadastroEmpresaView cadastroEmpresaView;
 
     public LoginView() {
         initComponents();
@@ -112,6 +114,7 @@ public class LoginView extends javax.swing.JFrame {
         lblUsuario = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         checkBoxVisualizarSenha = new javax.swing.JCheckBox();
+        btnPrimeiroAcesso = new javax.swing.JButton();
         lblResource = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -202,6 +205,23 @@ public class LoginView extends javax.swing.JFrame {
             }
         });
 
+        btnPrimeiroAcesso.setBackground(new java.awt.Color(255, 255, 255));
+        btnPrimeiroAcesso.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnPrimeiroAcesso.setForeground(new java.awt.Color(0, 0, 0));
+        btnPrimeiroAcesso.setText("PRIMEIRO ACESSO");
+        btnPrimeiroAcesso.setToolTipText("");
+        btnPrimeiroAcesso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrimeiroAcesso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimeiroAcessoActionPerformed(evt);
+            }
+        });
+        btnPrimeiroAcesso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnPrimeiroAcessoKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -231,6 +251,9 @@ public class LoginView extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(txtStatus_Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(23, 23, 23))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnPrimeiroAcesso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +278,9 @@ public class LoginView extends javax.swing.JFrame {
                         .addGap(11, 11, 11)
                         .addComponent(btnLoginEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(txtStatus_Login, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(100, 100, 100))
+                .addGap(57, 57, 57)
+                .addComponent(btnPrimeiroAcesso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(22, 22, 22))
         );
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-8, 0, 350, 450));
@@ -340,6 +365,16 @@ public class LoginView extends javax.swing.JFrame {
         // fechar tela
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnPrimeiroAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeiroAcessoActionPerformed
+        // Chamar tela cadastro de empresa
+        cadastroEmpresaView = new CadastroEmpresaView(null, "CadastroEmpresaView", true);
+        cadastroEmpresaView.setVisible(true);
+    }//GEN-LAST:event_btnPrimeiroAcessoActionPerformed
+
+    private void btnPrimeiroAcessoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPrimeiroAcessoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPrimeiroAcessoKeyPressed
 
     /**
      * @param args the command line arguments
@@ -479,6 +514,7 @@ public class LoginView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLoginEntrar;
+    private javax.swing.JButton btnPrimeiroAcesso;
     private javax.swing.JComboBox<String> cbxTipoLogin;
     private javax.swing.JCheckBox checkBoxVisualizarSenha;
     private javax.swing.JLabel jLabel10;
