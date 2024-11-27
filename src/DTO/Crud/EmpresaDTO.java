@@ -2,11 +2,20 @@ package DTO.Crud;
 
 import java.util.Date;
 
-
 public class EmpresaDTO {
-    private int idContato, idEndereco, idCNAE, idEmpresa, idEmpresa_CnaeSecundario, idCNAE_Secundario; 
-    private String CNPJ, Razao_Social, Nome_Fantasia, Regime_Tributario, Inscricao_Estadual, Indicador_IE;
-    private Date Data_Cadastro, Data_Modificacao;
+
+    private int idContato, idEndereco, idEmpresa, idCNAE;
+    private String cnpj, razaoSocial, nomeFantasia, regimeTributario, inscricaoEstadual, indicadorIE;
+    private Date dataCadastro, dataModificacao;
+
+    public EmpresaDTO() {
+    }
+
+    public EmpresaDTO(String razaoSocial, String cnpj, String inscricaoEstadual) {
+        this.razaoSocial = razaoSocial;
+        this.cnpj = cnpj;
+        this.inscricaoEstadual = inscricaoEstadual;
+    }
 
     /**
      * @return the idContato
@@ -37,20 +46,6 @@ public class EmpresaDTO {
     }
 
     /**
-     * @return the idCNAE
-     */
-    public int getIdCNAE() {
-        return idCNAE;
-    }
-
-    /**
-     * @param idCNAE the idCNAE to set
-     */
-    public void setIdCNAE(int idCNAE) {
-        this.idCNAE = idCNAE;
-    }
-
-    /**
      * @return the idEmpresa
      */
     public int getIdEmpresa() {
@@ -65,144 +60,129 @@ public class EmpresaDTO {
     }
 
     /**
-     * @return the CNPJ
+     * @return the idCNAE
      */
-    public String getCNPJ() {
-        return CNPJ;
+    public int getIdCNAE() {
+        return idCNAE;
     }
 
     /**
-     * @param CNPJ the CNPJ to set
+     * @param idCNAE the idCNAE to set
      */
-    public void setCNPJ(String CNPJ) {
-        this.CNPJ = CNPJ;
+    public void setIdCNAE(int idCNAE) {
+        this.idCNAE = idCNAE;
     }
 
     /**
-     * @return the Razao_Social
+     * @return the cnpj
      */
-    public String getRazao_Social() {
-        return Razao_Social;
+    public String getCnpj() {
+        return cnpj;
     }
 
     /**
-     * @param Razao_Social the Razao_Social to set
+     * @param cnpj the cnpj to set
      */
-    public void setRazao_Social(String Razao_Social) {
-        this.Razao_Social = Razao_Social;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     /**
-     * @return the Nome_Fantasia
+     * @return the razaoSocial
      */
-    public String getNome_Fantasia() {
-        return Nome_Fantasia;
+    public String getRazaoSocial() {
+        return razaoSocial;
     }
 
     /**
-     * @param Nome_Fantasia the Nome_Fantasia to set
+     * @param razaoSocial the razaoSocial to set
      */
-    public void setNome_Fantasia(String Nome_Fantasia) {
-        this.Nome_Fantasia = Nome_Fantasia;
+    public void setRazaoSocial(String razaoSocial) {
+        this.razaoSocial = razaoSocial;
     }
 
     /**
-     * @return the Regime_Tributario
+     * @return the nomeFantasia
      */
-    public String getRegime_Tributario() {
-        return Regime_Tributario;
+    public String getNomeFantasia() {
+        return nomeFantasia;
     }
 
     /**
-     * @param Regime_Tributario the Regime_Tributario to set
+     * @param nomeFantasia the nomeFantasia to set
      */
-    public void setRegime_Tributario(String Regime_Tributario) {
-        this.Regime_Tributario = Regime_Tributario;
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
     }
 
     /**
-     * @return the Inscricao_Estadual
+     * @return the regimeTributario
      */
-    public String getInscricao_Estadual() {
-        return Inscricao_Estadual;
+    public String getRegimeTributario() {
+        return regimeTributario;
     }
 
     /**
-     * @param Inscricao_Estadual the Inscricao_Estadual to set
+     * @param regimeTributario the regimeTributario to set
      */
-    public void setInscricao_Estadual(String Inscricao_Estadual) {
-        this.Inscricao_Estadual = Inscricao_Estadual;
+    public void setRegimeTributario(String regimeTributario) {
+        this.regimeTributario = regimeTributario;
     }
 
     /**
-     * @return the Indicador_IE
+     * @return the inscricaoEstadual
      */
-    public String getIndicador_IE() {
-        return Indicador_IE;
+    public String getInscricaoEstadual() {
+        return inscricaoEstadual;
     }
 
     /**
-     * @param Indicador_IE the Indicador_IE to set
+     * @param inscricaoEstadual the inscricaoEstadual to set
      */
-    public void setIndicador_IE(String Indicador_IE) {
-        this.Indicador_IE = Indicador_IE;
+    public void setInscricaoEstadual(String inscricaoEstadual) {
+        this.inscricaoEstadual = inscricaoEstadual;
     }
 
     /**
-     * @return the Data_Cadastro
+     * @return the indicadorIE
      */
-    public Date getData_Cadastro() {
-        return Data_Cadastro;
+    public String getIndicadorIE() {
+        return indicadorIE;
     }
 
     /**
-     * @param Data_Cadastro the Data_Cadastro to set
+     * @param indicadorIE the indicadorIE to set
      */
-    public void setData_Cadastro(Date Data_Cadastro) {
-        this.Data_Cadastro = Data_Cadastro;
+    public void setIndicadorIE(String indicadorIE) {
+        this.indicadorIE = indicadorIE;
     }
 
     /**
-     * @return the idEmpresa_CnaeSecundario
+     * @return the dataCadastro
      */
-    public int getIdEmpresa_CnaeSecundario() {
-        return idEmpresa_CnaeSecundario;
+    public Date getDataCadastro() {
+        return dataCadastro;
     }
 
     /**
-     * @param idEmpresa_CnaeSecundario the idEmpresa_CnaeSecundario to set
+     * @param dataCadastro the dataCadastro to set
      */
-    public void setIdEmpresa_CnaeSecundario(int idEmpresa_CnaeSecundario) {
-        this.idEmpresa_CnaeSecundario = idEmpresa_CnaeSecundario;
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
     /**
-     * @return the idCNAE_Secundario
+     * @return the dataModificacao
      */
-    public int getIdCNAE_Secundario() {
-        return idCNAE_Secundario;
+    public Date getDataModificacao() {
+        return dataModificacao;
     }
 
     /**
-     * @param idCNAE_Secundario the idCNAE_Secundario to set
+     * @param dataModificacao the dataModificacao to set
      */
-    public void setIdCNAE_Secundario(int idCNAE_Secundario) {
-        this.idCNAE_Secundario = idCNAE_Secundario;
+    public void setDataModificacao(Date dataModificacao) {
+        this.dataModificacao = dataModificacao;
     }
 
-    /**
-     * @return the Data_Modificacao
-     */
-    public Date getData_Modificacao() {
-        return Data_Modificacao;
-    }
-
-    /**
-     * @param Data_Modificacao the Data_Modificacao to set
-     */
-    public void setData_Modificacao(Date Data_Modificacao) {
-        this.Data_Modificacao = Data_Modificacao;
-    }
 }
-
-   
