@@ -1,6 +1,6 @@
 package Sistema.BackEnd.Utilidades;
 
-import DAO.Vetores.CnaeDAO;
+import DAO.Vetores.VetorCnae;
 import DTO.Vetores.CnaeDTO;
 import DTO.Contato_Endereco.ContatoDTO;
 import DTO.Vetores.DDD_DTO;
@@ -49,19 +49,5 @@ public class VetoresUtil {
 
     Vector<Integer> idCNAE = new Vector<Integer>();
 
-    private void restaurardadosComboBoxCNAE(JComboBox cbxCNAE_Principal) {
-        try {
-            CnaeDTO objcnaedto = new CnaeDTO();
-            CnaeDAO objcnaedao = new CnaeDAO();
-            ResultSet rs = objcnaedao.ListarCNAE(objcnaedto);
-            while (rs.next()) {
-                idCNAE.addElement(rs.getInt(1));
-                cbxCNAE_Principal.addItem(rs.getString(2));
-
-            }
-
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "erro em restaurar dados da cbx CNAE" + erro);
-        }
-    }
+  
 }
