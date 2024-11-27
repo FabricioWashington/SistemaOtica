@@ -204,7 +204,7 @@ public class ClienteDAO {
         try {
             String sqlVerificarEmpresa = "SELECT COUNT(*) FROM cadastro_empresa WHERE Cnpj = ?";
             PreparedStatement pstmVerificarEmpresa = conn.prepareStatement(sqlVerificarEmpresa);
-            pstmVerificarEmpresa.setString(1, objcadastroempresadto.getCNPJ());
+            pstmVerificarEmpresa.setString(1, objcadastroempresadto.getCnpj());
             ResultSet rsVerificarEmpresa = pstmVerificarEmpresa.executeQuery();
             rsVerificarEmpresa.next();
             int countAdmin = rsVerificarEmpresa.getInt(1);
