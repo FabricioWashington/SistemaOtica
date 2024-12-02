@@ -30,7 +30,6 @@ public class ConfiguracaoService {
         this.configuracaoDAO = new ConfiguracaoDAO(connection);
         this.configuracaoDTO = new ConfiguracaoDTO();
         this.empresaDAO = new EmpresaDAO();
-        carregarConfiguracoes();
     }
 
     public ConfiguracaoService(String certificado, String senha, String estado, String ambiente) {
@@ -41,10 +40,7 @@ public class ConfiguracaoService {
         this.ambiente = ambiente;
     }
 
-    // Método para carregar todas as configurações do banco de dados
-    private void carregarConfiguracoes() throws SQLException {
-        this.setConfiguracoes(configuracaoDAO.carregarConfiguracoes());
-    }
+ 
 
     // Método para obter o caminho do certificado
     public String getCaminhoCertificado() {

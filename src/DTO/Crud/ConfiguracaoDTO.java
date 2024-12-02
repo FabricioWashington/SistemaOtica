@@ -27,7 +27,7 @@ public class ConfiguracaoDTO {
     /**
      * @return the chaveCaminhoCertificado
      */
-    public String getChaveCaminhoCertificado() {
+    public static String getChaveCaminhoCertificado() {
         return chaveCaminhoCertificado;
     }
 
@@ -41,7 +41,7 @@ public class ConfiguracaoDTO {
     /**
      * @return the chaveSenhaCertificado
      */
-    public String getChaveSenhaCertificado() {
+    public static String getChaveSenhaCertificado() {
         return chaveSenhaCertificado;
     }
 
@@ -55,7 +55,7 @@ public class ConfiguracaoDTO {
     /**
      * @return the chaveEstado
      */
-    public String getChaveEstado() {
+    public static String getChaveEstado() {
         return chaveEstado;
     }
 
@@ -69,7 +69,7 @@ public class ConfiguracaoDTO {
     /**
      * @return the chaveAmbiente
      */
-    public String getChaveAmbiente() {
+    public static String getChaveAmbiente() {
         return chaveAmbiente;
     }
 
@@ -205,5 +205,7 @@ public class ConfiguracaoDTO {
     public void setIdEmpresa(int idEmpresa) {
         this.idEmpresa = idEmpresa;
     }
+    
+  
 
 }

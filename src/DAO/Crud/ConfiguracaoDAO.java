@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 
@@ -27,17 +29,46 @@ public class ConfiguracaoDAO {
         this.conn = conn;
     }
 
-    public Map<String, String> carregarConfiguracoes() throws SQLException {
-        Map<String, String> configuracoes = new HashMap<>();
+    public List<ConfiguracaoDTO> carregarConfiguracoes() throws SQLException {
+        List<ConfiguracaoDTO> configuracoes = new ArrayList<>();
         conn = new ConexaoDAO().conectaBD();
 
-        String sql = "SELECT chave, valor FROM configuracoesNfe";
+        // Consulta os dados da tabela configuracoesnfe
+        String sql = "SELECT chave, valor FROM configuracoesnfe";
         try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
+            ConfiguracaoDTO dto = new ConfiguracaoDTO(); // Um único objeto para consolidar os dados
+
             while (rs.next()) {
-                configuracoes.put(rs.getString("chave"), rs.getString("valor"));
+                String chave = rs.getString("chave");
+                String valor = rs.getString("valor");
+
+                switch (chave) {
+                    case "empresa.estado":
+                        dto.setEstado(valor);
+                        break;
+                    case "empresa.senhaCertificado":
+                        dto.setSenha(valor);
+                        break;
+                    case "empresa.caminhoCertificado":
+                        dto.setCertificado(valor);
+                        break;
+                    case "empresa.ambiente":
+                        dto.setAmbiente(valor);
+                        break;
+                }
             }
+
+            // Adiciona o objeto ao final, apenas se contiver dados válidos
+            if (dto.getEstado() != null || dto.getAmbiente() != null || dto.getCertificado() != null) {
+                configuracoes.add(dto);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new SQLException("Erro ao carregar configurações: " + e.getMessage());
         }
+
         return configuracoes;
     }
 
@@ -62,28 +93,28 @@ public class ConfiguracaoDAO {
             String sqlSenha = "INSERT INTO configuracoesnfe (chave, valor, descricao, idEmpresa) values (?,?,?,?)";
             String sqlEstado = "INSERT INTO configuracoesnfe (chave, valor, descricao, idEmpresa) values (?,?,?,?)";
             String sqlAmbiente = "INSERT INTO configuracoesnfe (chave, valor, descricao, idEmpresa) values (?,?,?,?)";
-            
+
             // sql certificado
             pstmCertificado = conn.prepareStatement(sqlCertificado);
             pstmCertificado.setString(1, configuracaoDTO.getChaveCaminhoCertificado());
             pstmCertificado.setString(2, configuracaoDTO.getCertificado());
             pstmCertificado.setString(3, configuracaoDTO.getDescricaoCertificado());
             pstmCertificado.setInt(4, configuracaoDTO.getIdEmpresa());
-            
+
             // sql senha
             pstmSenha = conn.prepareStatement(sqlSenha);
             pstmSenha.setString(1, configuracaoDTO.getChaveSenhaCertificado());
             pstmSenha.setString(2, configuracaoDTO.getSenha());
             pstmSenha.setString(3, configuracaoDTO.getDescricaoSenha());
             pstmSenha.setInt(4, configuracaoDTO.getIdEmpresa());
-            
+
             // sql estado
             pstmEstado = conn.prepareStatement(sqlEstado);
             pstmEstado.setString(1, configuracaoDTO.getChaveEstado());
             pstmEstado.setString(2, configuracaoDTO.getEstado());
             pstmEstado.setString(3, configuracaoDTO.getDescricaoEstado());
             pstmEstado.setInt(4, configuracaoDTO.getIdEmpresa());
-            
+
             // sql ambiente
             pstmAmbiente = conn.prepareStatement(sqlAmbiente);
             pstmAmbiente.setString(1, configuracaoDTO.getChaveAmbiente());
