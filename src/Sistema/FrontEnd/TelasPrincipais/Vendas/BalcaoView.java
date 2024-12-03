@@ -1,27 +1,37 @@
 package Sistema.FrontEnd.TelasPrincipais.Vendas;
 
-import DAO.Crud.ProdutoDAO;
 import DTO.Crud.ProdutoDTO;
 import Sistema.BackEnd.TelasPrincipais.Crud.Produto;
 import Sistema.FrontEnd.TelasPrincipais.Vendas.Balcao.RecebimentoDeContaView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.HomeView;
 import Sistema.FrontEnd.TelasPrincipais.Telas.VendasView;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 public class BalcaoView extends javax.swing.JFrame {
 
     private Produto produto;
     private DefaultListModel listModel;
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#,##0.00");
+    private Timer timer;
 
     public BalcaoView() {
         initComponents();
@@ -30,6 +40,7 @@ public class BalcaoView extends javax.swing.JFrame {
         atualizarListaProdutos();
         listModel = new DefaultListModel();
         produtoJList.setModel(listModel);
+        configurarAtalhoDeletar();
 
         configurarTabela();
 
@@ -38,20 +49,24 @@ public class BalcaoView extends javax.swing.JFrame {
         lblProduto.setVisible(false);
         panelComandos.setVisible(false);
 
+        int debounceDelay = 200;
+        Timer debounceTimer = new Timer(debounceDelay, e -> atualizarListaProdutos());
+
+        // Sempre que o texto na caixa de pesquisa mudar, cancelamos o timer anterior e começamos um novo
         txtPesquisa.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                atualizarListaProdutos();
+                debounceTimer.restart(); // Reinicia o timer a cada mudança
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                atualizarListaProdutos();
+                debounceTimer.restart(); // Reinicia o timer se o texto for removido
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                atualizarListaProdutos();
+                debounceTimer.restart(); // Reinicia o timer caso o texto sofra alterações de outro tipo
             }
         });
         produtoJList.addListSelectionListener(e -> {
@@ -59,36 +74,84 @@ public class BalcaoView extends javax.swing.JFrame {
                 adicionarProdutoTabela();
             }
         });
+
     }
 
     private void atualizarListaProdutos() {
         String pesquisa = txtPesquisa.getText();
-        DefaultListModel<String> listModel = produto.consultar(pesquisa);
 
-        // Atualiza o JList com o modelo retornado
-        produtoJList.setModel(listModel);
-        produtoJList.repaint();
+        // Executa a consulta em segundo plano
+        SwingWorker<DefaultListModel<String>, Void> worker = new SwingWorker<>() {
+            @Override
+            protected DefaultListModel<String> doInBackground() {
+                return produto.consultar(pesquisa); // Consulta na thread separada
+            }
 
-        // Exibe ou oculta o JScrollPane com base nos resultados
-        boolean hasResults = !pesquisa.isEmpty() && !listModel.isEmpty();
-        jScrollPane2.setVisible(hasResults);
-        produtoJList.setVisible(hasResults);
+            @Override
+            protected void done() {
+                try {
+                    DefaultListModel<String> listModel = get();
 
+                    // Atualiza o JList com o modelo retornado
+                    produtoJList.setModel(listModel);
+                    produtoJList.repaint();
+
+                    // Exibe ou oculta o JScrollPane com base nos resultados
+                    boolean hasResults = !pesquisa.isEmpty() && !listModel.isEmpty();
+                    jScrollPane2.setVisible(hasResults);
+                    produtoJList.setVisible(hasResults);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        worker.execute();
     }
 
     private void configurarTabela() {
         // Configuração das colunas da tabela
-        //tabela
-        DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) tableCaixa.getTableHeader().getDefaultRenderer();
-        renderer.setHorizontalAlignment(SwingConstants.CENTER);
-        // Largura dos campos
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) tableCaixa.getTableHeader().getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Centraliza o cabeçalho
+
+        // Configura o alinhamento do texto nas células
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Centraliza as células
+
+        // Aplica o renderizador para todas as colunas
         TableColumnModel columnModel = tableCaixa.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(200); // Coluna ID
-        columnModel.getColumn(1).setPreferredWidth(450); // Coluna Codigo
+        for (int i = 0; i < columnModel.getColumnCount(); i++) {
+            columnModel.getColumn(i).setCellRenderer(cellRenderer);
+        }
+
+        // Configura as larguras das colunas
+        columnModel.getColumn(0).setPreferredWidth(200);  // Coluna ID
+        columnModel.getColumn(1).setPreferredWidth(450);  // Coluna Código
         columnModel.getColumn(2).setPreferredWidth(1250); // Coluna Produto
-        columnModel.getColumn(3).setPreferredWidth(150); // Coluna Qtde
-        columnModel.getColumn(4).setPreferredWidth(500); // Coluna Valor Unitario
-        columnModel.getColumn(5).setPreferredWidth(500); // Coluna Valor Total
+        columnModel.getColumn(3).setPreferredWidth(150);  // Coluna Qtde
+        columnModel.getColumn(4).setPreferredWidth(500);  // Coluna Valor Unitário
+        columnModel.getColumn(5).setPreferredWidth(500);  // Coluna Valor Total
+
+        tableCaixa.setRowHeight(20);
+
+        // Defina o editor para a coluna de quantidade (coluna 3)
+        TableColumn quantidadeColuna = tableCaixa.getColumnModel().getColumn(3); // A coluna 3 é a de quantidade
+        quantidadeColuna.setCellEditor(new CustomTableCellEditor()); // Defina o editor personalizado
+
+        // Adiciona um listener para o modelo da tabela para atualizar os totais
+        DefaultTableModel model = (DefaultTableModel) tableCaixa.getModel();
+        model.addTableModelListener(e -> {
+            if (e.getType() == TableModelEvent.UPDATE) {
+                int row = e.getFirstRow();
+                int column = e.getColumn();
+
+                // Verifique se a coluna modificada foi a de quantidade
+                if (column == 3) {
+                    atualizarTotais(); // Atualiza os totais quando a quantidade é alterada
+                }
+            }
+        });
     }
 
     private void adicionarProdutoTabela() {
@@ -101,13 +164,19 @@ public class BalcaoView extends javax.swing.JFrame {
         ProdutoDTO produtoDTO = produto.obterProdutoPorNome(selectedItem);
 
         // Define os valores das colunas
-        int quantidade = 1; // Quantidade padrão
+        int quantidade = Integer.parseInt(txtQuantidade.getText()); // Quantidade padrão
         BigDecimal valorUnitario = produtoDTO.getPreco();
         BigDecimal valorTotal = valorUnitario.multiply(BigDecimal.valueOf(quantidade));
 
         // Adiciona o produto à tabela
         DefaultTableModel model = (DefaultTableModel) tableCaixa.getModel();
-        model.addRow(new Object[]{
+        valorUnitario = produtoDTO.getPreco() != null ? produtoDTO.getPreco() : BigDecimal.ZERO;
+        quantidade = txtQuantidade.getText() != null && !txtQuantidade.getText().isEmpty()
+                ? Integer.parseInt(txtQuantidade.getText())
+                : 0;
+        valorTotal = valorUnitario.multiply(BigDecimal.valueOf(quantidade));
+
+        model.insertRow(0, new Object[]{
             produtoDTO.getIdProduto(),
             produtoDTO.getCodigo_de_Barras(),
             produtoDTO.getNome_Produto(),
@@ -125,24 +194,75 @@ public class BalcaoView extends javax.swing.JFrame {
         int totalItens = 0;
 
         for (int i = 0; i < model.getRowCount(); i++) {
-            BigDecimal valorTotal = (BigDecimal) model.getValueAt(i, 5);
+            // Valida e converte o valor da coluna 5 para BigDecimal
+            Object valorTotalObj = model.getValueAt(i, 5);
+            BigDecimal valorTotal = (valorTotalObj instanceof BigDecimal && valorTotalObj != null)
+                    ? (BigDecimal) valorTotalObj
+                    : BigDecimal.ZERO;
+
             saldo = saldo.add(valorTotal);
 
-            int quantidade = (int) model.getValueAt(i, 3);
+            // Valida e converte o valor da coluna 3 para int
+            Object quantidadeObj = model.getValueAt(i, 3);
+            int quantidade = (quantidadeObj instanceof Integer && quantidadeObj != null)
+                    ? (int) quantidadeObj
+                    : 0;
             totalItens += quantidade;
+
         }
 
         // Atualiza os labels com os valores calculados
-        lblSaldo.setText("Saldo: " + saldo.toString());
-        lblItens.setText("Itens: " + totalItens);
-        lblIntegral.setText("Integral: " + saldo.toString());
+        lblSaldo.setText(DECIMAL_FORMAT.format(saldo));
+        lblItens.setText(String.valueOf(totalItens));
+        lblIntegral.setText(DECIMAL_FORMAT.format(saldo));
 
-        // Exemplo de cálculo de desconto
-        BigDecimal desconto = saldo.multiply(BigDecimal.valueOf(0.1)); // 10% de desconto, por exemplo
-        lblDesconto.setText("Desconto: " + desconto.toString());
+        BigDecimal desconto = saldo.multiply(BigDecimal.valueOf(0.1));
+        lblDesconto.setText(DECIMAL_FORMAT.format(desconto));
 
         BigDecimal total = saldo.subtract(desconto);
-        lblTotal.setText("Total: " + total.toString());
+        lblTotal.setText(DECIMAL_FORMAT.format(total));
+    }
+
+    private void configurarAtalhoDeletar() {
+        // Adiciona o KeyListener na tabela
+        tableCaixa.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // Verifica se CTRL + DEL foi pressionado
+                if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_DELETE) {
+                    deletarItemSelecionado();
+                }
+            }
+        });
+    }
+
+    private void deletarItemSelecionado() {
+        int linhaSelecionada = tableCaixa.getSelectedRow();
+
+        if (linhaSelecionada >= 0) {
+            // Confirmação opcional antes de deletar
+            int confirmacao = JOptionPane.showConfirmDialog(
+                    null,
+                    "Tem certeza de que deseja remover o item selecionado?",
+                    "Confirmar Remoção",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirmacao == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) tableCaixa.getModel();
+                model.removeRow(linhaSelecionada);
+
+                // Atualiza os totais após a remoção
+                atualizarTotais();
+            }
+        } else {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Nenhuma linha selecionada. Por favor, clique em um item antes de usar o atalho.",
+                    "Atenção",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -160,7 +280,7 @@ public class BalcaoView extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         F5_FinalizarVenda = new javax.swing.JLabel();
         F1_Comandos = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtQuantidade = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -339,11 +459,11 @@ public class BalcaoView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jFormattedTextField1.setBackground(new java.awt.Color(255, 255, 204));
-        jFormattedTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        jFormattedTextField1.setText("1");
-        jFormattedTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtQuantidade.setBackground(new java.awt.Color(255, 255, 204));
+        txtQuantidade.setForeground(new java.awt.Color(0, 0, 0));
+        txtQuantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtQuantidade.setText("1");
+        txtQuantidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -383,7 +503,7 @@ public class BalcaoView extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -972,7 +1092,7 @@ public class BalcaoView extends javax.swing.JFrame {
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -995,7 +1115,7 @@ public class BalcaoView extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addGap(2, 2, 2)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel7)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1003,9 +1123,9 @@ public class BalcaoView extends javax.swing.JFrame {
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelComandos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelComandos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1081,7 +1201,6 @@ public class BalcaoView extends javax.swing.JFrame {
     private javax.swing.JLabel F2_Menu;
     private javax.swing.JLabel F5_FinalizarVenda;
     private javax.swing.JButton jButton5;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1152,5 +1271,6 @@ public class BalcaoView extends javax.swing.JFrame {
     private javax.swing.JList<String> produtoJList;
     public javax.swing.JTable tableCaixa;
     private javax.swing.JTextField txtPesquisa;
+    private javax.swing.JFormattedTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }
