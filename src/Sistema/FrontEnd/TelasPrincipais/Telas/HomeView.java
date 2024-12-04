@@ -1,6 +1,7 @@
 package Sistema.FrontEnd.TelasPrincipais.Telas;
 
 import Sistema.BackEnd.TelasInicio.Login.UsuarioLogado;
+import Sistema.BackEnd.TelasPrincipais.Crud.Cliente;
 import Sistema.FrontEnd.Componentes.ScrollBarCustom;
 import Sistema.FrontEnd.TelasInicio.LoginView;
 import java.awt.Color;
@@ -25,6 +26,7 @@ public class HomeView extends javax.swing.JFrame {
 
     private Timer timer;
     private UsuarioLogado usuarioLogado;
+    private Cliente cliente;
 
     public HomeView() {
 
@@ -773,6 +775,8 @@ public class HomeView extends javax.swing.JFrame {
                     "ID", "Nome", "Tipo", "CPF/CNPJ", "Endereço", "Contato", "Data Cadastro"
                 }
         ));
+        cliente = new Cliente();
+        cliente.carregarTabelaClientes(tabela1);
     }//GEN-LAST:event_cartao1MouseClicked
 
     private void cartao3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cartao3MouseClicked
@@ -972,7 +976,7 @@ public class HomeView extends javax.swing.JFrame {
             scrollPane.setHorizontalScrollBar(new ScrollBarCustom(JScrollBar.HORIZONTAL));
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            
+
             // Remove o JPanel do layout atual e adiciona o JScrollPane ao contêiner pai
             parent.remove(PainelMen);
             parent.add(scrollPane);
