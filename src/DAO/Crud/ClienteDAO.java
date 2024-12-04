@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDAO {
 
@@ -195,6 +197,56 @@ public class ClienteDAO {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public List<ClienteDTO> listarClientes() {
+        List<ClienteDTO> listaClientes = new ArrayList<>();
+        conn = new ConexaoDAO().conectaBD();
+
+        String sql = "SELECT "
+                + "c.idClientes AS ID, "
+                + "c.nome AS Nome, "
+                + "CASE "
+                + "    WHEN pf.cpf IS NOT NULL THEN 'Pessoa Física' "
+                + "    WHEN pj.cnpj IS NOT NULL THEN 'Pessoa Jurídica' "
+                + "END AS Tipo, "
+                + "COALESCE(pf.cpf, pj.cnpj) AS 'CPF/CNPJ', "
+                + "e.Bairro AS Endereco, "
+                + "CONCAT(co.Telefone, ' / ', co.Telefone2) AS Contato, "
+                + "c.Data_Cadastro AS 'Data Cadastro' "
+                + "FROM clientes c "
+                + "LEFT JOIN pessoafisica pf ON c.idClientes = pf.idCliente "
+                + "LEFT JOIN pessoajuridica pj ON c.idClientes = pj.idCliente "
+                + "LEFT JOIN endereco e ON c.idEndereco = e.idEndereco "
+                + "LEFT JOIN contato co ON c.idContato = co.idContato";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                ClienteDTO cliente = new ClienteDTO();
+                cliente.setIdClientes(rs.getInt("ID"));
+                cliente.setNome(rs.getString("Nome"));
+                cliente.setTipoCliente(rs.getString("Tipo"));
+                cliente.setCpfCnpj(rs.getString("CPF/CNPJ"));
+                cliente.setEndereco(rs.getString("Endereco"));
+                cliente.setContato(rs.getString("Contato"));
+                cliente.setDataCadastro(rs.getTimestamp("Data Cadastro"));
+
+                listaClientes.add(cliente);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar clientes: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return listaClientes;
     }
 
     public boolean verificarCadastroPJ(EmpresaDTO objcadastroempresadto) {
