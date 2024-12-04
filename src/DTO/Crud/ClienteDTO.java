@@ -2,10 +2,14 @@ package DTO.Crud;
 
 import java.util.Date;
 
-
 public class ClienteDTO {
+
     private int idClientes, idEndereco, idContato;
     private String nome;
+    private String tipoCliente;
+    private String cpfCnpj;
+    private String endereco;
+    private String contato;
     private Date dataCadastro, dataModificacao;
 
     /**
@@ -91,5 +95,61 @@ public class ClienteDTO {
     public void setDataModificacao(Date dataModificacao) {
         this.dataModificacao = dataModificacao;
     }
-    
+
+    /**
+     * @return the tipoCliente
+     */
+    public String getTipoCliente() {
+        return tipoCliente;
+    }
+
+    /**
+     * @param tipoCliente the tipoCliente to set
+     */
+    public void setTipoCliente(String tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    /**
+     * @return the cpfCnpj
+     */
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    /**
+     * @param cpfCnpj the cpfCnpj to set
+     */
+    public void setCpfCnpj(String cpfCnpj) {
+        this.cpfCnpj = cpfCnpj;
+    }
+
+    /**
+     * @return the endereco
+     */
+    public String getEndereco() {
+        return endereco;
+    }
+
+    /**
+     * @param endereco the endereco to set
+     */
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    /**
+     * @return the contato
+     */
+    public String getContato() {
+        return contato;
+    }
+
+    /**
+     * @param contato the contato to set
+     */
+    public void setContato(String contato) {
+        this.contato = contato;
+    }
+
 }
