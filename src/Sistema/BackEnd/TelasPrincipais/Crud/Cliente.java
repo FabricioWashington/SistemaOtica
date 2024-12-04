@@ -10,12 +10,11 @@ import DTO.Contato_Endereco.EnderecoDTO;
 import Sistema.BackEnd.Validacoes;
 import java.util.Calendar;
 import java.util.Date;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Cliente {
 
@@ -136,8 +135,8 @@ public class Cliente {
         cadastroEnderecoDTO.setCEP(cep);
         cadastroEnderecoDTO.setUF(uf);
         cadastroEnderecoDTO.setMunicipio(municipio);
-        
-         if (!validador.validarCNPJ(cnpj)) {
+
+        if (!validador.validarCNPJ(cnpj)) {
             JOptionPane.showMessageDialog(null, "CNPJ inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -192,6 +191,27 @@ public class Cliente {
         cadastroPessoaFisicaDTO.setIdCliente(idClientes);
 
         cadastroClienteDAO.cadastrarClientePF(cadastroClienteDTO, cadastroPessoaFisicaDTO, cadastroEnderecoDTO, cadastroContatoDTO);
+    }
+
+    public void carregarTabelaClientes(JTable tabela) {
+        ClienteDAO dao = new ClienteDAO();
+        List<ClienteDTO> lista = dao.listarClientes();
+
+        // Modelo para JTable
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setRowCount(0); // Limpa a tabela antes de carregar os dados
+
+        for (ClienteDTO cliente : lista) {
+            modelo.addRow(new Object[]{
+                cliente.getIdClientes(),
+                cliente.getNome(),
+                cliente.getTipoCliente(),
+                cliente.getCpfCnpj(),
+                cliente.getEndereco(),
+                cliente.getContato(),
+                cliente.getDataCadastro()
+            });
+        }
     }
 
     /**
