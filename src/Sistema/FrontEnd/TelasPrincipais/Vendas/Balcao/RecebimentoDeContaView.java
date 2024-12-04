@@ -1,17 +1,19 @@
 package Sistema.FrontEnd.TelasPrincipais.Vendas.Balcao;
 
 import Sistema.FrontEnd.TelasPrincipais.Vendas.VendaClienteView;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JCheckBox;
+import java.math.BigDecimal;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public class RecebimentoDeContaView extends JDialog {
+
+    private DefaultTableModel tabelaProdutos;
+    private BigDecimal totalVenda;
+   
 
     public RecebimentoDeContaView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
@@ -37,6 +39,15 @@ public class RecebimentoDeContaView extends JDialog {
 
     }
 
+    public RecebimentoDeContaView(DefaultTableModel tabelaProdutos, BigDecimal totalVenda) {
+        initComponents();
+        this.tabelaProdutos = tabelaProdutos;
+        this.totalVenda = totalVenda;
+        txtVlrRecebimento.setText(totalVenda.toString());
+        jLabel7.setText("Total R$ " + totalVenda.toString());
+        lblReceber.setText(totalVenda.toString());
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,10 +64,16 @@ public class RecebimentoDeContaView extends JDialog {
         t = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablePagamento = new javax.swing.JTable();
+        cbxCliente = new javax.swing.JComboBox<>();
+        cbxFuncionario = new javax.swing.JComboBox<>();
+        txtCpf = new javax.swing.JFormattedTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblReceber = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -66,7 +83,7 @@ public class RecebimentoDeContaView extends JDialog {
         F10_Gravar = new javax.swing.JLabel();
         F11_Cancelar = new javax.swing.JLabel();
         F12_Sair = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtVlrRecebimento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("WASHINGTON TECHNOLOGY - SISTEMA ÓTICA - VERSION 1.01.1");
@@ -157,7 +174,7 @@ public class RecebimentoDeContaView extends JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -205,21 +222,74 @@ public class RecebimentoDeContaView extends JDialog {
         tablePagamento.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablePagamento);
 
+        cbxCliente.setBackground(new java.awt.Color(255, 255, 255));
+        cbxCliente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cbxCliente.setForeground(new java.awt.Color(0, 0, 0));
+        cbxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+
+        cbxFuncionario.setBackground(new java.awt.Color(255, 255, 255));
+        cbxFuncionario.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cbxFuncionario.setForeground(new java.awt.Color(0, 0, 0));
+        cbxFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+
+        txtCpf.setBackground(new java.awt.Color(255, 255, 255));
+        txtCpf.setForeground(new java.awt.Color(0, 0, 0));
+        try {
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtCpf.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Cliente");
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("CPF");
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Vendedor");
+
         javax.swing.GroupLayout tLayout = new javax.swing.GroupLayout(t);
         t.setLayout(tLayout);
         tLayout.setHorizontalGroup(
             tLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(tLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbxCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbxFuncionario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(tLayout.createSequentialGroup()
+                        .addGroup(tLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 17, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         tLayout.setVerticalGroup(
             tLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCpf)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbxFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
@@ -234,9 +304,9 @@ public class RecebimentoDeContaView extends JDialog {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("0,00");
 
-        jLabel9.setFont(new java.awt.Font("Book Antiqua", 0, 36)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("0,00");
+        lblReceber.setFont(new java.awt.Font("Book Antiqua", 0, 36)); // NOI18N
+        lblReceber.setForeground(new java.awt.Color(0, 0, 0));
+        lblReceber.setText("0,00");
 
         jPanel5.setBackground(new java.awt.Color(255, 51, 51));
         jPanel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -330,15 +400,15 @@ public class RecebimentoDeContaView extends JDialog {
             }
         });
 
-        jTextField2.setEditable(false);
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField2.setText("0,00");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtVlrRecebimento.setEditable(false);
+        txtVlrRecebimento.setBackground(new java.awt.Color(255, 255, 255));
+        txtVlrRecebimento.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtVlrRecebimento.setForeground(new java.awt.Color(0, 0, 0));
+        txtVlrRecebimento.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtVlrRecebimento.setText("0,00");
+        txtVlrRecebimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtVlrRecebimentoActionPerformed(evt);
             }
         });
 
@@ -356,7 +426,7 @@ public class RecebimentoDeContaView extends JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel9))
+                                .addComponent(lblReceber))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -369,7 +439,7 @@ public class RecebimentoDeContaView extends JDialog {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(0, 38, Short.MAX_VALUE))
-                                    .addComponent(jTextField2)))
+                                    .addComponent(txtVlrRecebimento)))
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -398,7 +468,7 @@ public class RecebimentoDeContaView extends JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(t, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(t, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -406,7 +476,7 @@ public class RecebimentoDeContaView extends JDialog {
                         .addGap(1, 1, 1)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtVlrRecebimento, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
@@ -416,7 +486,7 @@ public class RecebimentoDeContaView extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblReceber, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -440,9 +510,9 @@ public class RecebimentoDeContaView extends JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtVlrRecebimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVlrRecebimentoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtVlrRecebimentoActionPerformed
 
     private void F7_ValoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F7_ValoresMouseClicked
         // TODO add your handling code here:
@@ -527,7 +597,11 @@ public class RecebimentoDeContaView extends JDialog {
     private javax.swing.JLabel F7_Valores;
     private javax.swing.JLabel F8_Desconto;
     private javax.swing.JLabel F9_CancelarItem;
+    private javax.swing.JComboBox<String> cbxCliente;
+    private javax.swing.JComboBox<String> cbxFuncionario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -543,9 +617,11 @@ public class RecebimentoDeContaView extends JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel lblReceber;
     private javax.swing.JPanel t;
     private javax.swing.JTable tablePagamento;
     private javax.swing.JTable tableResumo;
+    private javax.swing.JFormattedTextField txtCpf;
+    private javax.swing.JTextField txtVlrRecebimento;
     // End of variables declaration//GEN-END:variables
 }

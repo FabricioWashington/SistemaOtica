@@ -9,12 +9,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
@@ -75,6 +71,18 @@ public class BalcaoView extends javax.swing.JFrame {
             }
         });
 
+    }
+
+    private void finalizarVenda() {
+        // Obtém o modelo da tableCaixa
+        DefaultTableModel model = (DefaultTableModel) tableCaixa.getModel();
+
+        // Calcula o total da venda
+        BigDecimal totalVenda = new BigDecimal(lblTotal.getText().replace("R$", "").replace(".", "").replace(",", ".").trim());
+
+        // Passa os dados da tabela para a próxima tela
+        RecebimentoDeContaView finalizarVendaView = new RecebimentoDeContaView(model, totalVenda);
+        finalizarVendaView.setVisible(true);
     }
 
     private void atualizarListaProdutos() {
@@ -1160,8 +1168,9 @@ public class BalcaoView extends javax.swing.JFrame {
 
     private void F5_FinalizarVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F5_FinalizarVendaMouseClicked
         // chamar tela finalizar venda
-        RecebimentoDeContaView objrecebimentoview = new RecebimentoDeContaView(this, "Finalizar Venda", true);
-        objrecebimentoview.setVisible(true);
+//        RecebimentoDeContaView objrecebimentoview = new RecebimentoDeContaView(this, "Finalizar Venda", true);
+//        objrecebimentoview.setVisible(true);
+        finalizarVenda();
 
     }//GEN-LAST:event_F5_FinalizarVendaMouseClicked
 
