@@ -53,8 +53,8 @@ public class Config {
         System.out.println("Iniciando o carregamento das configurações...");
         System.out.println("Configurações carregadas: " + configuracoes.size());
         for (ConfiguracaoDTO config : configuracoes) {
-            System.out.println("Certificado: Tirei para gravar o video" /*+ config.getCertificado()*/);
-            System.out.println("Senha: Tirei para gravar o video " /*+ config.getSenha()*/);
+            System.out.println("Certificado: " + config.getCertificado());
+            System.out.println("Senha: " + config.getSenha());
             System.out.println("Estado: " + config.getEstado());
             System.out.println("Ambiente: " + config.getAmbiente());
         }
