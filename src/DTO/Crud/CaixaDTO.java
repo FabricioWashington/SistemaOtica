@@ -10,6 +10,7 @@ public class CaixaDTO {
     private BigDecimal saldoInicial;
     private BigDecimal saldoFinal;
     private String status;
+    private String operador;
 
     /**
      * @return the id
@@ -93,5 +94,19 @@ public class CaixaDTO {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the operador
+     */
+    public String getOperador() {
+        return operador;
+    }
+
+    /**
+     * @param operador the operador to set
+     */
+    public void setOperador(String operador) {
+        this.operador = operador;
     }
 }
