@@ -15,12 +15,13 @@ public class Caixa {
     private CaixaDAO caixaDAO = new CaixaDAO();
 
     // ========================= CRUD PARA CAIXA =========================
-
+    
     // Abrir Caixa
-    public void abrirCaixa(BigDecimal saldoInicial) throws SQLException {
+    public void abrirCaixa(BigDecimal saldoInicial, String operador) throws SQLException {
         CaixaDTO caixa = new CaixaDTO();
         caixa.setDataAbertura(LocalDateTime.now());
         caixa.setSaldoInicial(saldoInicial);
+        caixa.setOperador(operador); // Define o operador
 
         caixaDAO.abrirCaixa(caixa);
     }
@@ -60,7 +61,6 @@ public class Caixa {
     }
 
     // ========================= CRUD PARA MOVIMENTAÇÕES =========================
-
     // Registrar Movimentação
     public void registrarMovimentacao(MovimentacaoCaixaDTO movimentacao) throws SQLException {
         caixaDAO.registrarMovimentacao(movimentacao);
@@ -82,14 +82,13 @@ public class Caixa {
     }
 
     // ========================= FUNCIONALIDADES AVANÇADAS =========================
-
     // Registrar Venda Automaticamente no Caixa
-     public void registrarVenda(VendaDTO venda) throws SQLException {
+    public void registrarVenda(VendaDTO venda) throws SQLException {
         CaixaDTO caixaAberto = caixaDAO.listarCaixas().stream()
                 .filter(c -> "aberto".equals(c.getStatus()))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("Não há caixa aberto."));
-        
+
         // Registrar venda como movimentação de entrada
         MovimentacaoCaixaDTO movimentacao = new MovimentacaoCaixaDTO();
         movimentacao.setIdCaixa(caixaAberto.getId());
@@ -144,5 +143,3 @@ public class Caixa {
         return relatorio;
     }
 }
-
-
