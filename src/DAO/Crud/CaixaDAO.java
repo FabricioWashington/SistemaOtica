@@ -3,17 +3,13 @@ package DAO.Crud;
 import DAO.Conexao.ConexaoDAO;
 import DTO.Crud.CaixaDTO;
 import DTO.Crud.MovimentacaoCaixaDTO;
+import DTO.Crud.RelatorioCaixaDTO;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -242,6 +238,73 @@ public class CaixaDAO {
         }
     }
 
+    // ========================= RELATÓRIO DO CAIXA =========================
+
+    public RelatorioCaixaDTO gerarRelatorio(int idCaixa) throws SQLException {
+        conn = new ConexaoDAO().conectaBD();
+        RelatorioCaixaDTO relatorio = new RelatorioCaixaDTO();
+
+        // Consulta o caixa
+        String sqlCaixa = "SELECT * FROM caixa WHERE id_caixa = ?";
+        PreparedStatement stmtCaixa = conn.prepareStatement(sqlCaixa);
+        stmtCaixa.setInt(1, idCaixa);
+        ResultSet rsCaixa = stmtCaixa.executeQuery();
+
+        if (rsCaixa.next()) {
+            CaixaDTO caixa = new CaixaDTO();
+            caixa.setId(rsCaixa.getInt("id_caixa"));
+            caixa.setDataAbertura(rsCaixa.getTimestamp("data_abertura").toLocalDateTime());
+            caixa.setDataFechamento(rsCaixa.getTimestamp("data_fechamento") != null
+                    ? rsCaixa.getTimestamp("data_fechamento").toLocalDateTime()
+                    : null);
+            caixa.setSaldoInicial(rsCaixa.getBigDecimal("saldo_inicial"));
+            caixa.setSaldoFinal(rsCaixa.getBigDecimal("saldo_final"));
+            caixa.setStatus(rsCaixa.getString("status"));
+            relatorio.setCaixa(caixa);
+        }
+
+        // Consulta as movimentações
+        String sqlMovimentacoes = "SELECT * FROM movimentacoes_caixa WHERE id_caixa = ?";
+        PreparedStatement stmtMov = conn.prepareStatement(sqlMovimentacoes);
+        stmtMov.setInt(1, idCaixa);
+        ResultSet rsMov = stmtMov.executeQuery();
+
+        List<MovimentacaoCaixaDTO> movimentacoes = new ArrayList<>();
+        BigDecimal totalEntradas = BigDecimal.ZERO;
+        BigDecimal totalSaidas = BigDecimal.ZERO;
+
+        while (rsMov.next()) {
+            MovimentacaoCaixaDTO mov = new MovimentacaoCaixaDTO();
+            mov.setId(rsMov.getInt("id_movimentacao"));
+            mov.setIdCaixa(rsMov.getInt("id_caixa"));
+            mov.setDataMovimentacao(rsMov.getTimestamp("data_movimentacao").toLocalDateTime());
+            mov.setTipo(rsMov.getString("tipo"));
+            mov.setDescricao(rsMov.getString("descricao"));
+            mov.setValor(rsMov.getBigDecimal("valor"));
+
+            if ("entrada".equals(mov.getTipo())) {
+                totalEntradas = totalEntradas.add(mov.getValor());
+            } else if ("saida".equals(mov.getTipo())) {
+                totalSaidas = totalSaidas.add(mov.getValor());
+            }
+
+            movimentacoes.add(mov);
+        }
+
+        relatorio.setMovimentacoes(movimentacoes);
+        relatorio.setTotalEntradas(totalEntradas);
+        relatorio.setTotalSaidas(totalSaidas);
+
+        BigDecimal saldoFinal = relatorio.getCaixa().getSaldoInicial()
+                .add(totalEntradas)
+                .subtract(totalSaidas);
+
+        relatorio.setSaldoFinal(saldoFinal);
+
+        conn.close();
+        return relatorio;
+    }
+
     // ========================= MÉTODOS AUXILIARES =========================
 
     private void fecharConexao() {
@@ -254,4 +317,3 @@ public class CaixaDAO {
         }
     }
 }
-
