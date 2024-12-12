@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 
 public class MovimentacaoCaixaDTO {
     private int id;
+    private int idVenda;
     private int idCaixa;
     private LocalDateTime dataMovimentacao;
     private String tipo; // 'entrada' ou 'saida'
-    private String descricao;
     private BigDecimal valor;
 
     /**
@@ -67,21 +67,7 @@ public class MovimentacaoCaixaDTO {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-
-    /**
-     * @return the descricao
-     */
-    public String getDescricao() {
-        return descricao;
-    }
-
-    /**
-     * @param descricao the descricao to set
-     */
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
+   
     /**
      * @return the valor
      */
@@ -94,5 +80,19 @@ public class MovimentacaoCaixaDTO {
      */
     public void setValor(BigDecimal valor) {
         this.valor = valor;
+    }
+
+    /**
+     * @return the idVenda
+     */
+    public int getIdVenda() {
+        return idVenda;
+    }
+
+    /**
+     * @param idVenda the idVenda to set
+     */
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
     }
 }
