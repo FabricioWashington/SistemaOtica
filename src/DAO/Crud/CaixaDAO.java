@@ -21,7 +21,6 @@ public class CaixaDAO {
     private ResultSet rs;
 
     // ========================= CRUD PARA CAIXA =========================
-
     // ABRIR CAIXA
     public void abrirCaixa(CaixaDTO caixa) {
         conn = new ConexaoDAO().conectaBD();
@@ -127,18 +126,17 @@ public class CaixaDAO {
     }
 
     // ========================= CRUD PARA MOVIMENTAÇÕES =========================
-
     // REGISTRAR MOVIMENTAÇÃO
     public void registrarMovimentacao(MovimentacaoCaixaDTO movimentacao) {
         conn = new ConexaoDAO().conectaBD();
 
         try {
-            String sql = "INSERT INTO movimentacoes_caixa (id_caixa, data_movimentacao, tipo, descricao, valor) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO movimentacoes_caixa (id_caixa, data_movimentacao, tipo, valor, idVenda) VALUES (?, ?, ?, ?, ?)";
             pstm = conn.prepareStatement(sql);
             pstm.setInt(1, movimentacao.getIdCaixa());
             pstm.setTimestamp(2, Timestamp.valueOf(movimentacao.getDataMovimentacao()));
             pstm.setString(3, movimentacao.getTipo());
-            pstm.setString(4, movimentacao.getDescricao());
+            pstm.setInt(4, movimentacao.getIdVenda());
             pstm.setBigDecimal(5, movimentacao.getValor());
             pstm.executeUpdate();
             conn.commit();
@@ -173,8 +171,8 @@ public class CaixaDAO {
                 movimentacao.setIdCaixa(rs.getInt("id_caixa"));
                 movimentacao.setDataMovimentacao(rs.getTimestamp("data_movimentacao").toLocalDateTime());
                 movimentacao.setTipo(rs.getString("tipo"));
-                movimentacao.setDescricao(rs.getString("descricao"));
                 movimentacao.setValor(rs.getBigDecimal("valor"));
+                movimentacao.setIdVenda(rs.getInt("idVenda"));
                 movimentacoes.add(movimentacao);
             }
         } catch (SQLException e) {
@@ -191,11 +189,11 @@ public class CaixaDAO {
         conn = new ConexaoDAO().conectaBD();
 
         try {
-            String sql = "UPDATE movimentacoes_caixa SET data_movimentacao = ?, tipo = ?, descricao = ?, valor = ? WHERE id_movimentacao = ?";
+            String sql = "UPDATE movimentacoes_caixa SET data_movimentacao = ?, tipo = ?, valor = ?, idVenda = ? WHERE id_movimentacao = ?";
             pstm = conn.prepareStatement(sql);
             pstm.setTimestamp(1, Timestamp.valueOf(movimentacao.getDataMovimentacao()));
             pstm.setString(2, movimentacao.getTipo());
-            pstm.setString(3, movimentacao.getDescricao());
+            pstm.setInt(3, movimentacao.getIdVenda());
             pstm.setBigDecimal(4, movimentacao.getValor());
             pstm.setInt(5, movimentacao.getId());
             pstm.executeUpdate();
@@ -239,7 +237,6 @@ public class CaixaDAO {
     }
 
     // ========================= RELATÓRIO DO CAIXA =========================
-
     public RelatorioCaixaDTO gerarRelatorio(int idCaixa) throws SQLException {
         conn = new ConexaoDAO().conectaBD();
         RelatorioCaixaDTO relatorio = new RelatorioCaixaDTO();
@@ -279,7 +276,7 @@ public class CaixaDAO {
             mov.setIdCaixa(rsMov.getInt("id_caixa"));
             mov.setDataMovimentacao(rsMov.getTimestamp("data_movimentacao").toLocalDateTime());
             mov.setTipo(rsMov.getString("tipo"));
-            mov.setDescricao(rsMov.getString("descricao"));
+            mov.setIdVenda(rsMov.getInt("idVenda")); // Substituído 'descricao' por 'idVenda'
             mov.setValor(rsMov.getBigDecimal("valor"));
 
             if ("entrada".equals(mov.getTipo())) {
@@ -306,12 +303,17 @@ public class CaixaDAO {
     }
 
     // ========================= MÉTODOS AUXILIARES =========================
-
     private void fecharConexao() {
         try {
-            if (rs != null) rs.close();
-            if (pstm != null) pstm.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
