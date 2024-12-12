@@ -7,7 +7,7 @@ import java.util.List;
 
 public class VendaDTO {
 
-    private int idVenda, idFuncionario, idCliente, idPagamento;
+    private int idVenda, idFuncionario, idCliente, idPagamento, idCaixa;
     private Date data, dataVencimento;
     private BigDecimal vlrSugerido, vlrFinal, desconto, vlrRecebido, vlrRestante, totalVenda;
     private String parcela, status;
@@ -233,5 +233,19 @@ public class VendaDTO {
 
     public void removeItemVenda(VendaItemDTO item) {
         this.itensVenda.remove(item);
+    }
+
+    /**
+     * @return the idCaixa
+     */
+    public int getIdCaixa() {
+        return idCaixa;
+    }
+
+    /**
+     * @param idCaixa the idCaixa to set
+     */
+    public void setIdCaixa(int idCaixa) {
+        this.idCaixa = idCaixa;
     }
 }
