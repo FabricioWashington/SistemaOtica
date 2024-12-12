@@ -26,10 +26,11 @@ public class CaixaDAO {
         conn = new ConexaoDAO().conectaBD();
 
         try {
-            String sql = "INSERT INTO caixa (data_abertura, saldo_inicial, status) VALUES (?, ?, 'aberto')";
+            String sql = "INSERT INTO caixa (data_abertura, saldo_inicial, operador, status) VALUES (?, ?, ?, 'aberto')";
             pstm = conn.prepareStatement(sql);
             pstm.setTimestamp(1, Timestamp.valueOf(caixa.getDataAbertura()));
             pstm.setBigDecimal(2, caixa.getSaldoInicial());
+            pstm.setString(3, caixa.getOperador()); // Define o operador
             pstm.executeUpdate();
             conn.commit();
 
@@ -114,6 +115,7 @@ public class CaixaDAO {
                 caixa.setSaldoInicial(rs.getBigDecimal("saldo_inicial"));
                 caixa.setSaldoFinal(rs.getBigDecimal("saldo_final"));
                 caixa.setStatus(rs.getString("status"));
+                caixa.setOperador(rs.getString("operador")); // Define o operador
                 caixas.add(caixa);
             }
         } catch (SQLException e) {
