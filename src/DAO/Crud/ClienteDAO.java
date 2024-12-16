@@ -307,4 +307,230 @@ public class ClienteDAO {
         return empresaCadastrada;
     }
 
+    
+    // Método para atualizar informações do cliente
+    public void atualizarCliente(ClienteDTO clienteDTO) {
+        conn = new ConexaoDAO().conectaBD();
+
+        try {
+            conn.setAutoCommit(false); // Desliga o modo de commit automático
+
+            String sqlAtualizar = "UPDATE clientes SET nome = ?, Data_Modificacao = ? WHERE idClientes = ?";
+            PreparedStatement pstmAtualizar = conn.prepareStatement(sqlAtualizar);
+
+            pstmAtualizar.setString(1, clienteDTO.getNome());
+            pstmAtualizar.setTimestamp(2, new java.sql.Timestamp(clienteDTO.getDataModificacao().getTime()));
+            pstmAtualizar.setInt(3, clienteDTO.getIdClientes());
+
+            int rowsUpdated = pstmAtualizar.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Cliente atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                conn.commit(); // Confirma a transação
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum cliente encontrado para atualizar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar cliente: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    // Método para excluir um cliente
+    public void excluirCliente(int idCliente) {
+        conn = new ConexaoDAO().conectaBD();
+
+        try {
+            conn.setAutoCommit(false);
+
+            // SQL para excluir cliente
+            String sqlExcluirCliente = "DELETE FROM clientes WHERE idClientes = ?";
+            PreparedStatement pstmExcluir = conn.prepareStatement(sqlExcluirCliente);
+            pstmExcluir.setInt(1, idCliente);
+
+            int rowsDeleted = pstmExcluir.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                conn.commit();
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum cliente encontrado para exclusão.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir cliente: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    
+ 
+    // Método para atualizar Pessoa Jurídica
+    public void atualizarClientePJ(PessoaJuridicaDTO pessoaJuridicaDTO) {
+        conn = new ConexaoDAO().conectaBD();
+
+        try {
+            conn.setAutoCommit(false);
+
+            String sqlAtualizarPJ = "UPDATE pessoajuridica SET nome_fantasia = ?, cnpj = ?, inscricao_estadual = ?, inscricao_municipal = ? WHERE idCliente = ?";
+            pstm = conn.prepareStatement(sqlAtualizarPJ);
+
+            pstm.setString(1, pessoaJuridicaDTO.getNomeFantasia());
+            pstm.setString(2, pessoaJuridicaDTO.getCnpj());
+            pstm.setString(3, pessoaJuridicaDTO.getInscricaoEstadual());
+            pstm.setString(4, pessoaJuridicaDTO.getInscricaoMunicipal());
+            pstm.setInt(5, pessoaJuridicaDTO.getIdCliente());
+
+            int rowsUpdated = pstm.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Pessoa Jurídica atualizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                conn.commit();
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhuma Pessoa Jurídica encontrada para atualização.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar Pessoa Jurídica: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            fecharConexao();
+        }
+    }
+
+    // Método para atualizar Pessoa Física
+    public void atualizarClientePF(PessoaFisicaDTO pessoaFisicaDTO) {
+        conn = new ConexaoDAO().conectaBD();
+
+        try {
+            conn.setAutoCommit(false);
+
+            String sqlAtualizarPF = "UPDATE pessoafisica SET cpf = ? WHERE idCliente = ?";
+            pstm = conn.prepareStatement(sqlAtualizarPF);
+
+            pstm.setString(1, pessoaFisicaDTO.getCpf());
+            pstm.setInt(2, pessoaFisicaDTO.getIdCliente());
+
+            int rowsUpdated = pstm.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Pessoa Física atualizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                conn.commit();
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhuma Pessoa Física encontrada para atualização.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar Pessoa Física: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            fecharConexao();
+        }
+    }
+
+    // Método para excluir Pessoa Jurídica
+    public void excluirClientePJ(int idCliente) {
+        conn = new ConexaoDAO().conectaBD();
+
+        try {
+            conn.setAutoCommit(false);
+
+            String sqlExcluirPJ = "DELETE FROM pessoajuridica WHERE idCliente = ?";
+            pstm = conn.prepareStatement(sqlExcluirPJ);
+            pstm.setInt(1, idCliente);
+
+            int rowsDeleted = pstm.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Pessoa Jurídica excluída com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                conn.commit();
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhuma Pessoa Jurídica encontrada para exclusão.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Pessoa Jurídica: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            fecharConexao();
+        }
+    }
+
+    // Método para excluir Pessoa Física
+    public void excluirClientePF(int idCliente) {
+        conn = new ConexaoDAO().conectaBD();
+
+        try {
+            conn.setAutoCommit(false);
+
+            String sqlExcluirPF = "DELETE FROM pessoafisica WHERE idCliente = ?";
+            pstm = conn.prepareStatement(sqlExcluirPF);
+            pstm.setInt(1, idCliente);
+
+            int rowsDeleted = pstm.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Pessoa Física excluída com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                conn.commit();
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhuma Pessoa Física encontrada para exclusão.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Pessoa Física: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            fecharConexao();
+        }
+    }
+
+    // Método auxiliar para fechar conexão
+    private void fecharConexao() {
+        try {
+            conn.setAutoCommit(true);
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }
+
+
