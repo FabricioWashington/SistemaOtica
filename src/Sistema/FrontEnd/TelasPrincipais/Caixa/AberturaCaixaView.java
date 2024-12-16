@@ -1,5 +1,6 @@
 package Sistema.FrontEnd.TelasPrincipais.Caixa;
 
+import Sistema.BackEnd.TelasInicio.Login.UsuarioLogado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
@@ -9,11 +10,19 @@ import javax.swing.JPasswordField;
 
 public class AberturaCaixaView extends JDialog {
 
+    private UsuarioLogado usuarioLogado;
+    private String nomeUsuario;
+    private String tipoAcesso;
 
     public AberturaCaixaView(JFrame parent, String title, boolean modal) {
         super(parent, title, modal);
         initComponents();
-
+        usuarioLogado = new UsuarioLogado(nomeUsuario, tipoAcesso);
+        this.usuarioLogado = usuarioLogado;
+        nomeUsuario = usuarioLogado.getNomeUsuario();
+        tipoAcesso = usuarioLogado.getTipoAcesso();
+        txtNomeOperador.setText(nomeUsuario);
+        System.out.println("NOME: " + nomeUsuario);
     }
 
     @SuppressWarnings("unchecked")
@@ -278,7 +287,6 @@ public class AberturaCaixaView extends JDialog {
     }
 
 
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar_Login;
     private javax.swing.JButton btnExit;
