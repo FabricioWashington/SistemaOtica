@@ -31,8 +31,14 @@ public class EmpresaDAO {
 
     public void cadastrarEmpresa(EnderecoDTO objenderecodto, EmpresaDTO objcadastrodto, ContatoDTO objcontatodto, ConfiguracaoDTO configuracaoDTO) {
         conn = new ConexaoDAO().conectaBD();
-
+       
         try {
+            
+               if (verificarCadastroUnico()) {
+            JOptionPane.showMessageDialog(null, "Já existe uma empresa cadastrada no sistema. Exclua a empresa existente antes de cadastrar uma nova.", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+            
             conn.setAutoCommit(false); // Desliga o modo de commit automático
 
             // Registrar o contato
@@ -150,34 +156,20 @@ public class EmpresaDAO {
         }
     }
 
-    public boolean verificarCadastro(EmpresaDTO objcadastroempresadto) {
-        conn = new ConexaoDAO().conectaBD();
-        boolean empresaCadastrada = false;
-
-        try {
-            String sqlVerificarEmpresa = "SELECT COUNT(*) FROM cadastro_empresa WHERE Cnpj = ?";
-            PreparedStatement pstmVerificarEmpresa = conn.prepareStatement(sqlVerificarEmpresa);
-            pstmVerificarEmpresa.setString(1, objcadastroempresadto.getCnpj());
-            ResultSet rsVerificarEmpresa = pstmVerificarEmpresa.executeQuery();
-            rsVerificarEmpresa.next();
-            int countAdmin = rsVerificarEmpresa.getInt(1);
-
-            if (countAdmin >= 1) {
-                empresaCadastrada = true;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                conn.close(); // Fecha a conexão
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+    private boolean verificarCadastroUnico() {
+    boolean existeEmpresa = false;
+    try {
+        String sqlVerificar = "SELECT COUNT(*) FROM empresa";
+        PreparedStatement pstmVerificar = conn.prepareStatement(sqlVerificar);
+        ResultSet rs = pstmVerificar.executeQuery();
+        if (rs.next() && rs.getInt(1) > 0) {
+            existeEmpresa = true;
         }
-
-        return empresaCadastrada;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return existeEmpresa;
+}
    
     // Método para editar uma empresa
     public void editarEmpresa(EmpresaDTO empresaDTO) {
