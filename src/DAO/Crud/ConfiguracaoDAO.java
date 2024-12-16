@@ -20,6 +20,8 @@ public class ConfiguracaoDAO {
     private PreparedStatement pstmSenha;
     private PreparedStatement pstmEstado;
     private PreparedStatement pstmAmbiente;
+    private PreparedStatement pstm;
+    private ResultSet rs;
 
     public ConfiguracaoDAO() {
 
@@ -153,6 +155,76 @@ public class ConfiguracaoDAO {
             stmt.setString(1, valor);
             stmt.setString(2, chave);
             stmt.executeUpdate();
+        }
+    }
+
+    // Método para listar todas as configurações
+    public List<ConfiguracaoDTO> listarConfiguracoes() {
+        List<ConfiguracaoDTO> listaConfiguracoes = new ArrayList<>();
+        conn = new ConexaoDAO().conectaBD();
+
+        String sql = "SELECT id_configuracao, chave, valor, descricao, idEmpresa FROM configuracoesnfe";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                ConfiguracaoDTO configuracao = new ConfiguracaoDTO();
+                configuracao.setIdConfiguracao(rs.getInt("id_configuracao"));
+                configuracao.setChaveCaminhoCertificado(rs.getString("chave"));
+                configuracao.setValor(rs.getString("valor"));
+                configuracao.setDescricao(rs.getString("descricao"));
+                configuracao.setIdEmpresa(rs.getInt("idEmpresa"));
+
+                listaConfiguracoes.add(configuracao);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar configurações: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return listaConfiguracoes;
+    }
+
+    // Método para excluir uma configuração
+    public void excluirConfiguracao(int idConfiguracao) {
+        conn = new ConexaoDAO().conectaBD();
+
+        String sql = "DELETE FROM configuracoesnfe WHERE id_configuracao = ?";
+
+        try {
+            conn.setAutoCommit(false);
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, idConfiguracao);
+
+            int rowsDeleted = pstm.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Configuração excluída com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                conn.commit();
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhuma configuração encontrada com o ID informado.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir configuração: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+                conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
