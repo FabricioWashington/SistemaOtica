@@ -9,7 +9,8 @@ public class ConfiguracaoDTO {
     private String certificado, senha, estado, ambiente;
     //atributo descricao da tabela
     private static String descricaoCertificado = "Caminho para o certificado digital", descricaoSenha = "Senha do certificado digital", descricaoEstado = "Estado de emissão", descricacaoAmbiente = "Ambiente de emissão (PRODUCAO ou HOMOLOGACAO)";
-
+    
+    private String valor, descricao;
     /**
      * @return the idConfiguracao
      */
@@ -204,6 +205,34 @@ public class ConfiguracaoDTO {
      */
     public void setIdEmpresa(int idEmpresa) {
         this.idEmpresa = idEmpresa;
+    }
+
+    /**
+     * @return the valor
+     */
+    public String getValor() {
+        return valor;
+    }
+
+    /**
+     * @param valor the valor to set
+     */
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
+    /**
+     * @return the descricao
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * @param descricao the descricao to set
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
   
