@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 public class UsuariosDTO {
-    private int idContato, idDDD; 
+    private int idContato, idDDD, idUsuario; 
     private String CPF;
     private String Nome_Completo;
     private Date Data_Cadastro, Data_Modificacao;
@@ -91,5 +91,19 @@ public class UsuariosDTO {
      */
     public void setData_Modificacao(Date Data_Modificacao) {
         this.Data_Modificacao = Data_Modificacao;
+    }
+
+    /**
+     * @return the idUsuario
+     */
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    /**
+     * @param idUsuario the idUsuario to set
+     */
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }
