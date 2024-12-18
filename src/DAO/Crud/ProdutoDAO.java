@@ -19,6 +19,7 @@ public class ProdutoDAO {
     private ArrayList<ProdutoDTO> listaProduto = new ArrayList<ProdutoDTO>();
     private ResultSet rsConsulta;
     private ProdutoDTO produtoDTO;
+    private PreparedStatement pstm;
 
     public void cadastrarProduto(ProdutoDTO produtoDTO) {
         conn = new ConexaoDAO().conectaBD();
@@ -101,4 +102,100 @@ public class ProdutoDAO {
         return listaProduto;
     }
 
+    public ArrayList<ProdutoDTO> listarProdutos() {
+        conn = new ConexaoDAO().conectaBD();
+        ArrayList<ProdutoDTO> listaProduto = new ArrayList<>();
+        String sqlListar = "SELECT * FROM produto";
+
+        try {
+            pstm = conn.prepareStatement(sqlListar);
+            rsConsulta = pstm.executeQuery();
+
+            while (rsConsulta.next()) {
+                ProdutoDTO produto = new ProdutoDTO();
+                produto.setIdProduto(rsConsulta.getInt("idProduto"));
+                produto.setNome_Produto(rsConsulta.getString("Nome_Produto"));
+                produto.setIdUnidade(rsConsulta.getInt("idUnidade"));
+                produto.setIdCategoria(rsConsulta.getInt("idCategoria"));
+                produto.setPreco(rsConsulta.getBigDecimal("Preco"));
+                produto.setData(rsConsulta.getDate("data"));
+                produto.setImagem(rsConsulta.getString("Imagem"));
+                produto.setCodigo_de_Barras(rsConsulta.getString("Codigo_de_Barras"));
+                produto.setObservacoes(rsConsulta.getString("Observacoes"));
+
+                listaProduto.add(produto);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar produtos: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listaProduto;
+    }
+
+    public void atualizarProduto(ProdutoDTO produtoDTO) {
+        conn = new ConexaoDAO().conectaBD();
+        String sqlAtualizar = "UPDATE produto SET Nome_Produto = ?, idUnidade = ?, idCategoria = ?, Preco = ?, data = ?, Imagem = ?, Codigo_de_Barras = ?, Observacoes = ? WHERE idProduto = ?";
+
+        try {
+            pstm = conn.prepareStatement(sqlAtualizar);
+            pstm.setString(1, produtoDTO.getNome_Produto());
+            pstm.setInt(2, produtoDTO.getIdUnidade());
+            pstm.setInt(3, produtoDTO.getIdCategoria());
+            pstm.setBigDecimal(4, produtoDTO.getPreco());
+            if (produtoDTO.getData() != null) {
+                pstm.setDate(5, new java.sql.Date(produtoDTO.getData().getTime()));
+            } else {
+                pstm.setNull(5, java.sql.Types.DATE);
+            }
+            pstm.setString(6, produtoDTO.getImagem());
+            pstm.setString(7, produtoDTO.getCodigo_de_Barras());
+            pstm.setString(8, produtoDTO.getObservacoes());
+            pstm.setInt(9, produtoDTO.getIdProduto());
+
+            int rowsUpdated = pstm.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum produto foi atualizado. Verifique o ID.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar produto: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void excluirProduto(int idProduto) {
+        conn = new ConexaoDAO().conectaBD();
+        String sqlExcluir = "DELETE FROM produto WHERE idProduto = ?";
+
+        try {
+            pstm = conn.prepareStatement(sqlExcluir);
+            pstm.setInt(1, idProduto);
+
+            int rowsDeleted = pstm.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Produto excluído com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum produto foi excluído. Verifique o ID.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir produto: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class MedicoDAO {
@@ -87,5 +88,93 @@ public class MedicoDAO {
             }
         }
 
+    }
+    // Metodo para listar medicos
+
+    public ArrayList<MedicoDTO> listarMedicos() {
+        conn = new ConexaoDAO().conectaBD();
+        ArrayList<MedicoDTO> listaMedicos = new ArrayList<>();
+        String sql = "SELECT * FROM optometrista";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                MedicoDTO medico = new MedicoDTO();
+                medico.setIdMedico(rs.getInt("id_Optometrista"));
+                medico.setNome(rs.getString("Nome"));
+                medico.setRegistroProfissional(rs.getString("registro_profissional"));
+                medico.setIdEndereco(rs.getInt("idEndereco"));
+                medico.setIdContato(rs.getInt("idContato"));
+                medico.setDataCadastro(rs.getTimestamp("Data_Cadastro"));
+                listaMedicos.add(medico);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar médicos: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listaMedicos;
+    }
+
+    // Metodo para atualizar medico
+    public void atualizarMedico(MedicoDTO medicoDTO) {
+        conn = new ConexaoDAO().conectaBD();
+        String sql = "UPDATE optometrista SET Nome = ?, registro_profissional = ?, idEndereco = ?, idContato = ? WHERE id_Optometrista = ?";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, medicoDTO.getNome());
+            pstm.setString(2, medicoDTO.getRegistroProfissional());
+            pstm.setInt(3, medicoDTO.getIdEndereco());
+            pstm.setInt(4, medicoDTO.getIdContato());
+            pstm.setInt(5, medicoDTO.getIdMedico());
+
+            int rowsUpdated = pstm.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Medico atualizado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum medico foi atualizado. Verifique o ID.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar medico: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Metodo para excluir medico
+    public void excluirMedico(int idMedico) {
+        conn = new ConexaoDAO().conectaBD();
+        String sql = "DELETE FROM optometrista WHERE id_Optometrista = ?";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, idMedico);
+
+            int rowsDeleted = pstm.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Medico excluido com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum medico foi excluido. Verifique o ID.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir medico: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

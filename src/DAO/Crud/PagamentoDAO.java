@@ -1,4 +1,3 @@
-
 package DAO.Crud;
 
 import DAO.Conexao.ConexaoDAO;
@@ -10,16 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-
 public class PagamentoDAO {
 
     Connection conn;
     PreparedStatement pstm;
     ResultSet rs;
 
-
-public void cadastrarPagamento(PagamentoDTO cadastroPagamento){
-    conn = new ConexaoDAO().conectaBD();
+    public void cadastrarPagamento(PagamentoDTO cadastroPagamento) {
+        conn = new ConexaoDAO().conectaBD();
 
         try {
             conn.setAutoCommit(false); // Desliga o modo de commit automático
@@ -50,8 +47,9 @@ public void cadastrarPagamento(PagamentoDTO cadastroPagamento){
                 ex.printStackTrace();
             }
         }
-}
-   public ResultSet listarIdPagamento(PagamentoDTO pagamentoDTO) {
+    }
+
+    public ResultSet listarIdPagamento(PagamentoDTO pagamentoDTO) {
         conn = new ConexaoDAO().conectaBD();
         String sql = "SELECT * FROM tipo_pagamento ORDER BY Tipo_Pagamento";
         try {
@@ -65,6 +63,81 @@ public void cadastrarPagamento(PagamentoDTO cadastroPagamento){
         }
     }
 
+    // Metodo para listar todos os pagamentos
+    public ArrayList<PagamentoDTO> listarPagamentos() {
+        conn = new ConexaoDAO().conectaBD();
+        ArrayList<PagamentoDTO> listaPagamentos = new ArrayList<>();
+        String sql = "SELECT * FROM tipo_pagamento";
+        try {
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                PagamentoDTO pagamento = new PagamentoDTO();
+                pagamento.setIdPagamento(rs.getInt("idPagamento"));
+                pagamento.setTipoPagamento(rs.getString("Tipo_Pagamento"));
+                listaPagamentos.add(pagamento);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar pagamentos: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listaPagamentos;
+    }
+
+    // Metodo para atualizar pagamento
+    public void atualizarPagamento(PagamentoDTO pagamentoDTO) {
+        conn = new ConexaoDAO().conectaBD();
+        String sql = "UPDATE tipo_pagamento SET Tipo_Pagamento = ? WHERE idPagamento = ?";
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, pagamentoDTO.getTipoPagamento());
+            pstm.setInt(2, pagamentoDTO.getIdPagamento());
+
+            int rowsUpdated = pstm.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Pagamento atualizado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum pagamento foi atualizado. Verifique o ID.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar pagamento: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Metodo para excluir pagamento
+    public void excluirPagamento(int idPagamento) {
+        conn = new ConexaoDAO().conectaBD();
+        String sql = "DELETE FROM tipo_pagamento WHERE idPagamento = ?";
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, idPagamento);
+
+            int rowsDeleted = pstm.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Pagamento excluído com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum pagamento foi excluído. Verifique o ID.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir pagamento: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
-
-

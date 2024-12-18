@@ -87,4 +87,90 @@ public class UsuariosDAO {
 
         return adminCadastrado;
     }
+// Metodo para listar usuarios
+
+    public ArrayList<UsuariosDTO> listarUsuarios() {
+        conn = new ConexaoDAO().conectaBD();
+        ArrayList<UsuariosDTO> listaUsuarios = new ArrayList<>();
+        String sql = "SELECT * FROM usuarios";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                UsuariosDTO usuario = new UsuariosDTO();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setCPF(rs.getString("CPF"));
+                usuario.setNome_Completo(rs.getString("Nome_Completo"));
+                usuario.setData_Cadastro(rs.getTimestamp("Data_Cadastro"));
+                usuario.setData_Modificacao(rs.getTimestamp("Data_Modificacao"));
+                listaUsuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar usuarios: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listaUsuarios;
+    }
+
+    // Metodo para atualizar usuario
+    public void atualizarUsuario(UsuariosDTO usuarioDTO) {
+        conn = new ConexaoDAO().conectaBD();
+        String sql = "UPDATE usuarios SET CPF = ?, Nome_Completo = ?, Data_Modificacao = ? WHERE idUsuario = ?";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1, usuarioDTO.getCPF());
+            pstm.setString(2, usuarioDTO.getNome_Completo());
+            pstm.setTimestamp(3, new java.sql.Timestamp(usuarioDTO.getData_Modificacao().getTime()));
+            pstm.setInt(4, usuarioDTO.getIdUsuario());
+
+            int rowsUpdated = pstm.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Usuario atualizado com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum usuario foi atualizado. Verifique o ID.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar usuario: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Metodo para excluir usuario
+    public void excluirUsuario(int idUsuario) {
+        conn = new ConexaoDAO().conectaBD();
+        String sql = "DELETE FROM usuarios WHERE idUsuario = ?";
+
+        try {
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, idUsuario);
+
+            int rowsDeleted = pstm.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Usuario excluido com sucesso.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum usuario foi excluido. Verifique o ID.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir usuario: " + e.getMessage());
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
