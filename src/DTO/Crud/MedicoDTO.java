@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class MedicoDTO {
 
-    private int idEndereco, idContato;
+    private int idEndereco, idContato, idMedico;
     private String nome, registroProfissional;
     private Date dataCadastro;
 
@@ -76,6 +76,20 @@ public class MedicoDTO {
      */
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
+    }
+
+    /**
+     * @return the idMedico
+     */
+    public int getIdMedico() {
+        return idMedico;
+    }
+
+    /**
+     * @param idMedico the idMedico to set
+     */
+    public void setIdMedico(int idMedico) {
+        this.idMedico = idMedico;
     }
 
 }
