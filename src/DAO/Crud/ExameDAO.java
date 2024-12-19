@@ -57,8 +57,8 @@ public class ExameDAO {
     }
 
     // Método para listar todos os exames
-    public List<ExameDTO> listarExames() {
-        List<ExameDTO> listaExames = new ArrayList<>();
+    public ArrayList<ExameDTO> listarExames() {
+        ArrayList<ExameDTO> listaExames = new ArrayList<>();
         conn = new ConexaoDAO().conectaBD();
 
         String sql = "SELECT * FROM exame";
