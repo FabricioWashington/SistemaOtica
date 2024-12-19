@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import java.util.List;
 
 public class CargoFuncionarioDAO {
 
@@ -29,7 +28,7 @@ public class CargoFuncionarioDAO {
             PreparedStatement pstmCadastro = conn.prepareStatement(sqlCadastro);
             pstmCadastro.setString(1, cadastroCargoFuncionarioDTO.getCargo());
             pstmCadastro.setBigDecimal(2, cadastroCargoFuncionarioDTO.getSalario());
-            
+
             pstmCadastro.execute();
             conn.commit();
 
@@ -52,8 +51,9 @@ public class CargoFuncionarioDAO {
             }
         }
     }
-      public List<CargoFuncionarioDTO> listarCargos() {
-        List<CargoFuncionarioDTO> listaCargos = new ArrayList<>();
+
+    public ArrayList<CargoFuncionarioDTO> listarCargos() {
+        ArrayList<CargoFuncionarioDTO> listaCargos = new ArrayList<>();
         conn = new ConexaoDAO().conectaBD();
 
         try {
@@ -134,5 +134,3 @@ public class CargoFuncionarioDAO {
         }
     }
 }
-
-
