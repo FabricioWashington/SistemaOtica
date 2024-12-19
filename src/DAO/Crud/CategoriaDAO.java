@@ -52,8 +52,8 @@ public class CategoriaDAO {
     }
     
     // Método para listar todas as categorias
-    public List<CategoriaDTO> listarCategorias() {
-        List<CategoriaDTO> listaCategorias = new ArrayList<>();
+    public ArrayList<CategoriaDTO> listarCategorias() {
+        ArrayList<CategoriaDTO> listaCategorias = new ArrayList<>();
         conn = new ConexaoDAO().conectaBD();
 
         try {
