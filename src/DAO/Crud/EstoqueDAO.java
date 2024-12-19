@@ -56,8 +56,8 @@ public class EstoqueDAO {
     }
     
     // Método para listar todos os registros do estoque
-    public List<EstoqueDTO> listarEstoque() {
-        List<EstoqueDTO> listaEstoque = new ArrayList<>();
+    public ArrayList<EstoqueDTO> listarEstoque() {
+        ArrayList<EstoqueDTO> listaEstoque = new ArrayList<>();
         conn = new ConexaoDAO().conectaBD();
 
         String sql = "SELECT * FROM estoque";
