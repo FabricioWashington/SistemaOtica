@@ -99,8 +99,8 @@ public class LentesDAO {
         }
     }
   // Listar lentes
-    public List<LentesDTO> listarLentes() {
-        List<LentesDTO> lista = new ArrayList<>();
+    public ArrayList<LentesDTO> listarLentes() {
+        ArrayList<LentesDTO> lista = new ArrayList<>();
         conn = new ConexaoDAO().conectaBD();
 
         String sql = "SELECT * FROM lentes";
@@ -133,8 +133,8 @@ public class LentesDAO {
     }
 
     // Listar lentes de contato
-    public List<LentesDTO> listarLentesContato() {
-        List<LentesDTO> lista = new ArrayList<>();
+    public ArrayList<LentesDTO> listarLentesContato() {
+        ArrayList<LentesDTO> lista = new ArrayList<>();
         conn = new ConexaoDAO().conectaBD();
 
         String sql = "SELECT * FROM lentes_contato";
