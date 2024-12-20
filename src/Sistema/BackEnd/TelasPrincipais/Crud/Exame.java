@@ -2,6 +2,7 @@ package Sistema.BackEnd.TelasPrincipais.Crud;
 
 import DAO.Crud.ExameDAO;
 import DTO.Crud.ExameDTO;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Exame {
@@ -36,6 +37,25 @@ public class Exame {
         exameDTO.setObservacoes(observacoes);
 
         exameDAO.cadastrarExame(exameDTO);
+    }
+
+    public ArrayList<ExameDTO> listar() {
+        return exameDAO.listarExames();
+    }
+
+    public void atualizar() {
+        exameDTO.setIdCliente(idCliente);
+        exameDTO.setIdMedico(idMedico);
+        exameDTO.setDataExame(dataExame);
+        exameDTO.setTipoExame(tipoExame);
+        exameDTO.setResultados(resultados);
+        exameDTO.setObservacoes(observacoes);
+
+        exameDAO.atualizarExame(exameDTO);
+    }
+
+    public void excluir(int idExame) {
+        exameDAO.excluirExame(idExame);
     }
 
     /**

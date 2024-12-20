@@ -3,6 +3,7 @@ package Sistema.BackEnd.TelasPrincipais.Crud;
 import DAO.Crud.FuncionarioDAO;
 import DTO.Crud.FuncionarioDTO;
 import Sistema.BackEnd.Validacoes;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JFormattedTextField;
@@ -56,6 +57,38 @@ public class Funcionarios {
 
         cadastroFuncionariosDAO.cadastrarFuncionarioCompleto(cadastroFuncionariosDTO);
 
+    }
+
+    public ArrayList<FuncionarioDTO> listar() {
+        return cadastroFuncionariosDAO.listarFuncionarios();
+    }
+
+    public void atualizar() {
+        if (!validarCampos()) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha todos os campos para atualizar!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        cadastroFuncionariosDTO.setCPF(cpf);
+        cadastroFuncionariosDTO.setNome_Completo(nomeCompleto);
+        cadastroFuncionariosDTO.setIdFuncao(IdFuncao);
+        cadastroFuncionariosDTO.setData_Modificacao(new Date());
+
+        cadastroFuncionariosDAO.atualizarFuncionario(cadastroFuncionariosDTO);
+    }
+
+    public void excluir() {
+        if (cpf.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o CPF para excluir o funcionário!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!validador.validarCpf(cpf)) {
+            JOptionPane.showMessageDialog(null, "CPF inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        cadastroFuncionariosDAO.excluirFuncionario(cpf);
     }
 
     public String getNomeCompleto() {

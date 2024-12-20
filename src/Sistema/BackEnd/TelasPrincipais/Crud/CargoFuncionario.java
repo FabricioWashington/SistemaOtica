@@ -3,6 +3,7 @@ package Sistema.BackEnd.TelasPrincipais.Crud;
 import DAO.Crud.CargoFuncionarioDAO;
 import DTO.Crud.CargoFuncionarioDTO;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class CargoFuncionario {
 
@@ -22,44 +23,57 @@ public class CargoFuncionario {
         this.salario = salario;
     }
 
+    // Método para cadastrar usando atributos internos
     public void cadastrar() {
-
+        if (cargo == null || salario == null) {
+            throw new IllegalStateException("Cargo e salário devem ser definidos antes de cadastrar.");
+        }
         cadastroCargoFuncionarioDTO.setCargo(cargo);
         cadastroCargoFuncionarioDTO.setSalario(salario);
-
         cadastroCargoFuncionarioDAO.cadastrarCargo(cadastroCargoFuncionarioDTO);
     }
 
-    public void limparCampos() {
-        //adicionar logica de limpar os campos
+//    // Método para cadastrar usando parâmetros
+//    public void cadastrar(String cargo, BigDecimal salario) {
+//        cadastroCargoFuncionarioDTO.setCargo(cargo);
+//        cadastroCargoFuncionarioDTO.setSalario(salario);
+//        cadastroCargoFuncionarioDAO.cadastrarCargo(cadastroCargoFuncionarioDTO);
+//    }
+
+    public ArrayList<CargoFuncionarioDTO> listar() {
+        return cadastroCargoFuncionarioDAO.listarCargos();
     }
 
-    /**
-     * @return the cargo
-     */
+    public void atualizar(int idCargo, String novoCargo, BigDecimal novoSalario) {
+        cadastroCargoFuncionarioDTO.setIdCargo_Funcionario(idCargo);
+        cadastroCargoFuncionarioDTO.setCargo(novoCargo);
+        cadastroCargoFuncionarioDTO.setSalario(novoSalario);
+        cadastroCargoFuncionarioDAO.atualizarCargo(cadastroCargoFuncionarioDTO);
+    }
+
+    public void excluir(int idCargo) {
+        cadastroCargoFuncionarioDAO.excluirCargo(idCargo);
+    }
+
+    public void limparCampos() {
+        this.cargo = null;
+        this.salario = null;
+    }
+
+    // Getters e Setters
     public String getCargo() {
         return cargo;
     }
 
-    /**
-     * @param cargo the cargo to set
-     */
     public void setCargo(String cargo) {
         this.cargo = cargo;
     }
 
-    /**
-     * @return the salario
-     */
     public BigDecimal getSalario() {
         return salario;
     }
 
-    /**
-     * @param salario the salario to set
-     */
     public void setSalario(BigDecimal salario) {
         this.salario = salario;
     }
-
 }

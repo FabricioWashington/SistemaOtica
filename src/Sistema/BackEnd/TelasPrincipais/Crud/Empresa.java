@@ -7,6 +7,7 @@ import DTO.Contato_Endereco.EnderecoDTO;
 import DTO.Crud.ConfiguracaoDTO;
 import DTO.Crud.EmpresaDTO;
 import Sistema.BackEnd.Validacoes;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -117,6 +118,31 @@ public class Empresa {
         cnpj = validador.formatarCNPJ(cnpj);
 
         empresaDAO.cadastrarEmpresa(enderecoDTO, empresaDTO, contatoDTO, configuracaoDTO);
+    }
+
+    public ArrayList<EmpresaDTO> listar() {
+        ArrayList<EmpresaDTO> empresas = new ArrayList<>();
+        EmpresaDTO empresa = empresaDAO.consultarEmpresa(cnpj);
+        if (empresa != null) {
+            empresas.add(empresa);
+        }
+        return empresas;
+    }
+
+    public void atualizar() {
+        empresaDTO.setCnpj(cnpj);
+        empresaDTO.setNomeFantasia(nomeFantasia);
+        empresaDTO.setRazaoSocial(razaoSocial);
+        empresaDTO.setRegimeTributario(regimeTributario);
+        empresaDTO.setIndicadorIE(indicadorIE);
+        empresaDTO.setInscricaoEstadual(inscricaoEstadual);
+        empresaDTO.setIdCNAE(idCNAE);
+
+        empresaDAO.editarEmpresa(empresaDTO);
+    }
+
+    public void excluir() {
+        empresaDAO.excluirEmpresa(cnpj);
     }
 
     public void obterDataAtual() {

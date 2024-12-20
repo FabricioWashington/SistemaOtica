@@ -4,11 +4,12 @@ import DAO.Crud.MedicoDAO;
 import DTO.Crud.MedicoDTO;
 import DTO.Contato_Endereco.ContatoDTO;
 import DTO.Contato_Endereco.EnderecoDTO;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Medico {
-    
+
     private String logradouro;
     private String bairro;
     private String numero;
@@ -29,16 +30,16 @@ public class Medico {
     private MedicoDAO cadastroMedicoDAO;
     private EnderecoDTO cadastroEnderecoDTO;
     private ContatoDTO cadastroContatoDTO;
-    
+
     public Medico() {
         cadastroMedicoDTO = new MedicoDTO();
         cadastroMedicoDAO = new MedicoDAO();
         cadastroEnderecoDTO = new EnderecoDTO();
         cadastroContatoDTO = new ContatoDTO();
         obterDataAtual();
-        
+
     }
-    
+
     public Medico(String logradouro, String bairro, String numero,
             String complemento, String cep, String uf, int idDDD, String municipio,
             String telefone, String telefone2, String email, String nome,
@@ -58,13 +59,13 @@ public class Medico {
         this.nome = nome;
         this.registroProfissional = registroProfissional;
     }
-    
+
     public void cadastrar() {
         cadastroContatoDTO.setEmail(email);
         cadastroContatoDTO.setIdDDD(getIdDDD());
         cadastroContatoDTO.setTelefone(telefone);
         cadastroContatoDTO.setTelefone2(telefone);
-        
+
         cadastroEnderecoDTO.setLogradouro(logradouro);
         cadastroEnderecoDTO.setBairro(bairro);
         cadastroEnderecoDTO.setNumero(numero);
@@ -72,14 +73,45 @@ public class Medico {
         cadastroEnderecoDTO.setCEP(cep);
         cadastroEnderecoDTO.setUF(uf);
         cadastroEnderecoDTO.setMunicipio(municipio);
-        
+
         cadastroMedicoDTO.setNome(nome);
         cadastroMedicoDTO.setRegistroProfissional(registroProfissional);
         cadastroMedicoDTO.setIdEndereco(idEndereco);
         cadastroMedicoDTO.setIdContato(idContato);
         cadastroMedicoDTO.setDataCadastro(dataCadastro);
-        
+
         cadastroMedicoDAO.cadastrarMedico(cadastroMedicoDTO, cadastroEnderecoDTO, cadastroContatoDTO);
+    }
+
+    public ArrayList<MedicoDTO> listar() {
+        return cadastroMedicoDAO.listarMedicos();
+    }
+
+    public void atualizar() {
+        cadastroContatoDTO.setEmail(email);
+        cadastroContatoDTO.setIdDDD(idDDD);
+        cadastroContatoDTO.setTelefone(telefone);
+        cadastroContatoDTO.setTelefone2(telefone2);
+
+        cadastroEnderecoDTO.setLogradouro(logradouro);
+        cadastroEnderecoDTO.setBairro(bairro);
+        cadastroEnderecoDTO.setNumero(numero);
+        cadastroEnderecoDTO.setComplemento(complemento);
+        cadastroEnderecoDTO.setCEP(cep);
+        cadastroEnderecoDTO.setUF(uf);
+        cadastroEnderecoDTO.setMunicipio(municipio);
+
+        cadastroMedicoDTO.setNome(nome);
+        cadastroMedicoDTO.setRegistroProfissional(registroProfissional);
+        cadastroMedicoDTO.setIdEndereco(idEndereco);
+        cadastroMedicoDTO.setIdContato(idContato);
+        cadastroMedicoDTO.setDataCadastro(dataCadastro);
+
+        cadastroMedicoDAO.atualizarMedico(cadastroMedicoDTO);
+    }
+
+    public void excluir(int idMedico) {
+        cadastroMedicoDAO.excluirMedico(idMedico);
     }
 
     // Método para obter data e hora atuais
@@ -311,5 +343,5 @@ public class Medico {
     public void setIdDDD(int idDDD) {
         this.idDDD = idDDD;
     }
-    
+
 }

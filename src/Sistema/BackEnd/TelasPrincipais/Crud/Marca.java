@@ -2,6 +2,7 @@ package Sistema.BackEnd.TelasPrincipais.Crud;
 
 import DAO.Crud.MarcaDAO;
 import DTO.Crud.MarcaDTO;
+import java.util.ArrayList;
 import javax.swing.JTextField;
 
 public class Marca {
@@ -21,11 +22,24 @@ public class Marca {
     }
 
     public void cadastrar() {
-        
+
         cadastroMarcaDTO.setNome_Marca(nomeMarca);
 
         cadastroMarcaDAO.cadastrarMarca(cadastroMarcaDTO);
 
+    }
+
+    public ArrayList<MarcaDTO> listar() {
+        return cadastroMarcaDAO.listarMarcas();
+    }
+
+    public void atualizar(String nomeAntigo) {
+        cadastroMarcaDTO.setNome_Marca(nomeMarca);
+        cadastroMarcaDAO.atualizarMarca(cadastroMarcaDTO);
+    }
+
+    public void excluir(int idMarca) {
+        cadastroMarcaDAO.excluirMarca(idMarca);
     }
 
     /**

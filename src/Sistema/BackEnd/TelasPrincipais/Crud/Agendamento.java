@@ -2,18 +2,18 @@ package Sistema.BackEnd.TelasPrincipais.Crud;
 
 import DAO.Crud.AgendamentoExameDAO;
 import DTO.Crud.AgendamentoExameDTO;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
 public class Agendamento {
-    
+
     private int idAgendamento, idCliente;
     private Date dataExame, dataAgendamento;
     private AgendamentoExameDTO agendamentoDTO;
     private AgendamentoExameDAO agendamentoDAO;
-    
-    public Agendamento(){
+
+    public Agendamento() {
         this.agendamentoDAO = new AgendamentoExameDAO();
         this.agendamentoDTO = new AgendamentoExameDTO();
     }
@@ -24,18 +24,34 @@ public class Agendamento {
         this.dataExame = dataExame;
         this.dataAgendamento = dataAgendamento;
     }
-    
-    public void cadastrar(){
+
+    public void cadastrar() {
         agendamentoDTO.setIdCliente(idCliente);
         agendamentoDTO.setDataExame(dataExame);
         agendamentoDTO.setDataAgendamento(dataAgendamento);
-        
+
         agendamentoDAO.cadastrarAgendamento(agendamentoDTO);
     }
-    
-     public void obterDataAtual() {
+
+    public ArrayList<AgendamentoExameDTO> listar() {
+        return agendamentoDAO.listarAgendamentos();
+    }
+
+    public void atualizar() {
+        agendamentoDTO.setIdAgendamento(idAgendamento);
+        agendamentoDTO.setIdCliente(idCliente);
+        agendamentoDTO.setDataExame(dataExame);
+        agendamentoDTO.setDataAgendamento(dataAgendamento);
+        agendamentoDAO.atualizarAgendamento(agendamentoDTO);
+    }
+
+    public void excluir() {
+        agendamentoDAO.excluirAgendamento(idAgendamento);
+    }
+
+    public void obterDataAtual() {
         Calendar cal = Calendar.getInstance();
-       //this.dataCadastro = cal.getTime();
+        //this.dataCadastro = cal.getTime();
         //this.dataModificacao = cal.getTime();
     }
 
@@ -94,7 +110,5 @@ public class Agendamento {
     public void setDataAgendamento(Date dataAgendamento) {
         this.dataAgendamento = dataAgendamento;
     }
-    
-    
-    
+
 }

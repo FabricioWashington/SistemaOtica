@@ -3,6 +3,7 @@ package Sistema.BackEnd.TelasPrincipais.Crud;
 import DAO.Crud.LentesDAO;
 import DTO.Crud.LentesDTO;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class Lente {
 
@@ -68,7 +69,7 @@ public class Lente {
         cadastroLenteDTO.setPrecoVenda(precoVenda);
         cadastroLenteDTO.setQuantidade(quantidade);
         cadastroLenteDTO.setGrau(grau);
-        
+
         cadastroLenteDAO.cadastrarLenteContato(cadastroLenteDTO);
     }
 
@@ -83,8 +84,54 @@ public class Lente {
         cadastroLenteDTO.setQuantidade(quantidade);
         cadastroLenteDTO.setGrau(grau);
         cadastroLenteDTO.setEixo(eixo);
-        
+
         cadastroLenteDAO.cadastrarLente(cadastroLenteDTO);
+    }
+
+    public ArrayList<LentesDTO> listarLentes() {
+        return cadastroLenteDAO.listarLentes();
+    }
+
+    public ArrayList<LentesDTO> listarLentesContato() {
+        return cadastroLenteDAO.listarLentesContato();
+    }
+
+    public void atualizarLente() {
+        cadastroLenteDTO.setIdProduto(idProduto);
+        cadastroLenteDTO.setIdTipoLente(idTipoLente);
+        cadastroLenteDTO.setIdMaterial(idMaterial);
+        cadastroLenteDTO.setIdTratamento(idTratamento);
+        cadastroLenteDTO.setIndiceRefracao(indiceRefracao);
+        cadastroLenteDTO.setPrecoCusto(precoCusto);
+        cadastroLenteDTO.setPrecoVenda(precoVenda);
+        cadastroLenteDTO.setQuantidade(quantidade);
+        cadastroLenteDTO.setGrau(grau);
+        cadastroLenteDTO.setEixo(eixo);
+
+        cadastroLenteDAO.atualizarLente(cadastroLenteDTO);
+    }
+
+    public void atualizarLenteContato() {
+        cadastroLenteDTO.setIdProduto(idProduto);
+        cadastroLenteDTO.setIdTipoLente(idTipoLente);
+        cadastroLenteDTO.setIdMaterial(idMaterial);
+        cadastroLenteDTO.setIdTratamento(idTratamento);
+        cadastroLenteDTO.setCurvaBase(curvaBase);
+        cadastroLenteDTO.setDiametro(diametro);
+        cadastroLenteDTO.setPrecoCusto(precoCusto);
+        cadastroLenteDTO.setPrecoVenda(precoVenda);
+        cadastroLenteDTO.setQuantidade(quantidade);
+        cadastroLenteDTO.setGrau(grau);
+
+        cadastroLenteDAO.atualizarLenteContato(cadastroLenteDTO);
+    }
+
+    public void excluirLente() {
+        cadastroLenteDAO.excluirLente(idProduto);
+    }
+
+    public void excluirLenteContato() {
+        cadastroLenteDAO.excluirLenteContato(idProduto);
     }
 
     /**

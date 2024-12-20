@@ -3,6 +3,7 @@ package Sistema.BackEnd.TelasPrincipais.Crud;
 import DAO.Crud.EstoqueDAO;
 import DTO.Crud.EstoqueDTO;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class Estoque {
 
@@ -27,15 +28,33 @@ public class Estoque {
     }
 
     public void cadastrar() {
-        
+
         cadastroEstoqueDTO.setIdProduto(idProduto);
         cadastroEstoqueDTO.setIdCategoria(idCategoria);
         cadastroEstoqueDTO.setDescricao(descricao);
         cadastroEstoqueDTO.setQuantidade(quantidade);
         cadastroEstoqueDTO.setPrecoUnitario(precoUnitario);
-        
+
         cadastroEstoqueDAO.cadastrarEstoque(cadastroEstoqueDTO);
-        
+
+    }
+
+    public ArrayList<EstoqueDTO> listar() {
+        return cadastroEstoqueDAO.listarEstoque();
+    }
+
+    public void atualizar() {
+        cadastroEstoqueDTO.setIdProduto(idProduto);
+        cadastroEstoqueDTO.setIdCategoria(idCategoria);
+        cadastroEstoqueDTO.setDescricao(descricao);
+        cadastroEstoqueDTO.setQuantidade(quantidade);
+        cadastroEstoqueDTO.setPrecoUnitario(precoUnitario);
+
+        cadastroEstoqueDAO.atualizarEstoque(cadastroEstoqueDTO);
+    }
+
+    public void excluir() {
+        cadastroEstoqueDAO.excluirEstoque(idProduto);
     }
 
     /**

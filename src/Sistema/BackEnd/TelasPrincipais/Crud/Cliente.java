@@ -214,6 +214,29 @@ public class Cliente {
         }
     }
 
+    public List<ClienteDTO> listarClientes() {
+        return cadastroClienteDAO.listarClientes();
+    }
+
+    public void atualizarClientePF(int idCliente, String novoNome, String novoCpf) {
+        cadastroClienteDTO.setIdClientes(idCliente);
+        cadastroClienteDTO.setNome(novoNome);
+        cadastroPessoaFisicaDTO.setCpf(validador.formatarCpf(novoCpf));
+        cadastroClienteDAO.atualizarClientePF(cadastroPessoaFisicaDTO);
+    }
+
+    public void atualizarClientePJ(int idCliente, String novoNome, String novoCnpj, String novoNomeFantasia) {
+        cadastroClienteDTO.setIdClientes(idCliente);
+        cadastroClienteDTO.setNome(novoNome);
+        cadastroPessoaJuridicaDTO.setCnpj(validador.formatarCNPJ(novoCnpj));
+        cadastroPessoaJuridicaDTO.setNomeFantasia(novoNomeFantasia);
+        cadastroClienteDAO.atualizarClientePJ(cadastroPessoaJuridicaDTO);
+    }
+
+    public void excluirCliente(int idCliente) {
+        cadastroClienteDAO.excluirCliente(idCliente);
+    }
+
     /**
      * @return the nome
      */
